@@ -10,3 +10,4 @@ Ayy What's up guys
 | Colin Szeto  |  [colin-szeto](https://github.com/colin-szeto) |
 | Andrew Zhang | [Ketherbug](https://github.com/Ketherbug) |
 
+[scrum board](https://github.com/BradleyBartelt/P2__Waves/projects) will contain SMART goals
