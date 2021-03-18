@@ -11,3 +11,9 @@ Ayy What's up guys
 | Andrew Zhang | [Ketherbug](https://github.com/Ketherbug) |
 
 [scrum board](https://github.com/BradleyBartelt/P2__Waves/projects) will contain SMART goals
+
+#### Inspiration 
+- [Yelp](https://www.yelp.com/search?cflt=pizza&find_loc=San+Diego%2C+CA)
+- [Dominos](https://pizza.dominos.com/california/san-diego/3485-del-mar-heights-rd/)
+- [Pizza Hut](https://www.pizzahut.com/)
+- [Reddit](https://www.reddit.com/)
