@@ -21,3 +21,6 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 - [Dominos](https://pizza.dominos.com/california/san-diego/3485-del-mar-heights-rd/)
 - [Pizza Hut](https://www.pizzahut.com/)
 - [Reddit](https://www.reddit.com/)
+
+#### Technicals
+[for subdomains](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04)
