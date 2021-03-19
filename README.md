@@ -1,4 +1,4 @@
-# P2__Waves Peice of the Pie
+# P2__Waves Piece of the Pie
 Tri 3 project for P2__Waves
 Ayy What's up guys
 
