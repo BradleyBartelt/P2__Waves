@@ -1,4 +1,4 @@
-# P2__Waves
+# P2__Waves Piece of the Pie
 Tri 3 project for P2__Waves
 Ayy What's up guys
 
@@ -12,7 +12,7 @@ Ayy What's up guys
 
 [scrum board](https://github.com/BradleyBartelt/P2__Waves/projects) will contain SMART goals
 
-## Project Plan
+## [Project Plan](https://docs.google.com/document/d/1vByAzVE8BIA5xQ6L1B1xQvrMjikYDGONuw1jXJDoZHk/edit?usp=sharing)
 ### Idea
 Our idea is to create a sort of Pizza revolved site, where you can order pizza, leave reviews, see deals, and more. We are going to take inspiration from the layout of other sites like dominos. In order to add a unique spin on it, we would like to impliment a feature where people can post pictures of the food they order and leave a reveiw, and other users can see the food and reviews, sort of like social media, but for pizza.
 
@@ -21,3 +21,6 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 - [Dominos](https://pizza.dominos.com/california/san-diego/3485-del-mar-heights-rd/)
 - [Pizza Hut](https://www.pizzahut.com/)
 - [Reddit](https://www.reddit.com/)
+
+#### Technicals
+[for subdomains](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04)
