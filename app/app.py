@@ -12,6 +12,8 @@ from views.tri3.app import y2021_tri3_bp
 from views.colin.app import colin_bp
 
 app = Flask(__name__)
+#app.register_blueprint(y2021_tri1_bp, url_prefix='/y2021/tri1')
+app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(y2021_tri2_bp, url_prefix='/y2021/tri2')
 app.register_blueprint(y2021_tri3_bp, url_prefix='/y2021/tri3')
