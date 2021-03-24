@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template
 from views.colin.models import temp_info
 
-colin_bp = Blueprint('colin', __name__,
+colin_bp = Blueprint('colin_bp', __name__,
                           template_folder='templates',
                           static_folder='static', static_url_path='assets')
 
