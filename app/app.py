@@ -6,7 +6,7 @@ Flask(__name__) establishes resources on the filesystem (aka package).
 """
 
 from flask import Flask
-from views.andrew.app import andrew_bp
+from views.andrew import andrew_bp
 from views.tri2.app import y2021_tri2_bp
 from views.tri3.app import y2021_tri3_bp
 from views.colin.app import colin_bp

@@ -7,4 +7,4 @@ andrew_bp = Blueprint('andrew', __name__,
 
 @andrew_bp.route('/')
 def index():
-    return "Colin Location"
+    return "Andrew Location"
