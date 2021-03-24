@@ -8,19 +8,23 @@ Flask(__name__) establishes resources on the filesystem (aka package).
 from flask import Flask, render_template
 from views.andrew.app import andrew_bp
 from flask import Flask
-from views.andrew import andrew_bp
+from views.andrew.app import andrew_bp
 from views.tri2.app import y2021_tri2_bp
 from views.tri3.app import y2021_tri3_bp
 from views.colin.app import colin_bp
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
 #app.register_blueprint(y2021_tri1_bp, url_prefix='/y2021/tri1')
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
-app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(y2021_tri2_bp, url_prefix='/y2021/tri2')
 app.register_blueprint(y2021_tri3_bp, url_prefix='/y2021/tri3')
 app.register_blueprint(colin_bp, url_prefix='/colin')
-
+app.config.update(dict(
+    SECRET_KEY="powerful secretkey",
+    WTF_CSRF_SECRET_KEY="a csrf secret key"
+))
+bootstrap = Bootstrap(app)
 
 
 @app.route('/')
