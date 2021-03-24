@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block content %}
+{{ super() }}
+<html>
 <head>
     <meta charset="UTF-8">
     <title>userprofile</title>
@@ -185,3 +188,5 @@
 </div>
 </body>
 </html>
+
+{% endblock %}

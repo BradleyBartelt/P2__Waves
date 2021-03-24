@@ -2,8 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 # create a Flask instance
 "Setting up the keys are needed for the database"
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-from app.app import app
+from app import app
 
 app.config['SECRET_KEY'] = ':)'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True

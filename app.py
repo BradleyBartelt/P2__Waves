@@ -5,7 +5,7 @@ Flask(__name__) establishes resources on the filesystem (aka package).
 3. static and templates are of folders that are located relative to directory of Flask execution
 """
 
-from flask import Flask
+from flask import Flask, render_template
 from views.andrew.app import andrew_bp
 from views.tri2.app import y2021_tri2_bp
 from views.tri3.app import y2021_tri3_bp
@@ -23,7 +23,7 @@ app.register_blueprint(colin_bp, url_prefix='/colin')
 
 @app.route('/')
 def index():
-    return "Student Home Site"
+    return render_template("home.html")
 
 
 if __name__ == "__main__":
