@@ -14,3 +14,7 @@ def index():
 @colin_bp.route('/userprofile')
 def user_profile():
     return render_template("colin/user_profile.html", list_stories = temp_info.all_stories(), list_post=temp_info.all_post())
+
+@colin_bp.route('/edit')
+def user_setting():
+    return render_template("colin/settings.html")
