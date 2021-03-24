@@ -16,29 +16,37 @@
             border-radius: 50%;
         }
 
+        /* div which is centered to contain all of the informaiton */
         #all_contents{
             max-width: 900px;
-            background-color: #C8C8C8;
+            background-color: #c8c8c8;
             margin: 50px auto; /* 50px represents the spacing between the top header and the top of the header  */
             min-width: 500px;
         }
 
+        /* div containing the profile photo */
         #left{
             width: 30%;
             float: left;
             background-color: grey;
         }
+
+        /* div containing the follower count, account name, description */
         #right{
             width: 70%;
             float: left;
-            background-color: #C8C8C8;
+            background-color: #c8c8c8;
         }
+
+        /* div for spacing of the stories */
         #stories {
             width: 100%;
             height: 150px;
-            background-color: #7C007C;
+            background-color: #FF9B53;
             float: left;
         }
+
+        /* div to constrain the text of the sotry div to the story*/
         .story_div{
             float: left;
             width: 100px;
@@ -47,6 +55,8 @@
             margin-right: 10px;
             margin-top: 10px;
         }
+
+        /* circles to contain the images which label the stories*/
         .story{
             margin: 0 auto;
             width: 75px;
@@ -54,11 +64,18 @@
             border-radius: 50%;
             background-color: #6969AC;
         }
+
+        /* contains the buttons to swap between the galleries */
         #option_tab{
             width: 100%;
             background-color: seagreen;
             height: 50px;
             float: left;
+        }
+
+        /* to center the buttons within the option tab div*/
+        #all_buttons {
+            text-align: center;
         }
 
         /* Float three columns side by side */
@@ -99,6 +116,8 @@
             vertical-align: middle;
 
         }
+
+        /* the div which contain all of the photos that are relevant to the user*/
         #posts{
             display: none;
             width: 100%;
@@ -127,6 +146,7 @@
             float: left;
             height: 500px;
         }
+
     </style>
 
 </head>
@@ -168,13 +188,17 @@
         {% endfor %}
     </div>
 
+    <!-- selecting which gallery does the user want to take a look at-->
     <div id="option_tab">
-        <button onclick="clickShow('posts', 'videos', 'tagged', 'saved')">Posts</button>
-        <button onclick="clickShow('videos', 'tagged', 'posts', 'saved')">Videos</button>
-        <button onclick="clickShow('saved', 'videos', 'posts', 'tagged')">Saved</button>
-        <button onclick="clickShow('tagged', 'videos', 'posts', 'saved')">Tagged</button>
+        <div id="all_buttons">
+            <button onclick="clickShow('posts', 'videos', 'tagged', 'saved')">Posts</button>
+            <button onclick="clickShow('videos', 'tagged', 'posts', 'saved')">Videos</button>
+            <button onclick="clickShow('saved', 'videos', 'posts', 'tagged')">Saved</button>
+            <button onclick="clickShow('tagged', 'videos', 'posts', 'saved')">Tagged</button>
+        </div>
     </div>
 
+    <!-- displaying the posts for the user-->
     <div id="posts">
         <div class="row">
           {% for post in list_post %}
