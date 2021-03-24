@@ -193,10 +193,10 @@
     <!-- selecting which gallery does the user want to take a look at-->
     <div id="option_tab">
         <div id="all_buttons">
-            <button onclick="clickShow('posts', 'videos', 'tagged', 'saved')">Posts</button>
-            <button onclick="clickShow('videos', 'tagged', 'posts', 'saved')">Videos</button>
-            <button onclick="clickShow('saved', 'videos', 'posts', 'tagged')">Saved</button>
-            <button onclick="clickShow('tagged', 'videos', 'posts', 'saved')">Tagged</button>
+            <button id="posts_button">Posts</button>
+            <button id="videos_button">Videos</button>
+            <button id="saved_button">Saved</button>
+            <button id="tagged_button">Tagged</button>
         </div>
     </div>
 
@@ -222,8 +222,31 @@
 </div>
 
 <script>
+    //defining all of these objects
+    var postsButton = document.getElementById("posts_button");
+    var videosButton = document.getElementById('videos_button');
+    var savedButton = document.getElementById("saved_button");
+    var taggedButton = document.getElementById('tagged_button');
+
+    //listeners instead of inline javascript
+    postsButton.addEventListener("click", function(){
+        clickShow('posts', 'tagged', 'videos', 'saved');
+        }, false);
+
+    videosButton.addEventListener('click', function(){
+            clickShow('videos', 'tagged', 'posts', 'saved');
+        }, false);
+
+    savedButton.addEventListener('click', function(){
+                clickShow('saved', 'tagged', 'videos', 'posts');
+            }, false);
+
+    taggedButton.addEventListener('click', function(){
+            clickShow('tagged', 'posts', 'videos', 'saved');
+        }, false);
+
     function clickShow(show, hide1, hide2, hide3) {
-        //console.log("showing" +String(show));
+        console.log("showing" +String(show));
         var showEl = document.getElementById(String(show));
         var hide1El = document.getElementById(String(hide1));
         var hide2El = document.getElementById(String(hide2));
