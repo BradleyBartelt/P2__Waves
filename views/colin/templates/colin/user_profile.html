@@ -60,12 +60,6 @@
             height: 50px;
             float: left;
         }
-        #posts{
-            width: 100%;
-            background-color: #ffbdec;
-            float: left;
-            height: 500px;
-        }
 
         /* Float three columns side by side */
         .column {
@@ -75,8 +69,8 @@
             border: 3px solid red;
         }
 
-        /* Remove extra left and right margins, due to padding */
         .row {
+            margin-left: 0; /* to ensure that the row is alinged witht eh psot div */
             width: 100%;
             margin-bottom: 20px;
             background-color: #ecec95;
@@ -104,6 +98,34 @@
             background: #3A6F9A;
             vertical-align: middle;
 
+        }
+        #posts{
+            display: none;
+            width: 100%;
+            background-color: #ffbdec;
+            float: left;
+            height: 500px;
+        }
+        #videos{
+            display: none;
+            width: 100%;
+            background-color: #CB96BA;
+            float: left;
+            height: 500px;
+        }
+        #saved{
+            display: none;
+            width: 100%;
+            background-color: #6B5163;
+            float: left;
+            height: 500px;
+        }
+        #tagged{
+            display: none;
+            width: 100%;
+            background-color: #2B2226;
+            float: left;
+            height: 500px;
         }
     </style>
 
@@ -147,15 +169,15 @@
     </div>
 
     <div id="option_tab">
-        <button>Posts</button>
-        <button>Videos</button>
-        <button>Saved</button>
-        <button>Tagged</button>
+        <button onclick="clickShow('posts', 'videos', 'tagged', 'saved')">Posts</button>
+        <button onclick="clickShow('videos', 'tagged', 'posts', 'saved')">Videos</button>
+        <button onclick="clickShow('saved', 'videos', 'posts', 'tagged')">Saved</button>
+        <button onclick="clickShow('tagged', 'videos', 'posts', 'saved')">Tagged</button>
     </div>
 
     <div id="posts">
-        <!--<div class="row">
-            {% for post in list_post %}
+        <div class="row">
+          {% for post in list_post %}
             <div class="column">
                 <div class="card">
                     <div class=img-container>
@@ -164,11 +186,34 @@
                 </div>
             </div>
             {% endfor %}
-        </div>-->
+        </div>
     </div>
+
+    <div id="videos"></div>
+    <div id="saved"></div>
+    <div id="tagged"></div>
 
 </div>
 
+<script>
+    function clickShow(show, hide1, hide2, hide3) {
+        //console.log("showing" +String(show));
+        var showEl = document.getElementById(String(show));
+        var hide1El = document.getElementById(String(hide1));
+        var hide2El = document.getElementById(String(hide2));
+        var hide3El = document.getElementById(String(hide3));
+
+        //turning on the visibility of the first arguments
+        showEl.style.display = 'block';
+
+        //turning off the visibility of the last three arguments
+        hide1El.style.display = 'none';
+        hide2El.style.display = 'none';
+        hide3El.style.display = 'none';
+    }
+
+    clickShow('posts', 'videos', 'saved', 'tagged');
+</script>
 </body>
 </html>
 
