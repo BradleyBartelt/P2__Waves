@@ -36,7 +36,7 @@
         #stories {
             width: 100%;
             height: 150px;
-            background-color: #FAB6FA;
+            background-color: #7C007C;
             float: left;
         }
         .story_div{
@@ -94,20 +94,6 @@
             height: 300px;
             overflow: hidden;
         }
-
-        .frame {
-            width: 100%;
-            border: 1px solid red;
-            white-space: nowrap;
-            text-align: center;
-        }
-
-        .helper {
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-        }
-
         .img-container{
             text-align: center;
             display: block;
@@ -127,7 +113,7 @@
 <div id="all_contents">
     <!-- profile_photo will be ported in through the database-->
     <div id="left">
-    <img id='profile_photo' src="https://scontent-lax3-1.cdninstagram.com/v/t51.2885-19/s150x150/21294914_364637993991993_6505386031796191232_a.jpg?tp=1&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_ohc=NqY4Pxr_2GEAX9HqNjo&ccb=7-4&oh=467b9a18d121f9c369a20ecb76bbe025&oe=6080FFC0">
+        <img id='profile_photo' src="https://scontent-lax3-1.cdninstagram.com/v/t51.2885-19/s150x150/21294914_364637993991993_6505386031796191232_a.jpg?tp=1&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_ohc=NqY4Pxr_2GEAX9HqNjo&ccb=7-4&oh=467b9a18d121f9c369a20ecb76bbe025&oe=6080FFC0">
     </div>
 
     <div id="right">
@@ -168,20 +154,17 @@
     </div>
 
     <div id="posts">
-        <div class="row">
+        <!--<div class="row">
             {% for post in list_post %}
             <div class="column">
                 <div class="card">
-                    <!--<img src={{post['content']}}>-->
-                    <!--<img class="post_image" src={{post['content']}}>-->
-
                     <div class=img-container>
                         <img class="post_image" src={{post['content']}} height=100% />
                     </div>
                 </div>
             </div>
             {% endfor %}
-        </div>
+        </div>-->
     </div>
 
 </div>
