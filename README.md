@@ -10,7 +10,7 @@ Ayy What's up guys
 | Colin Szeto  |  [colin-szeto](https://github.com/colin-szeto) |
 | Andrew Zhang | [Ketherbug](https://github.com/Ketherbug) |
 
-[scrum board](https://github.com/BradleyBartelt/P2__Waves/projects) will contain SMART goals
+[scrum board](https://github.com/BradleyBartelt/P2__Waves/projects/1) will contain SMART goals
 
 ## [Project Plan](https://docs.google.com/document/d/1vByAzVE8BIA5xQ6L1B1xQvrMjikYDGONuw1jXJDoZHk/edit?usp=sharing)
 ### Idea
