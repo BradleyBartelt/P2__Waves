@@ -8,7 +8,7 @@
     <title>userprofile</title>
     <!--<link rel="stylesheet" href=".../views/colin/static/style.css" type="text/css">-->
     <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='profile.css') }}">-->
-    <link rel="stylesheet" href="{{ url_for('colin_bp.static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('profile_bp.static', filename='css/profile.css') }}">
     <style>
 
         #profile_photo{
@@ -163,10 +163,10 @@
     <div id="right">
         <g>
             <span class="top_buttons">Account Name</span>
-            <form class="top_buttons" action="{{url_for('colin_bp.user_edit')}}">
+            <form class="top_buttons" action="{{url_for('profile_bp.user_edit')}}">
                 <button>Edit Profile</button>
             </form>
-            <form class="top_buttons" action="{{url_for('colin_bp.user_setting')}}">
+            <form class="top_buttons" action="{{url_for('profile_bp.user_setting')}}">
                 <button>Settings</button>
             </form>
         </g>
