@@ -145,6 +145,9 @@
             float: left;
             height: 500px;
         }
+        .top_buttons {
+            float: left;
+        }
 
     </style>
 
@@ -159,19 +162,20 @@
 
     <div id="right">
         <g>
-            <span>Account Name</span>
-            <form action="{{url_for('colin_bp.user_edit')}}">
+            <span class="top_buttons">Account Name</span>
+            <form class="top_buttons" action="{{url_for('colin_bp.user_edit')}}">
                 <button>Edit Profile</button>
             </form>
-            <form action="{{url_for('colin_bp.user_setting')}}">
+            <form class="top_buttons" action="{{url_for('colin_bp.user_setting')}}">
                 <button>Settings</button>
             </form>
         </g>
     <br>
+    <br>
         <g>
-            <span># of posts</span>
-            <span># of followers</span>
-            <span># of following</span>
+            <span class="top_buttons" ># of posts</span>
+            <span class="top_buttons" ># of followers</span>
+            <span class="top_buttons" ># of following</span>
         </g>
     <br>
         <g>
