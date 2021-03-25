@@ -6,11 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <title>userprofile</title>
-
+    <!--<link rel="stylesheet" href=".../views/colin/static/style.css" type="text/css">-->
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='profile.css') }}">-->
+    <link rel="stylesheet" href="{{ url_for('colin_bp.static', filename='css/style.css') }}">
     <style>
-        * {
-            box-sizing: border-box;
-        }
 
         #profile_photo{
             border-radius: 50%;
@@ -160,7 +159,7 @@
 
     <div id="right">
         <g>
-            <p1>Account Name</p1>
+            <span>Account Name</span>
             <button>Edit Profile</button>
             <form action="{{url_for('colin_bp.user_setting')}}">
                 <button>Settings</button>
@@ -168,13 +167,13 @@
         </g>
     <br>
         <g>
-            <p1># of posts</p1>
-            <p1># of followers</p1>
-            <p1># of following</p1>
+            <span># of posts</span>
+            <span># of followers</span>
+            <span># of following</span>
         </g>
     <br>
         <g>
-            <p1>description</p1>
+            <span>description</span>
             <br>
             <a>website link</a>
         </g>
@@ -261,6 +260,7 @@
         hide3El.style.display = 'none';
     }
 
+    // on load to ensure that the post tab is showwing
     clickShow('posts', 'videos', 'saved', 'tagged');
 </script>
 </body>
