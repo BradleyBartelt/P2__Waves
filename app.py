@@ -9,11 +9,9 @@ from flask import Flask, render_template
 
 from views.Bradley.app import bradley_bp
 from views.Diego.app import diego_bp
-from views.andrew.app import andrew_bp
+from views.andrew import andrew_bp
 from flask import Flask
 from views.andrew.app import andrew_bp
-from views.tri2.app import y2021_tri2_bp
-from views.tri3.app import y2021_tri3_bp
 from views.colin.app import colin_bp
 from flask_bootstrap import Bootstrap
 
