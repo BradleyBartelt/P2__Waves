@@ -11,7 +11,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
 #Bootstrap(app)
 db = SQLAlchemy(app)
-
+user = []
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -142,7 +142,13 @@ class RatingFood(db.Model):
 
     pass
 
+def list_user_map():  # mapping the front end to the backend, put in the function so we don't have to copy and paste
+    user = User.query.all()
+    for user in user:
+        user_tt_dict = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
+        user.append(user_tt_dict)
 
+    return user
 
 
 "Create Database"
