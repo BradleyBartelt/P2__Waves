@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 
-    <title>Bootstrap Example</title>
+    <title>Piece of the Pie - {% block title %}{% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -43,12 +43,12 @@
         <li class="nav-item">
             <a class="nav-link disabled" href="#">Disabled</a>
         </li>
-        <li class="nav-item">
+        <!--<li class="nav-item">
             <a href="{{ url_for('profile_bp.user_profile') }}">
                 <div class="icon">
                 </div>
             </a>
-        </li>
+        </li>-->
         <li class="nav-item">
             <a href="{{ url_for('profile_bp.user_profile') }}">
                 <div class="icon">
