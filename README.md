@@ -11,6 +11,20 @@ Ayy What's up guys
 | Andrew Zhang | [Ketherbug](https://github.com/Ketherbug) |
 
 [scrum board](https://github.com/BradleyBartelt/P2__Waves/projects/1) will contain SMART goals
+[deployed](http://76.167.66.16:5000/)
+
+## Change log
+
+#### week 1
+## Tickets for 3/26/21
+### Homepage Template and Navbar (Bradley)
+#### This week I found an HTML template for our homepage, and created the navbar for our website. I am currently linking our HTML templates to the navbar, but we only have 2 at the moment, so some of the links will not be active. 
+### User Profile Homepage and deployment (Colin)
+####
+### User Database and login (Andrew)
+####
+### Blueprint setup (Diego
+####
 
 ## [Project Plan](https://docs.google.com/document/d/1vByAzVE8BIA5xQ6L1B1xQvrMjikYDGONuw1jXJDoZHk/edit?usp=sharing)
 ### Idea
@@ -21,16 +35,6 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 - [Dominos](https://pizza.dominos.com/california/san-diego/3485-del-mar-heights-rd/)
 - [Pizza Hut](https://www.pizzahut.com/)
 - [Reddit](https://www.reddit.com/)
-
-## Tickets for 3/26/21
-### Homepage Template and Navbar (Bradley)
-#### This week I found an HTML template for our homepage, and created the navbar for our website. I am currently linking our HTML templates to the navbar, but we only have 2 at the moment, so some of the links will not be active. 
-### User Profile Homepage and deployment (Colin)
-####
-### User Database and login (Andrew)
-####
-### Blueprint setup (Diego
-####
 
 #### Technicals
 [for subdomains](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04)
