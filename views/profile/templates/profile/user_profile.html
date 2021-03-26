@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+{{ super() }}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>userprofile</title>
+    <!--<link rel="stylesheet" href=".../views/colin/static/style.css" type="text/css">-->
+    <!--<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='profile.css') }}">-->
+    <link rel="stylesheet" href="{{ url_for('profile_bp.static', filename='css/profile.css') }}">
+    <style>
+
+        #profile_photo{
+            border-radius: 50%;
+        }
+
+        /* div which is centered to contain all of the informaiton */
+        #all_contents{
+            max-width: 900px;
+            background-color: #c8c8c8;
+            margin: 50px auto; /* 50px represents the spacing between the top header and the top of the header  */
+            min-width: 500px;
+        }
+
+        /* div containing the profile photo */
+        #left{
+            width: 30%;
+            float: left;
+            background-color: grey;
+        }
+
+        /* div containing the follower count, account name, description */
+        #right{
+            width: 70%;
+            float: left;
+            background-color: #c8c8c8;
+        }
+
+        /* div for spacing of the stories */
+        #stories {
+            width: 100%;
+            height: 150px;
+            background-color: #FF9B53;
+            float: left;
+        }
+
+        /* div to constrain the text of the sotry div to the story*/
+        .story_div{
+            float: left;
+            width: 100px;
+            text-align: center;
+            margin-left: 10px;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        /* circles to contain the images which label the stories*/
+        .story{
+            margin: 0 auto;
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            background-color: #6969AC;
+        }
+
+        /* contains the buttons to swap between the galleries */
+        #option_tab{
+            width: 100%;
+            background-color: seagreen;
+            height: 50px;
+            float: left;
+        }
+
+        /* to center the buttons within the option tab div*/
+        #all_buttons {
+            text-align: center;
+        }
+
+        /* Float three columns side by side */
+        .column {
+            padding: 3px;
+            float: left;
+            width: 33.33%;
+            border: 3px solid red;
+        }
+
+        .row {
+            margin-left: 0; /* to ensure that the row is alinged witht eh psot div */
+            width: 100%;
+            margin-bottom: 20px;
+            background-color: #ecec95;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .card{
+            background-color: #FC9079;
+            height: 300px;
+            overflow: hidden;
+        }
+        .img-container{
+            text-align: center;
+            display: block;
+        }
+
+        .post_image {
+            height: 300px;
+            background: #3A6F9A;
+            vertical-align: middle;
+
+        }
+
+        /* the div which contain all of the photos that are relevant to the user*/
+        #posts{
+            display: none;
+            width: 100%;
+            background-color: #ffbdec;
+            float: left;
+            height: 500px;
+        }
+        #videos{
+            display: none;
+            width: 100%;
+            background-color: #CB96BA;
+            float: left;
+            height: 500px;
+        }
+        #saved{
+            display: none;
+            width: 100%;
+            background-color: #6B5163;
+            float: left;
+            height: 500px;
+        }
+        #tagged{
+            display: none;
+            width: 100%;
+            background-color: #2B2226;
+            float: left;
+            height: 500px;
+        }
+        .top_buttons {
+            float: left;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<div id="all_contents">
+    <!-- profile_photo will be ported in through the database-->
+    <div id="left">
+        <img id='profile_photo' src="https://scontent-lax3-1.cdninstagram.com/v/t51.2885-19/s150x150/21294914_364637993991993_6505386031796191232_a.jpg?tp=1&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_ohc=NqY4Pxr_2GEAX9HqNjo&ccb=7-4&oh=467b9a18d121f9c369a20ecb76bbe025&oe=6080FFC0">
+    </div>
+
+    <div id="right">
+        <g>
+            <span class="top_buttons">Account Name</span>
+            <form class="top_buttons" action="{{url_for('profile_bp.user_edit')}}">
+                <button>Edit Profile</button>
+            </form>
+            <form class="top_buttons" action="{{url_for('profile_bp.user_setting')}}">
+                <button>Settings</button>
+            </form>
+        </g>
+    <br>
+    <br>
+        <g>
+            <span class="top_buttons" ># of posts</span>
+            <span class="top_buttons" ># of followers</span>
+            <span class="top_buttons" ># of following</span>
+        </g>
+    <br>
+        <g>
+            <span>description</span>
+            <br>
+            <a>website link</a>
+        </g>
+
+    </div>
+
+    <div id="stories">
+        {% for story in list_stories %}
+        <div class="story_div">
+            <div class="story"></div>
+            <p style="margin: auto">{{story['name']}}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- selecting which gallery does the user want to take a look at-->
+    <div id="option_tab">
+        <div id="all_buttons">
+            <button id="posts_button">Posts</button>
+            <button id="videos_button">Videos</button>
+            <button id="saved_button">Saved</button>
+            <button id="tagged_button">Tagged</button>
+        </div>
+    </div>
+
+    <!-- displaying the posts for the user-->
+    <div id="posts">
+        <div class="row">
+          {% for post in list_post %}
+            <div class="column">
+                <div class="card">
+                    <div class=img-container>
+                        <img class="post_image" src={{post['content']}} height=100% />
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div id="videos"></div>
+    <div id="saved"></div>
+    <div id="tagged"></div>
+
+</div>
+
+<script>
+    //defining all of these objects
+    var postsButton = document.getElementById("posts_button");
+    var videosButton = document.getElementById('videos_button');
+    var savedButton = document.getElementById("saved_button");
+    var taggedButton = document.getElementById('tagged_button');
+
+    //listeners instead of inline javascript
+    postsButton.addEventListener("click", function(){
+        clickShow('posts', 'tagged', 'videos', 'saved');
+        }, false);
+
+    videosButton.addEventListener('click', function(){
+            clickShow('videos', 'tagged', 'posts', 'saved');
+        }, false);
+
+    savedButton.addEventListener('click', function(){
+                clickShow('saved', 'tagged', 'videos', 'posts');
+            }, false);
+
+    taggedButton.addEventListener('click', function(){
+            clickShow('tagged', 'posts', 'videos', 'saved');
+        }, false);
+
+    function clickShow(show, hide1, hide2, hide3) {
+        console.log("showing" +String(show));
+        var showEl = document.getElementById(String(show));
+        var hide1El = document.getElementById(String(hide1));
+        var hide2El = document.getElementById(String(hide2));
+        var hide3El = document.getElementById(String(hide3));
+
+        //turning on the visibility of the first arguments
+        showEl.style.display = 'block';
+
+        //turning off the visibility of the last three arguments
+        hide1El.style.display = 'none';
+        hide2El.style.display = 'none';
+        hide3El.style.display = 'none';
+    }
+
+    // on load to ensure that the post tab is showwing
+    clickShow('posts', 'videos', 'saved', 'tagged');
+</script>
+</body>
+</html>
+
+{% endblock %}

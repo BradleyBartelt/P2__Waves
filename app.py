@@ -12,14 +12,14 @@ from views.Diego.app import diego_bp
 from views.andrew import andrew_bp
 from flask import Flask
 from views.andrew.app import andrew_bp
+from views.profile.app import profile_bp
 from views.colin.app import colin_bp
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
-#app.register_blueprint(y2021_tri1_bp, url_prefix='/y2021/tri1')
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(diego_bp, url_prefix='/diego')
-app.register_blueprint(colin_bp, url_prefix='/colin')
+app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(bradley_bp, url_prefix='/bradley')
 
 app.config.update(dict(
