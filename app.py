@@ -31,6 +31,10 @@ bootstrap = Bootstrap(app)
 def index():
     return render_template("home.html")
 
+@app.route('/easteregg')
+def PythonMiniLab():
+    return render_template("Easter_egg.html")
+
 
 if __name__ == "__main__":
     # runs the application on the repl development server
