@@ -1,6 +1,8 @@
 # P2__Waves Piece of the Pie
 Tri 3 project for P2__Waves
 
+Runtime link: http://76.167.66.16:5000/
+
 <!-- the table of all of the members with the github username linked -->
 |Name|	Github   | 
 |--|--|
@@ -17,7 +19,11 @@ Tri 3 project for P2__Waves
 ### week 1 (Tickets for 3/26/21)
 
  - Homepage Template and Navbar (Bradley) [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57623685)
-   - This week I found an HTML template for our homepage, and created the navbar for our website. I am currently linking our HTML templates to the navbar, but we only have 2 at the moment, so some of the links will not be active. 
+   - This week I found an HTML template for our homepage, and created the navbar for our website. I am currently linking our HTML templates to the navbar, but we only have 2 at the moment, so some of the links will not be active.
+   - (all the files in this link) Link to front end [code](https://github.com/BradleyBartelt/P2__Waves/tree/main/templates)
+   - Link to python [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/app.py)
+   - (really just the app routes in there)
+   - link to runtime main page with navbar http://76.167.66.16:5000/
      
 - User Profile Homepage and deployment (Colin)
     - [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57444830)
