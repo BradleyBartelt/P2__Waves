@@ -9,9 +9,11 @@ from flask import Flask, render_template
 
 from views.Bradley.app import bradley_bp
 from views.Diego.app import diego_bp
+from views.andrew import andrew_bp
 from flask import Flask
 from views.andrew.app import andrew_bp
 from views.profile.app import profile_bp
+from views.colin.app import colin_bp
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
@@ -30,6 +32,10 @@ bootstrap = Bootstrap(app)
 @app.route('/')
 def index():
     return render_template("home.html")
+
+@app.route('/easteregg')
+def PythonMiniLab():
+    return render_template("Easter_egg.html")
 
 
 if __name__ == "__main__":

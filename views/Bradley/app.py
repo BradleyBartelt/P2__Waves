@@ -8,3 +8,5 @@ bradley_bp = Blueprint('bradley', __name__,
 @bradley_bp.route('/')
 def index():
     return "Bradley Location"
+
+"this is where the class and object project will go."
