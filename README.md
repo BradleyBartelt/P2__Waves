@@ -15,16 +15,25 @@ Ayy What's up guys
 
 ## Change log
 
-#### week 1
-## Tickets for 3/26/21
-### Homepage Template and Navbar (Bradley)
-#### This week I found an HTML template for our homepage, and created the navbar for our website. I am currently linking our HTML templates to the navbar, but we only have 2 at the moment, so some of the links will not be active. 
-### User Profile Homepage and deployment (Colin)
-####
-### User Database and login (Andrew)
-####
-### Blueprint setup (Diego
-####
+### week 1 (Tickets for 3/26/21)
+
+ - Homepage Template and Navbar (Bradley)
+   - This week I found an HTML template for our homepage, and created the navbar for our website. I am currently linking our HTML templates to the navbar, but we only have 2 at the moment, so some of the links will not be active. 
+     
+- User Profile Homepage and deployment (Colin)
+    - [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57444830)
+        - worked on the user profile page this week
+        - Front in
+            - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/profile/templates/profile/user_profile.html) 
+            - [deployed runtime link](http://76.167.66.16:5000/profile/userprofile)
+        - Backend
+            - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L14-L150) heavily used 'background-color' to differentiate between the divs to focus on the layout and spacing of the code
+            - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/profile/models/temp_info.py) temporary backend, will replace with reading information from the database
+            - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L229-L271) **WOW** using [listeners](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L231-L234) to communicate which button was selected and to avoid inline javascript, using [procedures](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L253-L267) by taking in [parameters](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L238) to determine which [div](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L199-L225) to show and which div to hide
+-  User Database and login (Andrew)
+    - ()[]
+-  Blueprint setup (Diego)
+    - ()[]
 
 ## [Project Plan](https://docs.google.com/document/d/1vByAzVE8BIA5xQ6L1B1xQvrMjikYDGONuw1jXJDoZHk/edit?usp=sharing)
 ### Idea
