@@ -1,6 +1,5 @@
 # P2__Waves Piece of the Pie
 Tri 3 project for P2__Waves
-Ayy What's up guys
 
 <!-- the table of all of the members with the github username linked -->
 |Name|	Github   | 
@@ -10,8 +9,8 @@ Ayy What's up guys
 | Colin Szeto  |  [colin-szeto](https://github.com/colin-szeto) |
 | Andrew Zhang | [Ketherbug](https://github.com/Ketherbug) |
 
-[scrum board](https://github.com/BradleyBartelt/P2__Waves/projects/1) will contain SMART goals
-[deployed](http://76.167.66.16:5000/)
+####[scrum board](https://github.com/BradleyBartelt/P2__Waves/projects/1) 
+####[deployed](http://76.167.66.16:5000/)
 
 ## Change log
 
