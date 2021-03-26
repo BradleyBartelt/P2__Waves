@@ -20,7 +20,7 @@ Runtime link: http://76.167.66.16:5000/
 
  - Homepage Template and Navbar (Bradley) [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57623685)
    - This week I found an HTML template for our homepage, and created the navbar for our website. I am currently linking our HTML templates to the navbar, but we only have 2 at the moment, so some of the links will not be active.
-   - Link to front end [code](https://github.com/BradleyBartelt/P2__Waves/tree/main/templates)
+   - (all the files in this link) Link to front end [code](https://github.com/BradleyBartelt/P2__Waves/tree/main/templates)
    - Link to python [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/app.py)
    - (really just the app routes in there)
    - link to runtime main page with navbar http://76.167.66.16:5000/
