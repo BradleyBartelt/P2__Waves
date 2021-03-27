@@ -12,6 +12,7 @@ from views.Bradley.app import bradley_bp
 from views.Diego.app import diego_bp
 from views.andrew.app import andrew_bp
 from views.profile.app import profile_bp
+from views.colin.app import colin_bp
 from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)

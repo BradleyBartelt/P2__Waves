@@ -33,7 +33,7 @@ class RegisterForm(FlaskForm):
 
 @andrew_bp.route('/')
 def index():
-    return "Andrew Location"
+    return render_template('mini_lab.html')
 
 @andrew_bp.route('/login', methods=["GET", "POST"])
 def login():
