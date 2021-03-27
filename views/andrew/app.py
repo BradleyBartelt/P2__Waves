@@ -66,5 +66,5 @@ def signup():
         db.session.commit()
         return '<h1>yay</h1>'
 
-    return render_template("signup.html", form = form)
+    return render_template("sign_up.html", form = form)
 
