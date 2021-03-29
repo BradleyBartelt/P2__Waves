@@ -7,5 +7,5 @@ colin_bp = Blueprint('colin_bp', __name__,
 
 @colin_bp.route('/')
 def index():
-    return render_template('colin/mini_lab.html')
+    return render_template('colin/mini_lab.html', active_page='colin')
 
