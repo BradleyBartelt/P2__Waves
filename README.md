@@ -14,7 +14,7 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 
 #### Technicals/refrences
 - [for subdomains](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04)
-
+- [connecting Node.js with flask](https://medium.com/javarevisited/connecting-flask-with-node-js-7b9d823ca923) (for the direct messaging platform)
 #### Contributors
 <!-- the table of all of the members with the github username linked -->
 |Name|	Github   | 
