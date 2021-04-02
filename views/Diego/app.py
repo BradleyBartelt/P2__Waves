@@ -3,6 +3,7 @@ from views.Diego import diego_bp
 
 
 
+
 @diego_bp.route('/',methods = ["GET","POST"])
 def index():
     if request.form:

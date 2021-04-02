@@ -3,7 +3,7 @@ class Binaryclass:
 
     def __init__(self, input):
         if input < 2 or input > 50:
-            raise ValueError("Series must be between 2 and 100")
+            raise ValueError("input must be between 2 and 100")
 
         self.input = input
         self.binary_num = []
