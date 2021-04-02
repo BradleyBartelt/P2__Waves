@@ -8,6 +8,7 @@ class Binaryclass:
         self.input = input
         self.binary_num = []
         self.conversion()
+        self.total = ""
 
 
     def conversion(self):
@@ -20,6 +21,9 @@ class Binaryclass:
             value = round(value)
             self.binary_num.insert(0,remainder)
 
+        for i in self.binary_num():
+            self.total = self.total + str(i)
+
 
     """Getters with decorator to allow . notation access"""
     @property
@@ -29,6 +33,10 @@ class Binaryclass:
     @property
     def list(self):
         return self.binary_num
+
+    @property
+    def totally(self):
+        return self.total
 
 
 # Tester Code
@@ -41,7 +49,9 @@ if __name__ == "__main__":
     '''Using getters to obtain data from object'''
     print(f"Fibonacci number for {n} = {binaryclass.series}")
     print(f"Fibonacci series for {n} = {binaryclass.list}")
+    print(binaryclass.totally)
 
-    '''Using method to get data from object'''
+    '''Using method to get data from object
     for i in range(n):
         print(f"Fibonacci sequence {i + 1} = {binaryclass.get_sequence(i)}")
+    '''
