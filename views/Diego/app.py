@@ -1,11 +1,11 @@
 from flask import render_template, request
 from views.diego import diego_bp
-from views.diegominilab import Pi
+from views.diegominilab import Phi
 
 
 
 @diego_bp.route('/',methods = ["GET","POST"])
 def index():
     if request.form:
-        return render_template("dmini_lab.html", pi=Pi(int(request.form.get("number"))))
-    return render_template("dminilab.html", pi=Pi(2))
+        return render_template("dmini_lab.html", phi=Phi(int(request.form.get("number"))))
+    return render_template("dminilab.html", phi=Phi(2))
