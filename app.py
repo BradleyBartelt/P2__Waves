@@ -8,7 +8,7 @@ Flask(__name__) establishes resources on the filesystem (aka package).
 from flask import Flask, render_template
 from flask import Flask
 
-from views.Bradley.app import bradley_bp
+from views.bradley.app import bradley_bp
 from views.Diego.app import diego_bp
 from views.andrew.app import andrew_bp
 from views.profile.app import profile_bp
