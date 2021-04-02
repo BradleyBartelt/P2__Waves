@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+
+
+{% block content %}
+<div class="container">
+
+    <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+        <!-- Title -->
+        <div class="col-12" style="text-align: center;">
+            <h1><strong>Binary Number Converter</strong></h1>
+        </div>
+
+        <!-- Input and Content -->
+        <div class="jumbotron text-center row">
+            <div class="col-md-6">
+                <h3>Type in a number to be converted to binary.</h3>
+                <form id="binaryform" action="/" method="POST" >
+                    <input name="input" id="input" type="number">
+                    <button>Go!</button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h3>Binary for {{binaryclass.input}}</h3>
+                <!-- Number, List table -->
+                <table class="mx-auto">
+                    <tr>
+                        <th scope="col">Number</th>
+                        <th scope="col">List</th>
+                    </tr>
+                    <tr>
+                        <td>{{fibonacci.number}}</td>
+                        <td>{{fibonacci.list}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sequence -->
+        <div class="col-12" style="text-align: left; ">
+            <!-- Series -->
+            <h3>Fibonacci build up for series: {{fibonacci.series}} number: {{fibonacci.number}}</h3>
+            <div class="overflow-auto" style="height: 200px">
+                {% for i in range(fibonacci.series) %}
+                <h5>{{fibonacci.get_sequence(i)}}</h5>
+                {% endfor %}
+            </div>
+            <!-- Code -->
+            <script src="https://emgithub.com/embed.js?target=https%3A%2F%2Fgithub.com%2Fnighthawkcoders%2Fnighthawk_csp%2Fblob%2Fmaster%2Falgorithm%2Ffibonacci.py&style=github&showBorder=on&showLineNumbers=on&showFileMeta=on"></script>        </div>
+    </div>
+
+</div>
+</div>
+<style>
+    table, td, th {
+        border: 1px solid var(--dblue);
+    }
+    td, th {
+        text-align:left;
+    }
+</style>
+{% endblock %}
