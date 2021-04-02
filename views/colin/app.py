@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 # from views.profile.models import temp_info
-from views.colin.fibonacci import Fibonacci
+from views.colin.algo.fibonacci import Fibonacci
 
 colin_bp = Blueprint('colin_bp', __name__,
                           template_folder='templates',
