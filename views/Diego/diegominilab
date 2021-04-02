@@ -83,12 +83,4 @@ if __name__ == "__main__":
     '''Value for testing'''
     n = 20
     '''Constructor of Class object'''
-    pi = Pi(n)
 
-    '''Using getters to obtain data from object'''
-    print(f"Pi number for {n} = {pi.number}")
-    print(f"Pi series for {n} = {pi.list}")
-
-    '''Using method to get data from object'''
-    for i in range(n):
-        print(f"Pi's {i}th place decimal sequence= {pi.get_sequence(i)}")
