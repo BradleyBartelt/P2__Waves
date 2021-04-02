@@ -5,7 +5,6 @@ Tri 3 project for P2__Waves
 Runtime link: http://www.pieceofthepi.cf/
 ### Idea
 Our idea is to create a sort of Pizza revolved site, where you can order pizza, leave reviews, see deals, and more. We are going to take inspiration from the layout of other sites like dominos. In order to add a unique spin on it, we would like to impliment a feature where people can post pictures of the food they order and leave a reveiw, and other users can see the food and reviews, sort of like social media, but  for pizza.
-
 #### Inspiration
 - [Yelp](https://www.yelp.com/search?cflt=pizza&find_loc=San+Diego%2C+CA)
 - [Dominos](https://pizza.dominos.com/california/san-diego/3485-del-mar-heights-rd/)
@@ -15,6 +14,15 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### Technicals/refrences
 - [for subdomains](https://www.digitalocean.com/community/tutorials/how-to-set-up-nginx-server-blocks-virtual-hosts-on-ubuntu-16-04)
 - [connecting Node.js with flask](https://medium.com/javarevisited/connecting-flask-with-node-js-7b9d823ca923) (for the direct messaging platform)
+
+## Python Mini Labs
+### Colin
+### Andrew
+### Bradley
+- Link to project in runtime:
+- link to code:
+### Diego
+
 #### Contributors
 <!-- the table of all of the members with the github username linked -->
 |Name|	Github   | 

@@ -6,7 +6,7 @@ bradley_bp = Blueprint('bradley_bp', __name__,
                      static_folder='static', static_url_path='assets')
 
 
-@bradley_bp.route('/')
+@bradley_bp.route('/',methods = ["GET","POST"])
 def index():
     if request.form:
         return render_template("minilabB.html", binaryclass=Binaryclass(int(request.form.get("input"))))
