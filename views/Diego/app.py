@@ -1,10 +1,11 @@
-from flask import Blueprint
-
-diego_bp = Blueprint('diego', __name__,
-                     template_folder='templates',
-                     static_folder='static', static_url_path='assets')
+from flask import render_template, request
+from views.diego import diego_bp
+from views.diegominilab import Pi
 
 
-@diego_bp.route('/')
+
+@diego_bp.route('/',methods = ["GET","POST"])
 def index():
-    return "Diego Location"
+    if request.form:
+        return render_template("dmini_lab.html", pi=Pi(int(request.form.get("number"))))
+    return render_template("dminilab.html", pi=Pi(2))
