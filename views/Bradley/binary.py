@@ -2,16 +2,16 @@
 class Binaryclass:
 
     def __init__(self, input):
-        if input < 2 or input > 50:
-            raise ValueError("input must be between 2 and 100")
+        '''if input < 2 or input > 50:
+            raise ValueError("input must be between 2 and 100")'''
 
-        self.input = input
+        self._input = input
         self.binary_num = []
         self.conversion()
 
 
     def conversion(self):
-        value = self.input
+        value = self._input
 
         while value >= 1:
             remainder = value%2
@@ -23,8 +23,8 @@ class Binaryclass:
 
     """Getters with decorator to allow . notation access"""
     @property
-    def series(self):
-        return self.input
+    def input(self):
+        return self._input
 
     @property
     def list(self):
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     binaryclass = Binaryclass(n)
 
     '''Using getters to obtain data from object'''
-    print(f"Fibonacci number for {n} = {binaryclass.series}")
+    print(f"Fibonacci number for {n} = {binaryclass.input}")
     print(f"Fibonacci series for {n} = {binaryclass.list}")
 
     '''Using method to get data from object'''
