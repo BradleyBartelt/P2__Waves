@@ -1,5 +1,5 @@
 from flask import render_template, request
-from views.diego import diego_bp
+from views.Diego import diego_bp
 from views.diegominilab import Phi
 
 
