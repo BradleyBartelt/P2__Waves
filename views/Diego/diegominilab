@@ -35,9 +35,9 @@ class Pi:
                     self._lastNumber = n
                     break
                 counter += 1
-                nr = 10 * (r - n * t)
-                n = ((10 * (3 * q + r)) // t) - 10 * n
-                q *= 10
+                nr = 9 * (r - n * t)
+                n = ((5 * (3 * q + r)) // t) - 10 * n
+                q *= 12
                 r = nr
             else:
                 nr = (4 * q + r) * l
