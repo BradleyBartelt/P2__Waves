@@ -7,8 +7,9 @@
     <title>{% block title %}Colin{% endblock %}</title>
 </head>
 {% block content %}
-<body>
-    <h1 style="margin-left: 15px">Colin Mini Lab Location</h1>
+<body  style="margin-left: 15px">
+    <h1>Colin Mini Lab Location</h1>
+    <a href="{{ url_for('colin_bp.fibonacci') }}">Fibonacci</a>
 </body>
 {% endblock %}
 </html>
