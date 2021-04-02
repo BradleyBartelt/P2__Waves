@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Diego{% endblock %}</title>
+</head>
+{% block content %}
+<h1 style="margin-left: 15px">Diego Mini Lab Location</h1>
+<div class="container">
+
+    <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+        <!-- Title -->
+        <div class="col-12" style="text-align: center;">
+            <h1><strong>Mini Lab</strong></h1>
+        </div>
+
+      
+                <!-- Number, List table -->
+                <table class="mx-auto">
+                    <tr>
+                        <th scope="col">Number</th>
+                        <th scope="col">List</th>
+                    </tr>
+                    <tr>
+
+                        <td>{{pi.number}}</td>
+                        <td>{{pi.list}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sequence -->
+        <div>
+            <h3>Last Digit = {{pi.lastNumber}}</h3>
+        </div>
+        <div class="col-12" style="text-align: left; ">
+            <!-- Series -->
+            <h3>Pi build up for series: {{pi.series}} number: {{pi.number}}</h3>
+            <div class="overflow-auto" style="height: 200px">
+                {% for i in range(pi.series) %}
+                <h5>{{pi.get_sequence(i)}}</h5>
+                {% endfor %}
+            </div>
+
+    </div>
+
+</div>
+</div>
+<style>
+    table, td, th {
+        border: 1px solid var(--dblue);
+    }
+    td, th {
+        text-align:left;
+    }
+</style>
+{% endblock %}
+</html>
