@@ -88,6 +88,16 @@ def convert(binary_string):
 
 # Driver code
 if __name__=="__main__":
+    intial_number = 0
+    increment_number = 5
+    increment_len = 10
+    input_list = []
+    for i in range(increment_len):
+        input_list.append(intial_number)
+        intial_number = intial_number + increment_number
+
+    print(input_list)
+
 
     # Get the Hexadecimal number
     hexdec= "1AC5";
