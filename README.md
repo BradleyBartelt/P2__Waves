@@ -28,16 +28,16 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
         - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L130-L146) here is the object which formats the code ready to be used 
         - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L161-L163) here is the getter for the dictonary formatting of the code
         - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L42) here is the location of the route where the getter is redefined "ist_conversion=conversion._list" so that it can be used in the jinja for loop
-    - WOW
-        - my wow is definitely how I use two forms to pull objects from the same class
-        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/templates/colin/conversion.html#L35-L57) in the front end I have two diffrent forms that are shown based on selection with [javascript](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/templates/colin/conversion.html#L114-L144) (using the lessons that Mr. Matt presnted about this week) or using data passed in from the route [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/templates/colin/conversion.html#L151-L158)
-        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L28) in the back end of routes, I see iff the single input was filled 
-            - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L31-L42) if the single field was not filled, we can assume that the user filled out the multi filed form and restrict the values that are taken from the form and inputted into the class for our getters 
-            - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L44-L46) if so then (single field was filled), we can pull from the single field and pass it into the class for our desired values
-          - notice when different routes are called for different inputs we specify which table we want to see
-            - type_js=json.dumps('multi') [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L42) 
-            - type_js=json.dumps('single') [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L46)
-    
+- WOW
+    - my wow is definitely how I use two forms to pull objects from the same class
+    - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/templates/colin/conversion.html#L35-L57) in the front end I have two diffrent forms that are shown based on selection with [javascript](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/templates/colin/conversion.html#L114-L144) (using the lessons that Mr. Matt presnted about this week) or using data passed in from the route [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/templates/colin/conversion.html#L151-L158)
+    - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L28) in the back end of routes, I see iff the single input was filled 
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L31-L42) if the single field was not filled, we can assume that the user filled out the multi filed form and restrict the values that are taken from the form and inputted into the class for our getters 
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L44-L46) if so then (single field was filled), we can pull from the single field and pass it into the class for our desired values
+      - notice when different routes are called for different inputs we specify which table we want to see
+        - type_js=json.dumps('multi') [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L42) 
+        - type_js=json.dumps('single') [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L46)
+
     
 ### Andrew
 - Link to project in runtime: http://www.pieceofthepi.cf/andrew/
