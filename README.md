@@ -18,6 +18,10 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 ## Python Mini Labs
 ### Colin
 ### Andrew
+- Link to project in runtime: http://www.pieceofthepi.cf/andrew/
+- link to Html code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/andrew/templates/mini_lab.html
+- link to Python code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/andrew/minilab.py
+- Other Python file: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/andrew/app.py
 ### Bradley
 - Link to project in runtime: http://www.pieceofthepi.cf/bradley/
 - link to Html code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/Bradley/templates/minilabB.html
