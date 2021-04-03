@@ -1,12 +1,14 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, request
+from views.Bradley.binary import Binaryclass
 
-bradley_bp = Blueprint('bradley', __name__,
+bradley_bp = Blueprint('bradley_bp', __name__,
                      template_folder='templates',
                      static_folder='static', static_url_path='assets')
 
 
-@bradley_bp.route('/')
+@bradley_bp.route('/',methods = ["GET","POST"])
 def index():
-    return "Bradley Location"
+    if request.form:
+        return render_template("minilabB.html", binaryclass=Binaryclass(int(request.form.get("input"))))
+    return render_template("minilabB.html", binaryclass=Binaryclass(2))
 
-"this is where the class and object project will go."

@@ -78,6 +78,10 @@ class Pi:
     def lastNumber(self):
         return self._lastNumber
 
+    @property
+    def dictionary(self):
+        return self._dict
+
 
 if __name__ == "__main__":
     '''Value for testing'''
@@ -88,6 +92,7 @@ if __name__ == "__main__":
     '''Using getters to obtain data from object'''
     print(f"Pi number for {n} = {pi.number}")
     print(f"Pi series for {n} = {pi.list}")
+
 
     '''Using method to get data from object'''
     for i in range(n):
