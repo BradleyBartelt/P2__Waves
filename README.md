@@ -17,6 +17,22 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 
 ## Python Mini Labs
 ### Colin
+- [link to runtime](http://www.pieceofthepi.cf/colin/) (this is the landing page, please ignore fibonacci as it was a reference for myself)
+- [link to runtime](http://www.pieceofthepi.cf/colin/conversion) (this is the real mini lab)
+    - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/algo/conversion.py) (backend)
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L8) defining a class
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L35-L38) Objects from a class
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L149-L163) getters
+  - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/conversion.html) (front end)
+    - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/templates/colin/conversion.html#L72-L78) using objects to format getters, I am able to itterate through the data with jinja loops
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L130-L146) here is the object which formats the code ready to be used 
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L161-L163) here is the getter for the dictonary formatting of the code
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/app.py#L42) here is the location of the route where the getter is redefined "ist_conversion=conversion._list" so that it can be used in the jinja for loop
+    - WOW
+        - my wow is definitely how I use two forms to pull objects from the same class
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/templates/colin/conversion.html#L35-L57) in the front end I have two diffrent forms that are shown based on 
+    
+    
 ### Andrew
 - Link to project in runtime: http://www.pieceofthepi.cf/andrew/
 - link to Html code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/andrew/templates/mini_lab.html
