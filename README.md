@@ -19,7 +19,7 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 ### Colin
 ### Andrew
 ### Bradley
-- Link to project in runtime: http://76.167.66.16:5000/bradley/
+- Link to project in runtime: http://www.pieceofthepi.cf/bradley/
 - link to Html code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/Bradley/templates/minilabB.html
 - link to Python code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/Bradley/binary.py 
 - Other Python file: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/Bradley/app.py
