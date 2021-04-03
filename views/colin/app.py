@@ -8,13 +8,17 @@ colin_bp = Blueprint('colin_bp', __name__,
 
 @colin_bp.route('/')
 def index():
-    return render_template('colin/mini_lab.html', active_page='colin')
+    return render_template('colin/mini_lab_landing.html', active_page='colin')
 
 @colin_bp.route('/fibonacci', methods=["GET", "POST"])
 def fibonacci():
     if request.form:
         return render_template("colin/fibonacci.html", fibonacci=Fibonacci(int(request.form.get("series"))), active_page='colin')
     return render_template("colin/fibonacci.html", fibonacci=Fibonacci(2), active_page='colin')
+
+@colin_bp.route('/conversion', methods=["GET", "POST"])
+def conversion():
+    return render_template("colin/conversion.html")
 
 
 #<tr><th>Username</th></tr>
