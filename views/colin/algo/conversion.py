@@ -7,12 +7,16 @@
 #  create the contructor
 class Conversion:
     def __init__(self, user_input, user_list):
+        '''Validation'''
+        if user_input == '':
+            raise ValueError("There needs to be an input")
+
         '''intial, increment, increment lneght'''
         '''validator'''
         '''delcaring valirables'''
 
         '''input'''
-        self._input = user_input
+        self._input = int(user_input)
         self._input_list = user_list
         #self._hex_input = str(hex_input)
 

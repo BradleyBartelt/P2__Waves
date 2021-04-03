@@ -13,33 +13,48 @@
         <!-- Title -->
         <div class="col-12" style="text-align: center;">
             <h1><strong>Conversion series in Python</strong></h1>
+            <p>Objective is to never miss a conversion question on the AP practice test again</p>
+            <p>The program will take user input of a decimal number and will then convert the number to hex and binary</p>
         </div>
 
         <!-- Input and Content -->
         <div class="jumbotron text-center row">
+            <!-- Input -->
+            <!-- color pallet I am using: https://coolors.co/30292f-413f54-5f5aa2-355691-3f4045-->
             <div class="col-md-3">
-                <div style="background-color: #749874">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+                <div style="background-color: #5F5AA2">
+                    <form action="{{ url_for('colin_bp.conversion') }}" method="post">
+                            <label style="color: #FFFFFF"><b>Select A Number to Convert</b></label>
+                            <input style="margin-bottom: 10px" name="user_input" type="text">
+                            <input style="margin-bottom: 10px" type="submit" class="button" value="Submit">
+                    </form>
                 </div>
             </div>
 
+            <!-- Content-->
             <div class="col-md-9">
                 <div style="background-color: #E38D8D">
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
-                    <br>
+
+                    <table style="border: 1px solid green">
+                        <tr>
+                            <th>Input</th>
+                            <th>Hex</th>
+                            <th>Binary</th>
+                        </tr>
+                    {% for row in list_conversion %}
+                        <tr>
+                            <td>{{row['input']}}</td>
+                            <td>{{row['hex']}}</td>
+                            <td>{{row['binary']}}</td>
+                        </tr>
+                    {% endfor %}
+                    </table>
                 </div>
 
             </div>
         </div>
+
+        {{user_input}}
 
     </div>
 
