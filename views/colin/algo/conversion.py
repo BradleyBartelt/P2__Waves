@@ -8,15 +8,19 @@
 class Conversion:
     def __init__(self, user_input, user_list):
         '''Validation'''
-        if user_input == '':
-            raise ValueError("There needs to be an input")
+        # if user_input == '':
+        #     raise ValueError("There needs to be an input")
+        if user_input == '': # if the user input is empty
+            self._input = user_input
+        else: # if the user input was filled
+            self._input = int(user_input)
 
         '''intial, increment, increment lneght'''
         '''validator'''
         '''delcaring valirables'''
 
         '''input'''
-        self._input = int(user_input)
+        #self._input = int(user_input)
         self._input_list = user_list
         #self._hex_input = str(hex_input)
 
@@ -37,7 +41,10 @@ class Conversion:
     '''helper funcitons (middle man, logic here)'''
     def DecToHex(self):
         input = self._input
-        self._hex = hex(input)
+        if self._input == '':
+            self._input = self._input
+        else:
+            self._hex = hex(input)
 
     def HexToBin(self, b):
         #hexdec = self._hex_input
@@ -165,7 +172,7 @@ if __name__=="__main__":
     input = 100
     hex_string = "1AC5"
     input_list = [1,2,3,4,5,6,7,8]
-    conversion = Conversion(input, input_list)
+    conversion = Conversion('', '')
     print("you inputed: " +str(conversion.OneToOne))
     print("your input is equivalent to hex: " +str(conversion.HexOut))
     print("print the binary from the hex: " +str(conversion.BinFromHex))
