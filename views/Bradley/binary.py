@@ -21,6 +21,8 @@ class Binaryclass:
             self.binary_num.insert(0,remainder)
 
 
+
+
     """Getters with decorator to allow . notation access"""
     @property
     def input(self):
