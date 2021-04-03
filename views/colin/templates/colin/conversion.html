@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+{% extends "base2.html" %}
+{{ super() }}
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}Conversion{% endblock %}</title>
 </head>
-<body>
 
-</body>
-</html>
+{% block content %}
+<div class="container">
+
+    <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+        <!-- Title -->
+        <div class="col-12" style="text-align: center;">
+            <h1><strong>Conversion series in Python</strong></h1>
+        </div>
+
+        <!-- Input and Content -->
+        <div class="jumbotron text-center row">
+            <div class="col-md-3">
+                <div style="background-color: green">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div style="background-color: red">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+{% endblock %}
