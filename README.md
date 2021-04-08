@@ -96,3 +96,5 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 -  Blueprint setup (Diego)
     - [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57650333])
 
+### Credit
+- [Favicon Used](https://www.deviantart.com/chinyiun/art/Pixel-art-pizza-852260462)
