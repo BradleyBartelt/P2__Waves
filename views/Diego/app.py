@@ -1,8 +1,8 @@
-"""
-Flask(__name__) establishes resources on the filesystem (aka package).
-1. app is control object for flask
-2. the Flask initializer uses __name__ param to locate root of webserver
-3. static and templates are of folders that are located relative to directory of Flask execution
+""""""
+# Flask(__name__) establishes resources on the filesystem (aka package).
+# 1. app is control object for flask
+# 2. the Flask initializer uses __name__ param to locate root of webserver
+# 3. static and templates are of folders that are located relative to directory of Flask execution
 """
 
 from flask import Flask, render_template
@@ -41,3 +41,28 @@ def PythonMiniLab():
 if __name__ == "__main__":
     # runs the application on the repl development server
     app.run(debug=True, host='127.0.0.1', port='5000')
+"""
+
+from flask import render_template, request, Blueprint
+from views.Diego.diegominilab import Pi
+# from views.Diego import diego_bp
+
+diego_bp = Blueprint('diego_bp', __name__,
+                         template_folder='templates',
+                         static_folder='static', static_url_path='assets')
+
+@diego_bp.route('/',methods = ["GET","POST"])
+def index():
+    return render_template("diego/testing.html")
+
+# @diego_bp.route('/',methods = ["GET","POST"])
+# def index():
+#     if request.form:
+#         return render_template("diego/dmini_lab.html", pi = Pi(5))
+#     return render_template("diego/dmini_lab.html", pi = Pi(5))
+
+# @diego_bp.route('/fibonacci', methods=["GET", "POST"])
+# def fibonacci():
+#     if request.form:
+#         return render_template("algorithm/fibonacci.html", fibonacci=Fibonacci(int(request.form.get("series"))))
+#     return render_template("algorithm/fibonacci.html", fibonacci=Fibonacci(2))
