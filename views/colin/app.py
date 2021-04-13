@@ -23,7 +23,6 @@ def conversion():
 
     # when there is a user input within the code
     if request.form:
-        print("hellow")
         #  getting the input of a single field
         user_input = request.form.get('user_input0')
         print(str(user_input))
@@ -39,11 +38,13 @@ def conversion():
                 b = b + 1
             print(all_list)
             conversion = Conversion('', all_list)
-            return render_template("colin/conversion.html", user_input=user_input, conversion=conversion, list_conversion=conversion._list ,active_page='colin', type='multi', type_js=json.dumps('multi'))
+            return render_template("colin/conversion.html", user_input=user_input, conversion=conversion,
+                                   list_conversion=conversion._list ,active_page='colin', type='multi', type_js=json.dumps('multi'))
         else:
             # if the user input is not zero (it was filled)
             conversion = Conversion(user_input, '')
-            return render_template("colin/conversion.html", user_input=user_input, conversion=conversion, active_page='colin', type='single', type_js=json.dumps('single'))
+            return render_template("colin/conversion.html", user_input=user_input, conversion=conversion, active_page='colin',
+                                   type='single', type_js=json.dumps('single'))
 
     # default configuration
     conversion = Conversion(0, [1,2,3,4,5,6,7,8])
