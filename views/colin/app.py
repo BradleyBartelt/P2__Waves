@@ -18,6 +18,30 @@ def fibonacci():
         return render_template("colin/fibonacci.html", fibonacci=Fibonacci(int(request.form.get("series"))), active_page='colin')
     return render_template("colin/fibonacci.html", fibonacci=Fibonacci(2), active_page='colin')
 
+@colin_bp.route('/bubblesort', methods=["GET", "POST"])
+def bubblesort():
+    if request.form:
+        all_list = []
+        b = 1 # to ensure first number is 0
+
+        # iterating through all of the form text fields input
+        for i in range(5):
+            string_used = 'user_input' + str(b)
+            user_input = request.form.get(string_used)
+            all_list.append(int(user_input))
+            b = b + 1
+
+        #print(all_list)
+        return render_template("colin/bubble_sort.html", active_page='colin', output_list = all_list)
+
+    # conversion = Conversion('', all_list)
+    # return render_template("colin/conversion.html", user_input=user_input, conversion=conversion,
+    # list_conversion=conversion._list ,active_page='colin', type='multi', type_js=json.dumps('multi'))
+
+    return render_template("colin/bubble_sort.html", active_page='colin')
+
+# bubble_sort
+
 @colin_bp.route('/conversion', methods=["GET", "POST"])
 def conversion():
 
