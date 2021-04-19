@@ -10,4 +10,4 @@ dk_bp = Blueprint('dk_bp', __name__,
 
 @dk_bp.route('/')
 def index():
-    return render_template('Dk/mini_lab_landing.html', active_page='colin')
+    return render_template('Dk/mini_lab_landing.html', active_page='Dk')
