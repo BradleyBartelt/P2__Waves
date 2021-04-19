@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Andrew{% endblock %}</title>
+</head>
+{% block content %}
+<body  style="margin-left: 15px">
+<h1>Andrew Mini Lab Location</h1>
+<a href="{{ url_for('andrew_bp.dataSet') }}">List Lab</a>
+<br>
+<a href="{{ url_for('andrew_bp.bubbleSort') }}">Bubble Sort Lab</a>
+</body>
+{% endblock %}
+</html>
