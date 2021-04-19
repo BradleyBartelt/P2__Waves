@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request
 # from views.profile.models import temp_info
 from views.colin.algo.fibonacci import Fibonacci
 from views.colin.algo.conversion import Conversion
+from views.colin.algo.bubble_sort import BubbleSort
 import json
 
 colin_bp = Blueprint('colin_bp', __name__,
@@ -31,8 +32,9 @@ def bubblesort():
             all_list.append(int(user_input))
             b = b + 1
 
-        #print(all_list)
-        return render_template("colin/bubble_sort.html", active_page='colin', output_list = all_list)
+        print(all_list)
+        bubble = BubbleSort(all_list)
+        return render_template("colin/bubble_sort.html", active_page='colin', output_list = bubble.OuputList)
 
     # conversion = Conversion('', all_list)
     # return render_template("colin/conversion.html", user_input=user_input, conversion=conversion,
