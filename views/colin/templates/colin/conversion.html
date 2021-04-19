@@ -59,52 +59,46 @@
             <!-- Content-->
             <!-- Color Pallet: https://coolors.co/313715-d16014-939f5c-bbce8a-e2f9b8-->
 
-            {% if type == 'multi' %}
+
                 <div class="col-md-5">
                     <div style="background-color: #CD7F4D">
-
-                        <table style="color: #000000">
-                            <tr>
-                                <th>Input</th>
-                                <th>Hex</th>
-                                <th>Binary</th>
-                            </tr>
-                        {% for row in list_conversion %}
-                            <tr>
-                                <td>{{row['input']}}</td>
-                                <td>{{row['hex']}}</td>
-                                <td>{{row['binary']}}</td>
-                            </tr>
-                        {% endfor %}
+                        <h3>Output</h3>
+                        {% if type == 'multi' %}
+                            <table style="color: #000000; margin: 0 auto">
+                                <tr>
+                                    <th>Input</th>
+                                    <th>Hex</th>
+                                    <th>Binary</th>
+                                </tr>
+                            {% for row in list_conversion %}
+                                <tr>
+                                    <td>{{row['input']}}</td>
+                                    <td>{{row['hex']}}</td>
+                                    <td>{{row['binary']}}</td>
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            {% if type == 'single' %}
+                                <table style="color: #000000; margin: 0 auto">
+                                    <tr>
+                                        <th>Input</th>
+                                        <th>Hex</th>
+                                        <th>Binary</th>
+                                    </tr>
+                                    <tr>
+                                        <td>{{conversion.OneToOne}}</td>
+                                        <td>{{conversion.HexOut}}</td>
+                                        <td>{{conversion.BinFromHex}}</td>
+                                    </tr>
+                                </table>
+                            {% else %}
+                                <p>type into the input box on the right!</p>
+                                <p>Select Buttons up top to switch between what type of form you want to fill out</p>
+                            {% endif %}
+                        {% endif %}
                         </table>
                     </div>
                 </div>
-            {% else %}
-                {% if type == 'single' %}
-                <div class="col-md-5">
-                    <div style="background-color: #CD7F4D">
-
-                        <table style="color: #000000">
-                            <tr>
-                                <th>Input</th>
-                                <th>Hex</th>
-                                <th>Binary</th>
-                            </tr>
-                            <tr>
-                                <td>{{conversion.OneToOne}}</td>
-                                <td>{{conversion.HexOut}}</td>
-                                <td>{{conversion.BinFromHex}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                {% else %}
-                <div class="col-md-5" style="background-color: #1c7430; color: white">
-                    <p>type into the input box on the right!</p>
-                    <p>Select Buttons up top to switch between what type of form you want to fill out</p>
-                </div>
-                {% endif %}
-            {% endif %}
         </div>
     </div>
 

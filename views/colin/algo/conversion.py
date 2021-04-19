@@ -4,6 +4,44 @@
 # Function to convert
 # Hexadecimal to Binary Number
 
+def HexToBin(b):
+    hexdec = str(b)
+    a = ''
+    for i in hexdec:
+        if i == '0':
+            a = a + '0000'
+        elif i == '1':
+            a = a + '0001'
+        elif i == '2':
+            a = a + '0010'
+        elif i == '3':
+            a = a + '0011'
+        elif i == '4':
+            a = a + '0100'
+        elif i == '5':
+            a = a + '0101'
+        elif i == '6':
+            a = a + '0110'
+        elif i == '7':
+            a = a + '0111'
+        elif i == '8':
+            a = a + '1000'
+        elif i == '9':
+            a = a + '1001'
+        elif i == 'A' or i == 'a':
+            a = a + '1010'
+        elif i == 'B' or i == 'b':
+            a = a + '1011'
+        elif i == 'C' or i == 'c':
+            a = a + '1100'
+        elif i == 'D' or i == 'd':
+            a = a + '1101'
+        elif i == 'E' or i == 'e':
+            a = a + '1110'
+        elif i == 'F' or i == 'f':
+            a = a + '0111'
+    return a
+
 #  create the contructor
 class Conversion:
     def __init__(self, user_input, user_list):
@@ -131,7 +169,7 @@ class Conversion:
         used_list = self._input_list
         # for the numbers in the input list
 
-        # ensuring that the increment is base zeto
+        # ensuring that the increment is base zero
         a = 0
         for i in self._input_list:
             # creating a dicto
@@ -169,13 +207,16 @@ def convert(binary_string):
 
 # Driver code
 if __name__=="__main__":
-    input = 100
-    hex_string = "1AC5"
-    input_list = [1,2,3,4,5,6,7,8]
-    conversion = Conversion('', '')
-    print("you inputed: " +str(conversion.OneToOne))
-    print("your input is equivalent to hex: " +str(conversion.HexOut))
-    print("print the binary from the hex: " +str(conversion.BinFromHex))
+#    input = 100
+#    hex_string = "1AC5"
+#    input_list = [1,2,3,4,5,6,7,8]
+#    conversion = Conversion('', '')
+#    print("you inputed: " +str(conversion.OneToOne))
+#    print("your input is equivalent to hex: " +str(conversion.HexOut))
+#    print("print the binary from the hex: " +str(conversion.BinFromHex))
+#
+#    print('-----------------')
+#    print('the vlaues within the conversions of the list: ' +str(conversion._list))
 
-    print('-----------------')
-    print('the vlaues within the conversions of the list: ' +str(conversion._list))
+    result = HexToBin(2952)
+    print(result)

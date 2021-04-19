@@ -84,3 +84,7 @@ def signup():
 
     return render_template("profile/sign_up.html", form = form)
 
+@profile_bp.route('/admin')
+def admin():
+   return render_template("profile/admin page.html")
+

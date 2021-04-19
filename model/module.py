@@ -11,20 +11,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
 #Bootstrap(app)
 db = SQLAlchemy(app)
-user = []
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
     email = db.Column(db.String(50))
     password = db.Column(db.String(80))
-
-    def __init__(self, username, email, password):
-        self.username = username
-        self.email = email
-        self.password = password
-
-    pass
 
 class UserInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -142,14 +134,19 @@ class RatingFood(db.Model):
 
     pass
 
-def list_user_map():  # mapping the front end to the backend, put in the function so we don't have to copy and paste
-    user = User.query.all()
-    for user in user:
-        user_tt_dict = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
-        user.append(user_tt_dict)
 
-    return user
 
 
 "Create Database"
 db.create_all()
+
+user_list = []
+def list_user_map():  # mapping the front end to the backend, put in the function so we don't have to copy and paste
+    user = User.query.all()
+    for user in user:
+        user_tt_dict = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
+        user_list.append(user_tt_dict)
+    return user
+
+if __name__=="__main__":
+    print(user_list)

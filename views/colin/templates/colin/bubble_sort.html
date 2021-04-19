@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Bubble Sort{% endblock %}</title>
+
+  <style>
+    .single {
+      background-color: #6969AC;
+      color: white;
+    }
+  </style>
+</head>
+
+{% block content %}
+<div class="container">
+
+  <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+    <!-- Title -->
+    <div class="col-12" style="text-align: center;">
+      <h1><strong>Bubble Sort</strong></h1>
+      <p>Objective is to never miss a conversion question on the AP practice test again</p>
+    </div>
+
+    <!-- Input and Content -->
+    <div class="jumbotron text-center row">
+      <!-- Input -->
+      <!-- color pallet I am using: https://coolors.co/30292f-413f54-5f5aa2-355691-3f4045-->
+      <div class="col-md-5">
+        <div id="multi" style="background-color: #05556D">
+          <form action="{{ url_for('colin_bp.bubblesort') }}" method="post">
+            <label style="color: #FFFFFF"><b>Input Numbers to Bubble Sort</b></label>
+            <input style="margin-bottom: 10px" name="user_input1" type="number">
+            <input style="margin-bottom: 10px" name="user_input2" type="number" required>
+            <input style="margin-bottom: 10px" name="user_input3" type="number" required>
+            <input style="margin-bottom: 10px" name="user_input4" type="number" required>
+            <input style="margin-bottom: 10px" name="user_input5" type="number" required>
+            <br>
+            <input style="margin-bottom: 10px" type="submit" class="button" value="Submit">
+          </form>
+        </div>
+      </div>
+
+      <!-- Content-->
+      <!-- Color Pallet: https://coolors.co/313715-d16014-939f5c-bbce8a-e2f9b8-->
+
+
+      <div class="col-md-5">
+        <div style="background-color: #CD7F4D">
+          <h3>Output</h3>
+          <p>{{output_list}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+  //defining all of these objects
+  var postsButton = document.getElementById("single_button");
+  var videosButton = document.getElementById('multi_button');
+
+  //listeners instead of inline javascript
+  postsButton.addEventListener("click", function(){
+    clickShow('single', 'multi');
+  }, false);
+
+  videosButton.addEventListener('click', function(){
+    clickShow('multi', 'single');
+  }, false);
+
+
+  function clickShow(show, hide1) {
+    console.log("showing" +String(show));
+    var showEl = document.getElementById(String(show));
+    var hide1El = document.getElementById(String(hide1));
+
+
+    //turning on the visibility of the first arguments
+    showEl.style.display = 'block';
+
+    //turning off the visibility of the last three arguments
+    hide1El.style.display = 'none';
+
+  }
+
+  // on load to ensure that the post tab is showwing
+  clickShow('single', 'multi');
+
+  /*function test_func(type_js) {
+      console.log(type_js);
+  }
+  test_func({{ type_js|safe }})*/
+
+  var type = {{ type_js|safe }}
+  console.log(type)
+
+  if (type == 'multi'){
+    clickShow('multi', 'single');
+  }else{
+    clickShow('single', 'multi');
+  }
+</script>
+{% endblock %}
