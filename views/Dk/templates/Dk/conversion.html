@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Conversion{% endblock %}</title>
+
+    <style>
+        .single {
+            background-color: #6969AC;
+            color: white;
+        }
+    </style>
+</head>
+
+{% block content %}
+<div class="container">
+
+    <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+        <!-- Title -->
+        <div class="col-12" style="text-align: center;">
+            <h1><strong>Conversion series in Python</strong></h1>
+            <p>Objective is to never miss a conversion question on the AP practice test again</p>
+            <p>The program will take user input of a decimal number and will then convert the number to hex and binary</p>
+        </div>
+
+        <!-- Input and Content -->
+        <div class="jumbotron text-center row">
+            <div class="col-md-12">
+                <div style="float: left">
+                    <button id="single_button">Single Input</button>
+                    <button id="multi_button">Multiple Input</button>
+                </div>
+            </div>
+            <!-- Input -->
+            <!-- color pallet I am using: https://coolors.co/30292f-413f54-5f5aa2-355691-3f4045-->
+            <div class="col-md-5">
+                <div id="single" style="background-color: #5F5AA2">
+                    <form action="{{ url_for('colin_bp.conversion') }}" method="post">
+                            <label style="color: #FFFFFF"><b>Select A Number to Convert</b></label>
+                            <input style="margin-bottom: 10px" name="user_input0" type="number" required>
+                            <input style="margin-bottom: 10px" type="submit" class="button" value="Submit">
+                    </form>
+                </div>
+                <div id="multi" style="background-color: #05556D">
+                    <form action="{{ url_for('colin_bp.conversion') }}" method="post">
+                        <label style="color: #FFFFFF"><b>Select Multiple Numbers to Convert</b></label>
+                        <input style="margin-bottom: 10px" name="user_input1" type="number">
+                        <input style="margin-bottom: 10px" name="user_input2" type="number" required>
+                        <input style="margin-bottom: 10px" name="user_input3" type="number" required>
+                        <input style="margin-bottom: 10px" name="user_input4" type="number" required>
+                        <input style="margin-bottom: 10px" name="user_input5" type="number" required>
+                        <br>
+                        <input style="margin-bottom: 10px" type="submit" class="button" value="Submit">
+                    </form>
+                </div>
+            </div>
+
+            <!-- Content-->
+            <!-- Color Pallet: https://coolors.co/313715-d16014-939f5c-bbce8a-e2f9b8-->
+
+            {% if type == 'multi' %}
+                <div class="col-md-5">
+                    <div style="background-color: #CD7F4D">
+
+                        <table style="color: #000000">
+                            <tr>
+                                <th>Input</th>
+                                <th>Hex</th>
+                                <th>Binary</th>
+                            </tr>
+                        {% for row in list_conversion %}
+                            <tr>
+                                <td>{{row['input']}}</td>
+                                <td>{{row['hex']}}</td>
+                                <td>{{row['binary']}}</td>
+                            </tr>
+                        {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            {% else %}
+                {% if type == 'single' %}
+                <div class="col-md-5">
+                    <div style="background-color: #CD7F4D">
+
+                        <table style="color: #000000">
+                            <tr>
+                                <th>Input</th>
+                                <th>Hex</th>
+                                <th>Binary</th>
+                            </tr>
+                            <tr>
+                                <td>{{conversion.OneToOne}}</td>
+                                <td>{{conversion.HexOut}}</td>
+                                <td>{{conversion.BinFromHex}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-md-5" style="background-color: #1c7430; color: white">
+                    <p>type into the input box on the right!</p>
+                    <p>Select Buttons up top to switch between what type of form you want to fill out</p>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script type="text/javascript">
+    //defining all of these objects
+    var postsButton = document.getElementById("single_button");
+    var videosButton = document.getElementById('multi_button');
+
+    //listeners instead of inline javascript
+    postsButton.addEventListener("click", function(){
+        clickShow('single', 'multi');
+    }, false);
+
+    videosButton.addEventListener('click', function(){
+        clickShow('multi', 'single');
+    }, false);
+
+
+    function clickShow(show, hide1) {
+        console.log("showing" +String(show));
+        var showEl = document.getElementById(String(show));
+        var hide1El = document.getElementById(String(hide1));
+
+
+        //turning on the visibility of the first arguments
+        showEl.style.display = 'block';
+
+        //turning off the visibility of the last three arguments
+        hide1El.style.display = 'none';
+
+    }
+
+    // on load to ensure that the post tab is showwing
+    clickShow('single', 'multi');
+
+    /*function test_func(type_js) {
+        console.log(type_js);
+    }
+    test_func({{ type_js|safe }})*/
+
+    var type = {{ type_js|safe }}
+    console.log(type)
+
+    if (type == 'multi'){
+        clickShow('multi', 'single');
+    }else{
+        clickShow('single', 'multi');
+    }
+</script>
+{% endblock %}
