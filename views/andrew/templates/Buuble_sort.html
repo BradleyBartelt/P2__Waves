@@ -1,10 +1,68 @@
 <!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}Andrew{% endblock %}</title>
 </head>
-<body>
+{% block content %}
+<h1 style="margin-left: 15px">Andrew Bubble Sort Location</h1>
+<div class="container">
 
-</body>
+    <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+        <!-- Title -->
+        <div class="col-12" style="text-align: center;">
+            <h1><strong>BubbleSort</strong></h1>
+        </div>
+
+        <!-- Input and Content -->
+        <div class="jumbotron text-center row">
+            <div class="col-md-6">
+                <h3>Sorting List</h3>
+                <img class="img-responsive py-3" src="/andrew/static/Pi.jpg" alt="" width="25%" height="Auto">
+                <form id="stringForm" action="/andrew/bubbleSort" method="POST" >
+                    <input name="string" id="string" type="text">
+                    <select id="select" name="select" required>
+                        <option value="string">String</option>
+                        <option value="integer">Integer</option>
+                    </select>
+                    <button>Go!</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <h3>Output</h3>
+                <!-- Number, List table -->
+                <table class="mx-auto">
+                    <tr>
+                        <th scope="row">Modified List</th>
+                    </tr>
+                    <tr>
+                        <td>{{output_list}}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Orginial List</th>
+                    </tr>
+                    <tr>
+                        <td>{{original_list}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="col-12" style="text-align: center;">
+    <h1><strong>WOW!</strong></h1>
+</div>
+<style>
+    table, td, th {
+        border: 1px solid var(--dblue);
+    }
+    td, th {
+        text-align:left;
+    }
+</style>
+{% endblock %}
 </html>
