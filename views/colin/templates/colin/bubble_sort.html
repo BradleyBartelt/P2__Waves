@@ -33,12 +33,15 @@
             <label style="color: #FFFFFF"><b>Input Numbers to Bubble Sort</b></label>
             <g id="multi_input">
               <input style="margin-bottom: 10px" name="user_input1" type="number">
-              <input style="margin-bottom: 10px" name="user_input2" type="number" required>
-              <input style="margin-bottom: 10px" name="user_input3" type="number" required>
-              <input style="margin-bottom: 10px" name="user_input4" type="number" required>
-              <input style="margin-bottom: 10px" name="user_input5" type="number" required>
+              <input style="margin-bottom: 10px" name="user_input2" type="number">
+              <input style="margin-bottom: 10px" name="user_input3" type="number">
+              <input style="margin-bottom: 10px" name="user_input4" type="number">
+              <input style="margin-bottom: 10px" name="user_input5" type="number">
             </g>
             <br>
+            <input type="button" id="button_add" value="Add">
+            <input type="button" id="button_minus" value="Minus" disabled>
+            <input type="number" id="newbox_counter" hidden>
             <input style="margin-bottom: 10px" type="submit" class="button" value="Submit">
           </form>
         </div>
@@ -61,13 +64,80 @@
 </div>
 
 <script type="text/javascript">
+  var numbAddedBoxes = 4; //follows the already number of added boexes
+
+  var updateValue = document.getElementById("newbox_counter");
+  updateValue.value = 0;
+
+  var addButton = document.getElementById("button_add");
+  var minusButton = document.getElementById('button_minus');
+
+  const element_group = document.getElementById("multi_input"); //this is the group of the text boxes
+
+  function createExtra(){
+    for (i = 0; i < numbAddedBoxes; i++) {
+      new_box = document.createElement('input');
+      var idButton = "user_input" +String(i)
+      console.log("getting the new idName" + String(idButton))
+      new_box.setAttribute("id", idButton); //defining the id for the box
+      element_group.appendChild(new_box);
+    }
+  }
+
+  function addBox() {
+    var i = numbAddedBoxes + 1
+    var idButton = "user_input" +String(i)
+
+    new_box = document.createElement('input');
+    new_box.type = 'number';
+    new_box.name = idButton;
+    console.log("getting the new idName: " + String(idButton));
+    new_box.setAttribute("id", idButton); //defining the id for the box
+    element_group.appendChild(new_box);
+
+    updateValue.value = Number(updateValue.value) + Number(1);
+    console.log(updateValue.value)
+  }
+
+  function removeBox() {
+    //getting the id of the last box added
+    var i = numbAddedBoxes
+    var idRemove = "user_input" +String(i)
+    console.log("removing" + String(idRemove))
+    var removeButton = document.getElementById(idRemove)
+    //removing the box
+    //element_group.removeChild(removeButton);
+    removeButton.remove();
+    //var numbAddedBoxes = numbAddedBoxes - 1;
+  }
+
+  // listneres to add the number of text boxes
+  addButton.addEventListener("click", function(){
+    numbAddedBoxes = numbAddedBoxes + 1
+    console.log(numbAddedBoxes)
+    //createExtra()
+    addBox()
+  }, false);
+
+  // listners to minus the number of added buttons
+  minusButton.addEventListener('click', function(){
+    if ( numbAddedBoxes == 0 ){
+      // if the number of added boxes = 0 keep zero
+      numbAddedBoxes = 0
+    } else {
+      // if the number of added boxes is not zero then minus one
+      numbAddedBoxes = numbAddedBoxes - 1
+      console.log(numbAddedBoxes)
+    }
+    removeBox();
+    //createExtra();
+  }, false);
 
   //creating the text box
-  new_box = document.createElement('input');
-  new_box.setAttribute("id", "user_input6"); //defining the id for the box
+  // new_box = document.createElement('input');
+  // new_box.setAttribute("id", "user_input6"); //defining the id for the box
 
-  var element_group = document.getElementById("multi_input"); //this is the group of the text boxes
-  element_group.appendChild(new_box); // adding new text box to the end of the group
+  //element_group.appendChild(new_box); // adding new text box to the end of the group
 
   //last_box = document.getElementById("user_input5");
   //element.insertBefore(new_box,last_box);
