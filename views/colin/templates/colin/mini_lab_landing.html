@@ -7,13 +7,15 @@
     <title>{% block title %}Colin{% endblock %}</title>
 </head>
 {% block content %}
-<body  style="margin-left: 15px">
+<body>
+<div style="margin-left: 15px">
     <h1>Colin Mini Lab Location</h1>
     <a href="{{ url_for('colin_bp.fibonacci') }}">Fibonacci</a>
     <br>
     <a href="{{ url_for('colin_bp.conversion') }}">Conversion</a>
     <br>
     <a href="{{ url_for('colin_bp.bubblesort') }}">Bubble Sort</a>
+</div>
 </body>
 {% endblock %}
 </html>
