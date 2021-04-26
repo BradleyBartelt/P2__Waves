@@ -5,7 +5,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired,Email,Length
-from model.module import User,db
+from model.module import User,db, user_records
 from views.andrew import andrew_bp
 from flask_bootstrap import Bootstrap
 
@@ -27,30 +27,10 @@ class LoginForm(FlaskForm):
     password = PasswordField('password',validators=[InputRequired(), Length(min=0,max=80)])
     remember = BooleanField('remember me')
 
-
-
 class RegisterForm(FlaskForm):
     email = StringField('email', validators=[InputRequired(), Email(message='Invalid Email'),Length(max=50)])
     username = StringField('username',validators=[InputRequired(), Length(min=0,max=15)])
     password = PasswordField('password',validators=[InputRequired(), Length(min=0,max=80)])
-
-
-# information to display on the admin page
-user_records = []
-def list_user_map():  # mapping the front end to the backend, put in the function so we don't have to copy and paste
-    user = User.query.all()
-    for user in user:
-        user_info = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
-        user_records.append(user_info)
-list_user_map()
-"""
-id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(15), unique=True)
-    bio = db.Column(db.String(1000))
-    saved_posts = db.Column(db.String(1000))
-    setting = db.Column(db.String(1000))
-"""
-
 
 @profile_bp.route('/')
 def index():
@@ -105,6 +85,5 @@ def signup():
 
 @profile_bp.route('/admin')
 def admin():
-   print(user_records)
    return render_template("profile/admin page.html", user_records=user_records)
 
