@@ -134,19 +134,23 @@ class RatingFood(db.Model):
 
     pass
 
-
-
-
 "Create Database"
 db.create_all()
 
-user_list = []
-def list_user_map():  # mapping the front end to the backend, put in the function so we don't have to copy and paste
-    user = User.query.all()
-    for user in user:
-        user_tt_dict = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
-        user_list.append(user_tt_dict)
-    return user
-
 if __name__=="__main__":
-    print(user_list)
+    user_list = []
+
+    def list_user_map():  # mapping the front end to the backend, put in the function so we don't have to copy and paste
+        a = 0
+        user = User.query.all()
+        #print(user)
+        for user in user:
+            user_tt_dict = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
+            user_list.append(user_tt_dict)
+            a = a + 1
+        print(a)
+        return user
+
+
+    list_user_map()
+

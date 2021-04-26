@@ -13,6 +13,10 @@ colin_bp = Blueprint('colin_bp', __name__,
 def index():
     return render_template('colin/mini_lab_landing.html', active_page='colin')
 
+@colin_bp.route('/template')
+def school():
+    return render_template('colin/w3school.html', active_page='colin')
+
 @colin_bp.route('/fibonacci', methods=["GET", "POST"])
 def fibonacci():
     if request.form:
