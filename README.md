@@ -68,7 +68,11 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.pieceofthepi.cf/)
 
 ## Change log
-
+### week 5 (progress for week of 4/26/21)
+- Colin 
+    - worked on the admin page
+        - worked on connecting up the database information to be shown in the front end
+    
 ### week 1 (Tickets for 3/26/21)
 
  - Homepage Template and Navbar (Bradley) [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57623685)
