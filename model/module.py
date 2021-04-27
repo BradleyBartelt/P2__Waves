@@ -1,14 +1,18 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+import os
 
 # create a Flask instance
 "Setting up the keys are needed for the database"
 app = Flask(__name__)
 
+# This grabs our directory
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 app.config['SECRET_KEY'] = ':)'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///items.sqlite3'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #Bootstrap(app)
 db = SQLAlchemy(app)
 

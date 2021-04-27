@@ -5,22 +5,13 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired,Email,Length
-from model.module import User,db, user_records
+from model.module import User, db, user_records
 from views.andrew import andrew_bp
 from flask_bootstrap import Bootstrap
 
 profile_bp = Blueprint('profile_bp', __name__,
                           template_folder='templates',
                           static_folder='static', static_url_path='assets')
-
-app = Flask(__name__)
-db.init_app(app)
-app.config.update(dict(
-    SECRET_KEY="powerful secretkey",
-    WTF_CSRF_SECRET_KEY="a csrf secret key"
-))
-bootstrap = Bootstrap(app)
-
 
 class LoginForm(FlaskForm):
     username = StringField('username',validators=[InputRequired(), Length(min=0,max=15)])
@@ -76,7 +67,8 @@ def login():
 def signup():
     form = RegisterForm()
     if form.validate_on_submit():
-        new_user = User(username = form.username.data, email = form.email.data, password = form.password.data)
+        print("I have arrived")
+        new_user = User(username = form.username.data, email = form.email.data) #, password = form.password.data
         db.session.add(new_user)
         db.session.commit()
         return '<h1>yay</h1>'
@@ -86,4 +78,3 @@ def signup():
 @profile_bp.route('/admin')
 def admin():
    return render_template("profile/admin page.html", user_records=user_records)
-
