@@ -46,7 +46,7 @@ if __name__ == "__main__":
 from flask import render_template, request, Blueprint
 from views.Diego.diegominilab import Pi
 # from views.Diego import diego_bp
-
+from views.Diego.bubblesort import bubbleSort
 diego_bp = Blueprint('diego_bp', __name__,
                          template_folder='templates',
                          static_folder='static', static_url_path='assets')
@@ -54,6 +54,33 @@ diego_bp = Blueprint('diego_bp', __name__,
 @diego_bp.route('/',methods = ["GET","POST"])
 def index():
     return render_template("diego/testing.html")
+
+@diego_bp.route('/bubble', methods=["GET", "POST"])
+def bubblesort():
+    if request.form:
+        all_list = []
+        b = 1 # to ensure first number is 0
+
+        newbox_counter = request.form.get('newbox_counter')
+        print('number of boxes added' +str(newbox_counter))
+
+        numberToItterate = 5
+        # iterating through all of the form text fields input
+        for i in range(numberToItterate):
+            string_used = 'user_input' + str(b)
+            user_input = request.form.get(string_used)
+            all_list.append(int(user_input))
+            b = b + 1
+
+        print(all_list)
+        bubble = bubbleSort(all_list)
+        return render_template("diego/bubble.html", active_page='Diego', output_list = bubble)
+
+    # conversion = Conversion('', all_list)
+    # return render_template("colin/conversion.html", user_input=user_input, conversion=conversion,
+    # list_conversion=conversion._list ,active_page='colin', type='multi', type_js=json.dumps('multi'))
+
+    return render_template("diego/bubble.html", active_page='Diego')
 
 # @diego_bp.route('/',methods = ["GET","POST"])
 # def index():
