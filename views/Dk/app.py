@@ -11,3 +11,6 @@ dk_bp = Blueprint('dk_bp', __name__,
 @dk_bp.route('/')
 def index():
     return render_template('Dk/mini_lab_landing.html', active_page='Dk')
+@dk_bp.route('/testing')
+def testing():
+    return render_template('Dk/testing.html', active_page='Dk')
