@@ -30,7 +30,9 @@ def bubblesort():
         all_list = []
 
         newbox_counter = request.form.get('newbox_counter')
+        newbox_counter_string = request.form.get('newbox_counter_string')
         print('number of boxes added' +str(newbox_counter))
+        print('number of boxes added string' +str(newbox_counter_string))
 
         input_type = request.form.get('input_type')
         print(input_type)
@@ -50,7 +52,7 @@ def bubblesort():
             bubble = BubbleSort(all_list)
         else:
             b = 1 # to ensure first number is 0
-            numberToItterate = 5
+            numberToItterate = 5 + int(newbox_counter_string)
             # iterating through all of the form text fields input
             for i in range(numberToItterate):
                 string_used = 'user_input_string' + str(b)

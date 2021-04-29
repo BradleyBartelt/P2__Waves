@@ -55,6 +55,7 @@
             <input type="button" id="button_add" value="Add">
             <input type="button" id="button_minus" value="Minus" disabled>
             <input type="number" id="newbox_counter" name="newbox_counter" hidden>
+            <input type="number" id="newbox_counter_string" name="newbox_counter_string" hidden>
             <input style="margin-bottom: 10px" type="submit" class="button" value="Submit">
           </form>
         </div>
@@ -78,14 +79,19 @@
 
 <script type="text/javascript">
   var numbAddedBoxes = 4; //follows the already number of added boexes
+  var numbAddedBoxesString = 4;
 
   var updateValue = document.getElementById("newbox_counter");
   updateValue.value = 0;
+
+  var updateValueString = document.getElementById("newbox_counter_string");
+  updateValueString.value = 0;
 
   var addButton = document.getElementById("button_add");
   var minusButton = document.getElementById('button_minus');
 
   const element_group = document.getElementById("multi_input"); //this is the group of the text boxes
+  const element_group_string = document.getElementById("multi_input_string"); //this is the group of the text boxes
 
   var group_string = document.getElementById("multi_input_string");
   var group_float = document.getElementById("multi_input");
@@ -125,6 +131,23 @@
     console.log(updateValue.value)
   }
 
+  function addBoxString() {
+    var i = numbAddedBoxesString + 1
+    var idButton = "user_input_string" +String(i)
+
+    new_box = document.createElement('input');
+    new_box.type = 'text';
+    new_box.name = idButton;
+    new_box.style.marginBottom ='10px';
+
+    console.log("getting the new idName: " + String(idButton));
+    new_box.setAttribute("id", idButton); //defining the id for the box
+    element_group_string.appendChild(new_box);
+
+    updateValueString.value = Number(updateValueString.value) + Number(1);
+    console.log(updateValueString.value)
+  }
+
   function removeBox() {
     //getting the id of the last box added
     var i = numbAddedBoxes
@@ -147,18 +170,27 @@
     }
   }
 
+  //see what input will be placed in
   input_type.addEventListener('change', (event) => {
     console.log(input_type.value);
     showHide();
   });
   showHide();//run on init
 
-  // listneres to add the number of text boxes
+  // listener to add the number of text boxes
   addButton.addEventListener("click", function(){
-    numbAddedBoxes = numbAddedBoxes + 1
-    console.log(numbAddedBoxes)
-    //createExtra()
-    addBox()
+    if (input_type.value == 'integer'){ //if the string selector has been selected
+      numbAddedBoxes = numbAddedBoxes + 1
+      console.log(numbAddedBoxes)
+      //createExtra()
+      addBox()
+    } else { // if the interger selector has been selected
+      numbAddedBoxesString = numbAddedBoxesString + 1
+      console.log(numbAddedBoxesString)
+      //createExtra()
+      addBoxString()
+    }
+
   }, false);
 
   // listners to minus the number of added buttons
