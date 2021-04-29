@@ -14,3 +14,6 @@ def index():
 @dk_bp.route('/testing')
 def testing():
     return render_template('Dk/testing.html', active_page='Dk')
+@dk_bp.route('/bubbles0rt')
+def bubblesort():
+    return render_template('Dk/bubbles0rt.html', active_page='Dk')
