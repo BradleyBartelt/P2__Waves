@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request
 from views.colin.algo.fibonacci import Fibonacci
 from views.colin.algo.conversion import Conversion
 from views.colin.algo.bubble_sort import BubbleSort
+from views.colin.algo.bubble_sort2 import BubbleSortString
 import json
 
 colin_bp = Blueprint('colin_bp', __name__,
@@ -27,21 +28,41 @@ def fibonacci():
 def bubblesort():
     if request.form:
         all_list = []
-        b = 1 # to ensure first number is 0
 
         newbox_counter = request.form.get('newbox_counter')
         print('number of boxes added' +str(newbox_counter))
 
-        numberToItterate = 5 + int(newbox_counter)
-        # iterating through all of the form text fields input
-        for i in range(numberToItterate):
-            string_used = 'user_input' + str(b)
-            user_input = request.form.get(string_used)
-            all_list.append(int(user_input))
-            b = b + 1
+        input_type = request.form.get('input_type')
+        print(input_type)
 
-        print(all_list)
-        bubble = BubbleSort(all_list)
+        if input_type == 'integer':
+            b = 1 # to ensure first number is 0
+            numberToItterate = 5 + int(newbox_counter)
+            # iterating through all of the form text fields input
+            for i in range(numberToItterate):
+                string_used = 'user_input' + str(b)
+                user_input = request.form.get(string_used)
+                print(user_input)
+                all_list.append(int(user_input))
+                b = b + 1
+
+            print(all_list)
+            bubble = BubbleSort(all_list)
+        else:
+            b = 1 # to ensure first number is 0
+            numberToItterate = 5
+            # iterating through all of the form text fields input
+            for i in range(numberToItterate):
+                string_used = 'user_input_string' + str(b)
+                user_input = request.form[string_used]
+                print('value of ' + str(string_used) +': '+ str(user_input))
+                all_list.append(user_input)
+                b = b + 1
+
+            print(all_list)
+            bubble = BubbleSortString(all_list)
+
+
         return render_template("colin/bubble_sort.html", active_page='colin', output_list = bubble.OuputList)
 
     # conversion = Conversion('', all_list)
