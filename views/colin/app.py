@@ -13,6 +13,10 @@ colin_bp = Blueprint('colin_bp', __name__,
 def index():
     return render_template('colin/mini_lab_landing.html', active_page='colin')
 
+@colin_bp.route('/template')
+def school():
+    return render_template('colin/w3school.html', active_page='colin')
+
 @colin_bp.route('/fibonacci', methods=["GET", "POST"])
 def fibonacci():
     if request.form:
@@ -25,8 +29,12 @@ def bubblesort():
         all_list = []
         b = 1 # to ensure first number is 0
 
+        newbox_counter = request.form.get('newbox_counter')
+        print('number of boxes added' +str(newbox_counter))
+
+        numberToItterate = 5 + int(newbox_counter)
         # iterating through all of the form text fields input
-        for i in range(5):
+        for i in range(numberToItterate):
             string_used = 'user_input' + str(b)
             user_input = request.form.get(string_used)
             all_list.append(int(user_input))

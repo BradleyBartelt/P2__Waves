@@ -6,5 +6,31 @@
 </head>
 <body>
 <h1>Admin Page</h1>
+<!--
+{% for item in user_records %}
+    {% for record in item %}
+        {{record}}
+    {% endfor %}
+{% endfor %}
+-->
+
+<table id="user_table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Password</th>
+    </tr>
+    <!-- Loop through rows in table -->
+    {% for row in user_records %}
+    <!-- build elements in table -->
+    <tr>
+        <td>{{ row['id'] }}</td>
+        <td>{{ row['username'] }}</td>
+        <td>{{ row['email'] }}</td>
+        <td>{{ row['password'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
 </body>
 </html>
