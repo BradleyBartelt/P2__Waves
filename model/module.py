@@ -1,14 +1,18 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
+import os
 
 # create a Flask instance
 "Setting up the keys are needed for the database"
 app = Flask(__name__)
 
+# This grabs our directory
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 app.config['SECRET_KEY'] = ':)'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///items.sqlite3'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Database.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #Bootstrap(app)
 db = SQLAlchemy(app)
 
@@ -134,19 +138,14 @@ class RatingFood(db.Model):
 
     pass
 
-
-
-
 "Create Database"
 db.create_all()
 
-user_list = []
+# information to display on the admin page
+user_records = []
 def list_user_map():  # mapping the front end to the backend, put in the function so we don't have to copy and paste
     user = User.query.all()
     for user in user:
-        user_tt_dict = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
-        user_list.append(user_tt_dict)
-    return user
-
-if __name__=="__main__":
-    print(user_list)
+        user_info = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
+        user_records.append(user_info)
+list_user_map()
