@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, request
 from views.colin.algo.fibonacci import Fibonacci
 from views.colin.algo.conversion import Conversion
 import json
-
+from views.Dk.algo.bubblesort import bubbleSort
 dk_bp = Blueprint('dk_bp', __name__,
                           template_folder='templates',
                           static_folder='static', static_url_path='assets')
@@ -30,10 +30,10 @@ def bubblesort():
             user_input = request.form.get(string_used)
             all_list.append(int(user_input))
             b = b + 1
-
+        bubble=bubbleSort(all_list)
        # print(all_list)
         #bubble = BubbleSort(all_list)
-        return render_template('Dk/bubbles0rt.html', active_page='Dk', testing=all_list)
+        return render_template('Dk/bubbles0rt.html', active_page='Dk', testing=bubble)
 
     # conversion = Conversion('', all_list)
     # return render_template("colin/conversion.html", user_input=user_input, conversion=conversion,
