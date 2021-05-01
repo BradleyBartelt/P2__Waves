@@ -149,41 +149,7 @@ def polygon():
 
     return render_template("colin/college_board_polygon.html", active_page='colin', stringUse= "200,10,250,190,160,210", numbList = [200,10,250,190,160,210] )
 
-@colin_bp.route('/translate', methods=["GET", "POST"])
-def translate():
-    if request.form:
-        # getting the different types of information that was previously used
-        string_to_user = request.form.get("stringUse")
-        list_to_user = request.form.get("listToPass")
 
-        #return_list = create_coord_list()
-
-        #print("create_coord_list()", create_coord_list())
-
-        #for debugging purposes
-        print("before:" +str(list_to_user))
-
-        # Converting string to list
-        res = list_to_user.strip('][').split(', ')
-
-        # printing final result and its type
-        print ("final list", res)
-        print (type(res))
-
-        # converting string values to floats
-        for i in range(len(res)):
-            res[i] = int(res[i])
-
-        print(res)
-
-        for i in range(len(res)):
-            res[i] = int(res[i]) + 10
-
-        print(res)
-
-        final_coord = create_string(res)
-
-        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = final_coord, listToPass = res, numbList=res)
 
 def translateBy(res, valuex, valuey):
     for i in range(len(res)):
@@ -193,8 +159,10 @@ def translateBy(res, valuex, valuey):
             res[i] = res[i] - int(valuey)
     return res
 
+
+
 @colin_bp.route('/translate2', methods=["GET", "POST"])
-def translate2():
+def translate():
     if request.form:
         user_input_x = request.form.get("x_trans1")
         user_input_y = request.form.get("y_trans1")
@@ -205,3 +173,4 @@ def translate2():
         listToPass = str(return_list)
 
         return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
+
