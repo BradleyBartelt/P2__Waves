@@ -32,7 +32,8 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 - Colin 
     - worked on the admin page
         - worked on connecting up the database information to be shown in the front end
-    
+    - worked on college board submission redrawing polygon based off of user input
+
 ### week 3 - 4
 
 ## Python Mini Labs
