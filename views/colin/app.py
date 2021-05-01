@@ -126,23 +126,53 @@ def create_coord_list():
         b = b + 1
 
     return all_list
+def create_string(return_list):
+    coord_string = ''
+    for i in range(len(return_list)):
+        if i > 0:
+            coord_string = coord_string+ ","+str(return_list[i])
+        else:
+            coord_string = coord_string+ str(return_list[i])
+    return coord_string
 
 @colin_bp.route('/polygon', methods=["GET", "POST"])
 def polygon():
     if request.form:
 
         return_list = create_coord_list()
+        finalString = create_string(return_list)
 
-        print(return_list)
+        listToPass = str(return_list)
+        print("list to pass: " +str(listToPass))
+        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass)
 
-        coord_string = ''
-        for i in range(len(return_list)):
-            if i > 0:
-                coord_string = coord_string+ ","+str(return_list[i])
-            else:
-                coord_string = coord_string+ str(return_list[i])
-        final_coord_string = str(coord_string)
+    return render_template("colin/college_board_polygon.html", active_page='colin')
 
-        return render_template("colin/college_board_polygon.html",stringDisplay='billy',  active_page='colin', stringUse = final_coord_string)
+@colin_bp.route('/translate', methods=["GET", "POST"])
+def translate():
+    if request.form:
+        string_to_user = request.form.get("stringUse")
+        list_to_user = request.form.get("listToPass")
+        print("before:" +str(list_to_user))
 
-    return render_template("colin/college_board_polygon.html",stringDisplay='none',  active_page='colin')
+        # Converting string to list
+        res = list_to_user.strip('][').split(', ')
+
+        # printing final result and its type
+        print ("final list", res)
+        print (type(res))
+
+        # converting string values to floats
+        for i in range(len(res)):
+            res[i] = int(res[i])
+
+        print(res)
+
+        for i in range(len(res)):
+            res[i] = int(res[i]) + 10
+
+        print(res)
+
+        final_coord = create_string(res)
+
+        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = final_coord, listToPass = res)

@@ -67,7 +67,15 @@
                 <td><input style="width: 70px" name="y_coord3" type="number" required value="210"></td>
               </tr>
             </table>
+            <input type="text" name="stringUse" value="{{stringUse}}" hidden>
+            <input type="text" name="listToPass" value="{{listToPass}}" hidden>
             <input style="margin-bottom: 10px" id='submitbutton' type="submit" class="button" value="Submit">
+          </form>
+
+          <form action="{{ url_for('colin_bp.translate') }}" method="post">
+            <input type="text" name="stringUse" value="{{stringUse}}" hidden>
+            <input type="text" name="listToPass" value="{{listToPass}}" hidden>
+            <input style="margin-bottom: 10px" type="submit" class="button" value="Translate">
           </form>
         </div>
       </div>
@@ -81,6 +89,7 @@
           <h3>Output</h3>
           <p>Here are the coordinates of the points of the polygon</p>
           <p>{{stringUse}}</p>
+          <p>{{listToPass}}</p>
           <svg height="210" width="500">
             <polygon points={{stringUse}} style="fill:lime;stroke:purple;stroke-width:1" />
           </svg>
