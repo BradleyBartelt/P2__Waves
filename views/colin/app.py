@@ -136,6 +136,9 @@ def create_string(return_list):
             coord_string = coord_string+ str(return_list[i])
     return coord_string
 
+inital_coords = [200,10,250,190,160,210]
+inital_string = create_string(inital_coords)
+
 @colin_bp.route('/polygon', methods=["GET", "POST"])
 def polygon():
     if request.form:
@@ -147,16 +150,19 @@ def polygon():
         print("list to pass: " +str(listToPass))
         return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
-    return render_template("colin/college_board_polygon.html", active_page='colin', stringUse= "200,10,250,190,160,210", numbList = [200,10,250,190,160,210] )
+    return render_template("colin/college_board_polygon.html", active_page='colin', stringUse= inital_string, numbList = inital_coords )
 
 
 
-def translateBy(res, valuex, valuey):
-    for i in range(len(res)):
-        if i % 2 == 0:
-            res[i] = int(res[i]) + int(valuex)
-        else:
-            res[i] = res[i] - int(valuey)
+def translateBy(res, valuex, valuey, reset):
+    if reset == 'reset':
+        res = inital_coords
+    else:
+        for i in range(len(res)):
+            if i % 2 == 0:
+                res[i] = int(res[i]) + int(valuex)
+            else:
+                res[i] = res[i] - int(valuey)
     return res
 
 
@@ -168,7 +174,7 @@ def translate():
         user_input_y = request.form.get("y_trans1")
 
         return_list = create_coord_list()
-        return_list = translateBy(return_list, user_input_x, user_input_y)
+        return_list = translateBy(return_list, user_input_x, user_input_y, '')
         finalString = create_string(return_list)
         listToPass = str(return_list)
 
@@ -178,9 +184,7 @@ def translate():
 def reset():
     if request.form:
         return_list = create_coord_list()
-        return_list_default_x = 200 - int(return_list[0])
-        return_list_default_y = -(10 - int(return_list[1]))
-        return_list = translateBy(return_list, return_list_default_x, return_list_default_y)
+        return_list = translateBy([], 0, 0, 'reset')
         finalString = create_string(return_list)
         listToPass = str(return_list)
 
