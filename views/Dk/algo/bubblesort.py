@@ -6,10 +6,10 @@ input_array=[]
 #print("Please input list items as arguments")
 #print("\nExample: ./bubblesort.py <item1> [item2] [item3] [item4] ...")
 #quit()
-i=1
-while (i < len(sys.argv)):
-    input_array.append(int(sys.argv[i]))
-    i+=1
+#i=1
+#while (i < len(sys.argv)):
+#    input_array.append(int(sys.argv[i]))
+#    i+=1
 
 def bubbleSort(array):
     length=len(array)
