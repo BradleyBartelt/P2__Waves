@@ -15,9 +15,11 @@ def minilabB():
     if request.form:
         return render_template("minilabB.html", binaryclass=Binaryclass(int(request.form.get("input"))))
     return render_template("minilabB.html", binaryclass=Binaryclass(2))
+
 @bradley_bp.route('/bubblesorter',methods = ["GET","POST"])
 def bubblesorter():
+    inputlist = [1,0]
     if request.form:
-        return render_template("bubblesorter.html", listerclass=Listerclass(int(request.form.get("input"))))
-    return render_template("bubblesorter.html", listerclass=Listerclass(2))
+        return render_template("bubbles.html", listerclass=Listerclass(request.form.get("input").split(" ")))
+    return render_template("bubbles.html", listerclass=Listerclass(inputlist))
 
