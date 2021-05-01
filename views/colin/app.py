@@ -108,6 +108,7 @@ def conversion():
     return render_template("colin/conversion.html", conversion=conversion, list_conversion=conversion._list ,active_page='colin')
 
 def create_coord_list():
+    # this is taking the information from the input boxes
     all_list = []
     b = 1 # to ensure first number is 0
     for i in range(3):
@@ -144,15 +145,22 @@ def polygon():
 
         listToPass = str(return_list)
         print("list to pass: " +str(listToPass))
-        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass)
+        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
-    return render_template("colin/college_board_polygon.html", active_page='colin')
+    return render_template("colin/college_board_polygon.html", active_page='colin', stringUse= "200,10,250,190,160,210", numbList = [200,10,250,190,160,210] )
 
 @colin_bp.route('/translate', methods=["GET", "POST"])
 def translate():
     if request.form:
+        # getting the different types of information that was previously used
         string_to_user = request.form.get("stringUse")
         list_to_user = request.form.get("listToPass")
+
+        #return_list = create_coord_list()
+
+        #print("create_coord_list()", create_coord_list())
+
+        #for debugging purposes
         print("before:" +str(list_to_user))
 
         # Converting string to list
@@ -175,4 +183,25 @@ def translate():
 
         final_coord = create_string(res)
 
-        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = final_coord, listToPass = res)
+        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = final_coord, listToPass = res, numbList=res)
+
+def translateBy(res, valuex, valuey):
+    for i in range(len(res)):
+        if i % 2 == 0:
+            res[i] = int(res[i]) + int(valuex)
+        else:
+            res[i] = res[i] - int(valuey)
+    return res
+
+@colin_bp.route('/translate2', methods=["GET", "POST"])
+def translate2():
+    if request.form:
+        user_input_x = request.form.get("x_trans1")
+        user_input_y = request.form.get("y_trans1")
+
+        return_list = create_coord_list()
+        return_list = translateBy(return_list, user_input_x, user_input_y)
+        finalString = create_string(return_list)
+        listToPass = str(return_list)
+
+        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)

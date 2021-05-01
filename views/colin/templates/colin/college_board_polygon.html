@@ -53,18 +53,18 @@
               </tr>
               <tr>
                 <td style="color: white;">1</td>
-                <td><input style="width: 70px" name="x_coord1" type="number" required value="200"></td>
-                <td><input style="width: 70px" name="y_coord1" type="number" required value="10"></td>
+                <td><input style="width: 70px" name="x_coord1" type="number" required value="{{numbList[0]}}"></td>
+                <td><input style="width: 70px" name="y_coord1" type="number" required value="{{numbList[1]}}"></td>
               </tr>
               <tr>
                 <td style="color: white;">2</td>
-                <td><input style="width: 70px" name="x_coord2" type="number" required value="250"></td>
-                <td><input style="width: 70px" name="y_coord2" type="number" required value="190"></td>
+                <td><input style="width: 70px" name="x_coord2" type="number" required value="{{numbList[2]}}"></td>
+                <td><input style="width: 70px" name="y_coord2" type="number" required value="{{numbList[3]}}"></td>
               </tr>
               <tr>
                 <td style="color: white;">3</td>
-                <td><input style="width: 70px" name="x_coord3" type="number" required value="160"></td>
-                <td><input style="width: 70px" name="y_coord3" type="number" required value="210"></td>
+                <td><input style="width: 70px" name="x_coord3" type="number" required value="{{numbList[4]}}"></td>
+                <td><input style="width: 70px" name="y_coord3" type="number" required value="{{numbList[5]}}"></td>
               </tr>
             </table>
             <input type="text" name="stringUse" value="{{stringUse}}" hidden>
@@ -72,7 +72,27 @@
             <input style="margin-bottom: 10px" id='submitbutton' type="submit" class="button" value="Submit">
           </form>
 
-          <form action="{{ url_for('colin_bp.translate') }}" method="post">
+          <form action="{{ url_for('colin_bp.translate2') }}" method="post">
+            <table>
+              <tr>
+                <th></th>
+                <th style="color: white;">X</th>
+                <th style="color: white;">Y</th>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input style="width: 70px" name="x_trans1" type="number" value="0"></td>
+                <td><input style="width: 70px" name="y_trans1" type="number" value="0"></td>
+              </tr>
+            </table>
+
+            <input style="width: 70px" name="x_coord1" type="number" required value="{{numbList[0]}}" hidden>
+            <input style="width: 70px" name="y_coord1" type="number" required value="{{numbList[1]}}" hidden>
+            <input style="width: 70px" name="x_coord2" type="number" required value="{{numbList[2]}}" hidden>
+            <input style="width: 70px" name="y_coord2" type="number" required value="{{numbList[3]}}" hidden>
+            <input style="width: 70px" name="x_coord3" type="number" required value="{{numbList[4]}}" hidden>
+            <input style="width: 70px" name="y_coord3" type="number" required value="{{numbList[5]}}" hidden>
+
             <input type="text" name="stringUse" value="{{stringUse}}" hidden>
             <input type="text" name="listToPass" value="{{listToPass}}" hidden>
             <input style="margin-bottom: 10px" type="submit" class="button" value="Translate">
@@ -87,11 +107,11 @@
       <div class="col-md-5">
         <div style="background-color: #CD7F4D">
           <h3>Output</h3>
-          <p>Here are the coordinates of the points of the polygon</p>
+          <!--<p>Here are the coordinates of the points of the polygon</p>
           <p>{{stringUse}}</p>
-          <p>{{listToPass}}</p>
+          <p>{{listToPass}}</p>-->
           <svg height="210" width="500">
-            <polygon points={{stringUse}} style="fill:lime;stroke:purple;stroke-width:1" />
+            <polygon points={{stringUse}} style="fill:lime;stroke:purple;stroke-width:1;" />
           </svg>
         </div>
       </div>
