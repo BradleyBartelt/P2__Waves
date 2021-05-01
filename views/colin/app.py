@@ -174,3 +174,15 @@ def translate():
 
         return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
+@colin_bp.route('/reset', methods=["GET", "POST"])
+def reset():
+    if request.form:
+        return_list = create_coord_list()
+        return_list_default_x = 200 - int(return_list[0])
+        return_list_default_y = -(10 - int(return_list[1]))
+        return_list = translateBy(return_list, return_list_default_x, return_list_default_y)
+        finalString = create_string(return_list)
+        listToPass = str(return_list)
+
+        return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
+

@@ -97,6 +97,20 @@
             <input type="text" name="listToPass" value="{{listToPass}}" hidden>
             <input style="margin-bottom: 10px" type="submit" class="button" value="Translate">
           </form>
+
+          <form action="{{ url_for('colin_bp.reset') }}" method="post">
+
+            <input style="width: 70px" name="x_coord1" type="number" required value="{{numbList[0]}}" hidden>
+            <input style="width: 70px" name="y_coord1" type="number" required value="{{numbList[1]}}" hidden>
+            <input style="width: 70px" name="x_coord2" type="number" required value="{{numbList[2]}}" hidden>
+            <input style="width: 70px" name="y_coord2" type="number" required value="{{numbList[3]}}" hidden>
+            <input style="width: 70px" name="x_coord3" type="number" required value="{{numbList[4]}}" hidden>
+            <input style="width: 70px" name="y_coord3" type="number" required value="{{numbList[5]}}" hidden>
+
+            <input type="text" name="stringUse" value="{{stringUse}}" hidden>
+            <input type="text" name="listToPass" value="{{listToPass}}" hidden>
+            <input style="margin-bottom: 10px" type="submit" class="button" value="reset">
+          </form>
         </div>
       </div>
       <!-- Content-->
