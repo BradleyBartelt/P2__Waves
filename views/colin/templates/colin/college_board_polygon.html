@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}College Board Project{% endblock %}</title>
+
+  <style>
+    .single {
+      background-color: #6969AC;
+      color: white;
+    }
+  </style>
+</head>
+
+{% block content %}
+<div class="container">
+
+  <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+    <!-- Title -->
+    <div class="col-12" style="text-align: center;">
+      <h1><strong>Poly Gon Draw</strong></h1>
+      <p>Objective is to never miss a conversion question on the AP practice test again</p>
+    </div>
+
+    <!-- Input and Content -->
+    <div class="jumbotron text-center row">
+      <!-- Input -->
+      <!-- color pallet I am using: https://coolors.co/30292f-413f54-5f5aa2-355691-3f4045-->
+      <div class="col-md-5">
+        <div id="multi" style="background-color: #05556D">
+          <form action="{{ url_for('colin_bp.polygon') }}" method="post">
+            <input style="margin-bottom: 10px" name="user_input2" type="number" required>
+            <input style="margin-bottom: 10px" id='submitbutton' type="submit" class="button" value="Submit">
+          </form>
+        </div>
+      </div>
+
+      <!-- Content-->
+      <!-- Color Pallet: https://coolors.co/313715-d16014-939f5c-bbce8a-e2f9b8-->
+
+
+      <div class="col-md-5">
+        <div style="background-color: #CD7F4D">
+          <h3>Output</h3>
+          <p>{{stringDisplay}}</p>
+          <br>
+          <br>
+          <br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<script>
+  var submitButton = document.getElementById("submitbutton");
+
+  submitButton.addEventListener("click", function(){
+    console.log('clicked')
+  }, false);
+</script>
+{% endblock %}
