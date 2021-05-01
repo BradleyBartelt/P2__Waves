@@ -53,18 +53,18 @@
               </tr>
               <tr>
                 <td style="color: white;">1</td>
-                <td><input style="width: 70px" name="x_coord1" type="number" required></td>
-                <td><input style="width: 70px" name="y_coord1" type="number" required></td>
+                <td><input style="width: 70px" name="x_coord1" type="number" required value="200"></td>
+                <td><input style="width: 70px" name="y_coord1" type="number" required value="10"></td>
               </tr>
               <tr>
                 <td style="color: white;">2</td>
-                <td><input style="width: 70px" name="x_coord2" type="number" required></td>
-                <td><input style="width: 70px" name="y_coord2" type="number" required></td>
+                <td><input style="width: 70px" name="x_coord2" type="number" required value="250"></td>
+                <td><input style="width: 70px" name="y_coord2" type="number" required value="190"></td>
               </tr>
               <tr>
                 <td style="color: white;">3</td>
-                <td><input style="width: 70px" name="x_coord3" type="number" required></td>
-                <td><input style="width: 70px" name="y_coord3" type="number" required></td>
+                <td><input style="width: 70px" name="x_coord3" type="number" required value="160"></td>
+                <td><input style="width: 70px" name="y_coord3" type="number" required value="210"></td>
               </tr>
             </table>
             <input style="margin-bottom: 10px" id='submitbutton' type="submit" class="button" value="Submit">
@@ -79,10 +79,11 @@
       <div class="col-md-5">
         <div style="background-color: #CD7F4D">
           <h3>Output</h3>
-          <pt>{{stringDisplay}}</pt>
-          <br>
-          <br>
-          <br>
+          <p>Here are the coordinates of the points of the polygon</p>
+          <p>{{stringUse}}</p>
+          <svg height="210" width="500">
+            <polygon points={{stringUse}} style="fill:lime;stroke:purple;stroke-width:1" />
+          </svg>
         </div>
       </div>
     </div>

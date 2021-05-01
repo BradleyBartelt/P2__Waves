@@ -107,11 +107,42 @@ def conversion():
     conversion = Conversion(0, [1,2,3,4,5,6,7,8])
     return render_template("colin/conversion.html", conversion=conversion, list_conversion=conversion._list ,active_page='colin')
 
+def create_coord_list():
+    all_list = []
+    b = 1 # to ensure first number is 0
+    for i in range(3):
+
+        # defining precursor id
+        string_used_x = 'x_coord' + str(b)
+        string_used_y = 'y_coord' + str(b)
+
+        # getting values from form
+        user_input_x = request.form.get(string_used_x)
+        user_input_y = request.form.get(string_used_y)
+
+        # appending values into list from the form in the order, x coordinate, y coordinate
+        all_list.append(int(user_input_x))
+        all_list.append(int(user_input_y))
+        b = b + 1
+
+    return all_list
+
 @colin_bp.route('/polygon', methods=["GET", "POST"])
 def polygon():
     if request.form:
-        print('button was pressed')
-        string = "I am a string"
-        return render_template("colin/college_board_polygon.html",stringDisplay='billy',  active_page='colin')
+
+        return_list = create_coord_list()
+
+        print(return_list)
+
+        coord_string = ''
+        for i in range(len(return_list)):
+            if i > 0:
+                coord_string = coord_string+ ","+str(return_list[i])
+            else:
+                coord_string = coord_string+ str(return_list[i])
+        final_coord_string = str(coord_string)
+
+        return render_template("colin/college_board_polygon.html",stringDisplay='billy',  active_page='colin', stringUse = final_coord_string)
 
     return render_template("colin/college_board_polygon.html",stringDisplay='none',  active_page='colin')
