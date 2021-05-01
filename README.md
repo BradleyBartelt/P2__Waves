@@ -102,5 +102,24 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 -  Blueprint setup (Diego)
     - [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57650333])
 
+## Pull code from Github and update packages
+#### In console/terminal (every update: pull code and check package dependencies)...
+
+pi@raspberrypi:~ $  ``` sudo apt update; sudo apt upgrade```
+
+pi@raspberrypi:~ $  ``` cd ~/P2__Waves```
+
+pi@raspberrypi:~/P2__Waves $ ```  git pull```
+
+pi@raspberrypi:~/P2__Waves $ ```  source wave/bin/activate```
+
+#### In console/terminal with virtualenv activitate (every time: check and update packages)...
+
+(wave) pi@raspberrypi:~/P2__Waves $ ```  sudo pip install -r requirements.txt```
+
+#### In console/terminal (every time AFTER initial setup: restart gunicorn)...
+
+pi@raspberrypi:~ $ ```sudo systemctl restart  wave.service```
+
 ### Credit
 - [Favicon Used](https://www.deviantart.com/chinyiun/art/Pixel-art-pizza-852260462)
