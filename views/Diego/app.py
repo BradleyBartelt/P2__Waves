@@ -31,7 +31,7 @@ bootstrap = Bootstrap(app)
 
 @app.route('/')
 def index():
-    return render_template("home.html")
+    return render_template("bradhome.html")
 
 @app.route('/easteregg')
 def PythonMiniLab():
