@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Network Map Maker{% endblock %}</title>
+</head>
+
+<style>
+    #canvas {
+
+    }
+</style>
+
+{% block content %}
+<div style="margin-left: 15px" >
+<h1>Network Map</h1>
+
+    <div id="canvas" style="
+        width: 500px;
+        height: 500px;
+        background-color: #0f6674;
+        z-index: -1">
+    </div>
+</div>
+
+<script>
+    numbAddedBoxes = 0;
+
+    canvas = document.getElementById("canvas")
+    let rect = canvas.getBoundingClientRect();
+    b = 0
+    canvas.addEventListener("click", function(event){
+
+        var x = event.clientX - rect.left;     // Get the horizontal coordinate
+        var y = event.clientY - rect.top;    // Get the vertical coordinate
+
+        console.log('clicked canvas')
+        var coor = "X coords: " + x + ", Y coords: " + y;
+        console.log(coor)
+
+        b = Number(b) + 1;
+        addBox(x,y,b)
+
+    }, false);
+
+
+    function addBox(x,y, z_index) {
+        var i = numbAddedBoxes + 1
+        var idButton = "device" + i;
+
+
+
+        new_box = document.createElement('div');
+        new_box.style.position = 'absolute';
+        new_box.style.background = "rgb(126, 127, 143)";
+        new_box.style.width ='50px';
+        new_box.style.height ='50px';
+        new_box.style.marginLeft = String(x)+'px';
+        new_box.style.marginTop = String(y)+'px';
+        new_box.style.zIndex = z_index;
+
+        console.log("getting the new idName: " + String(idButton));
+        new_box.setAttribute("id", idButton); //defining the id for the box
+        canvas.appendChild(new_box);
+
+        //updateValue.value = Number(updateValue.value) + Number(1);
+        //console.log(updateValue.value)
+    }
+</script>
+{% endblock %}

@@ -190,3 +190,10 @@ def reset():
 
         return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
+@colin_bp.route('/network')
+def network():
+    return render_template('colin/network_map.html', active_page='colin')
+
+@colin_bp.route('/solar')
+def solar():
+    return render_template('colin/planets.html', active_page='colin')
