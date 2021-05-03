@@ -28,6 +28,7 @@
     <ul>
         <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position.">article drawing</a></li>
         <li><a href="https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_line">svg line</a></li>
+        <li><a href="https://www.geeksforgeeks.org/javascript-removeeventlistener-method-with-examples/#:~:text=The%20removeEventListener()%20is%20an,remove%20a%20click%20event%20listener.">removing listners</a></li>
     </ul>
 </div>
 
@@ -55,18 +56,6 @@
         //addingListners();
     }, false);
 
-    /*function addingListners(){
-        var i;
-        for (i = 1; i< b + 1;){
-            var string = "device" + String(b)
-            var device = document.getElementById(string)
-            device.addEventListener("mouseover", function (){
-                console.log("clicked: " + string)
-            }, false )
-        }
-    }*/
-
-
     function addBox(x,y, increment) {
         var idButton = "device" + increment;
 
@@ -84,7 +73,10 @@
         canvas.appendChild(new_box);
 
         new_box.addEventListener("mouseover", function (){
-            console.log("mouse over: " + idButton)
+            // contnets of the hover over device listner
+            console.log("mouse over: " + idButton);
+
+            //canvas.removeEventListener("click");
         }, false )
     }
 </script>
