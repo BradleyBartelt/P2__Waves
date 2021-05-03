@@ -19,7 +19,7 @@
     <div id="canvas" style="
         width: 500px;
         height: 500px;
-        background-color: #0f6674;
+        background-color: #ecdfff;
         z-index: -1">
     </div>
 
@@ -33,6 +33,7 @@
 </div>
 
 <script>
+    var canvasState = "unLocked"
     numbAddedBoxes = 0;
 
     canvas = document.getElementById("canvas")
@@ -40,20 +41,23 @@
     b = 0
 
     canvas.addEventListener("click", function(event){
+        if (canvasState == "unLocked") {
+            var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
+            var y = event.clientY - rect.top -25;    // Get the vertical coordinate
 
-        var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
-        var y = event.clientY - rect.top -25;    // Get the vertical coordinate
+            //console.log('clicked canvas')
+            var coor = "X coords: " + x + ", Y coords: " + y;
+            //console.log(coor)
 
-        //console.log('clicked canvas')
-        var coor = "X coords: " + x + ", Y coords: " + y;
-        //console.log(coor)
+            b = Number(b) + 1;
+            addBox(x,y,b)
 
-        b = Number(b) + 1;
-        addBox(x,y,b)
+            console.log("number of deivces present:" +String(b))
 
-        console.log("number of deivces present:" +String(b))
-
-        //addingListners();
+            //addingListners();
+        } else {
+            return false;
+        }
     }, false);
 
     function addBox(x,y, increment) {
@@ -73,10 +77,12 @@
         canvas.appendChild(new_box);
 
         new_box.addEventListener("mouseover", function (){
-            // contnets of the hover over device listner
             console.log("mouse over: " + idButton);
+            canvasState = "locked"
+        }, false )
 
-            //canvas.removeEventListener("click");
+        new_box.addEventListener("mouseout", function (){
+            canvasState = "unLocked"
         }, false )
     }
 </script>
