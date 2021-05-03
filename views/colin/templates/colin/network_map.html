@@ -16,20 +16,22 @@
 <div style="margin-left: 15px" >
 <h1>Network Map</h1>
 
-    <div id="canvas" style="
-        width: 500px;
-        height: 500px;
-        background-color: #ecdfff;
-        z-index: -1">
+    <!-- there is an outer div "canvas that is used to create the divs that represet the devices"-->
+    <div id="canvas" style="width: 500px; height: 500px; background-color: #ecdfff; z-index: -1; position: absolute">
+        <!-- there is an inner div to draw the connections between devices-->
+        <canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
     </div>
 
-    <br>
-    <p>Refrences</p>
-    <ul>
-        <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position.">article drawing</a></li>
-        <li><a href="https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_line">svg line</a></li>
-        <li><a href="https://www.geeksforgeeks.org/javascript-removeeventlistener-method-with-examples/#:~:text=The%20removeEventListener()%20is%20an,remove%20a%20click%20event%20listener.">removing listners</a></li>
-    </ul>
+    <div style="margin-top: 500px; position: absolute; z-index: -10">
+        <br>
+        <p>References</p>
+        <ul>
+            <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position.">article drawing</a></li>
+            <li><a href="https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_line">svg line</a></li>
+            <li><a href="https://www.geeksforgeeks.org/javascript-removeeventlistener-method-with-examples/#:~:text=The%20removeEventListener()%20is%20an,remove%20a%20click%20event%20listener.">removing listners</a></li>
+            <li><a href="https://www.javascripttutorial.net/web-apis/javascript-draw-line/"> in drawing lines from initial click to final click</a></li>
+        </ul>
+    </div>
 </div>
 
 <script>
@@ -39,30 +41,34 @@
     canvas = document.getElementById("canvas")
     let rect = canvas.getBoundingClientRect();
     b = 0
+    z = 0
+    connectionStatus = 0;
 
     canvas.addEventListener("click", function(event){
+
+        var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
+        var y = event.clientY - rect.top -25;    // Get the vertical coordinate
+
+        var coor = "X coords: " + x + ", Y coords: " + y;
+
+
         if (canvasState == "unLocked") {
-            var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
-            var y = event.clientY - rect.top -25;    // Get the vertical coordinate
-
-            //console.log('clicked canvas')
-            var coor = "X coords: " + x + ", Y coords: " + y;
-            //console.log(coor)
-
+            //if the canvas is unlocked, a new box will be created
             b = Number(b) + 1;
-            addBox(x,y,b)
-
-            console.log("number of deivces present:" +String(b))
-
-            //addingListners();
+            addBox(x,y,b);
+            console.log("number of deivces present:" + String(b));
         } else {
-            return false;
+            // if the canvas state is locked, this means that mouse is over a div
+            z = Number(z) + 1;
+            addLine(x,y,z)
+            connectionStatus = Number(connectionStatus) + 1;
         }
     }, false);
 
     function addBox(x,y, increment) {
         var idButton = "device" + increment;
 
+        //the code to set all the styles correctly to create a box
         new_box = document.createElement('div');
         new_box.style.position = 'absolute';
         new_box.style.background = "rgb(126, 127, 143)";
@@ -72,18 +78,77 @@
         new_box.style.marginTop = String(y)+'px';
         new_box.style.zIndex = 5;
 
-        //console.log("getting the new idName: " + String(idButton));
         new_box.setAttribute("id", idButton); //defining the id for the box
         canvas.appendChild(new_box);
 
+        // if the mouse is over a device, can not create a device on top of device
         new_box.addEventListener("mouseover", function (){
             console.log("mouse over: " + idButton);
             canvasState = "locked"
         }, false )
 
+        // if the mouse moves out of a device, can create another device
         new_box.addEventListener("mouseout", function (){
             canvasState = "unLocked"
         }, false )
+    }
+
+    //temporary values (default values of where the intial click was)
+    var intialXLinesave = 0;
+    var intialYLinesave = 0;
+
+    function drawLine(ctx, begin, end, stroke = 'black', width = 1) {
+        if (stroke) {
+            ctx.strokeStyle = stroke;
+        }
+
+        if (width) {
+            ctx.lineWidth = width;
+        }
+
+        ctx.beginPath();
+        ctx.moveTo(...begin);
+        ctx.lineTo(...end);
+        ctx.stroke();
+    }
+
+    function addLine (x,y, increment){
+        if (connectionStatus == 0){ //saving the initial position of the first device (happens on the first click)
+            console.log('line start')
+
+            intialXLinesave = x;
+            intialYLinesave = y;
+
+            var startingCoord = "Staring X coords: " + x + ", Y coords: " + y;
+            console.log(startingCoord)
+        }
+        if (connectionStatus == 1){ //starting on the second click
+            new_line = document.createElement('polyline');
+            new_svg = document.createElement('svg');
+            new_box.style.position = 'absolute';
+
+            console.log('line stop')
+
+            //var endingCoords = "Ending X coords: " + x + ", Y coords: " + y;
+            //console.log(endingCoords)
+
+            var allPos = intialXLinesave +"," + intialYLinesave+","+x + ","+y;
+            console.log(allPos)
+
+            //creating the line
+            const canvasInner = document.getElementById('canvasInner');
+            if (canvasInner.getContext) {
+                const ctx = canvasInner.getContext('2d');
+                drawLine(ctx, [intialXLinesave+25, intialYLinesave+25], [x+25, y+25], 'green', 5); //adding half the width of each box
+            }
+
+            intialXLinesave = 0;
+            intialYLinesave = 0;
+
+            //reseting connection status
+            connectionStatus = -1;
+        }
+
     }
 </script>
 {% endblock %}

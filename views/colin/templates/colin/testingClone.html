@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>repl.it</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<svg id="svgbox"  width="12cm" height="4cm" viewBox="0 0 1200 400"
+     xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <desc>Example polyline01 - increasingly larger bars</desc>
+
+  <!-- Show outline of viewport using 'rect' element -->
+  <rect x="1" y="1" width="1198" height="398"
+        fill="none" stroke="blue" stroke-width="2" />
+
+  <polyline id="intialLine"fill="none" stroke="blue" stroke-width="10"
+            points="50,375
+                          150,375" />
+</svg>
+
+<button onclick="myFunction()">Try it</button>
+
+<script src="script.js">
+  function myFunction() {
+    var itm = document.getElementById("svgbox").lastChild;
+    var cln = itm.cloneNode(true);
+    document.getElementById("svgbox").appendChild(cln);
+  }
+</script>
+</body>
+</html>

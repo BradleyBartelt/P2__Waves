@@ -197,3 +197,7 @@ def network():
 @colin_bp.route('/solar')
 def solar():
     return render_template('colin/planets.html', active_page='colin')
+
+@colin_bp.route('/clone')
+def clone():
+    return render_template('colin/testingClone.html', active_page='colin')
