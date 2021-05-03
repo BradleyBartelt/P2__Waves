@@ -22,6 +22,13 @@
         background-color: #0f6674;
         z-index: -1">
     </div>
+
+    <br>
+    <p>Refrences</p>
+    <ul>
+        <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position.">article drawing</a></li>
+        <li><a href="https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_line">svg line</a></li>
+    </ul>
 </div>
 
 <script>
@@ -32,8 +39,8 @@
     b = 0
     canvas.addEventListener("click", function(event){
 
-        var x = event.clientX - rect.left;     // Get the horizontal coordinate
-        var y = event.clientY - rect.top;    // Get the vertical coordinate
+        var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
+        var y = event.clientY - rect.top -25;    // Get the vertical coordinate
 
         console.log('clicked canvas')
         var coor = "X coords: " + x + ", Y coords: " + y;
@@ -45,11 +52,9 @@
     }, false);
 
 
-    function addBox(x,y, z_index) {
-        var i = numbAddedBoxes + 1
-        var idButton = "device" + i;
-
-
+    function addBox(x,y, increment) {
+        //var i = numbAddedBoxes + 1
+        var idButton = "device" + increment;
 
         new_box = document.createElement('div');
         new_box.style.position = 'absolute';
@@ -58,14 +63,11 @@
         new_box.style.height ='50px';
         new_box.style.marginLeft = String(x)+'px';
         new_box.style.marginTop = String(y)+'px';
-        new_box.style.zIndex = z_index;
+        new_box.style.zIndex = 5;
 
         console.log("getting the new idName: " + String(idButton));
         new_box.setAttribute("id", idButton); //defining the id for the box
         canvas.appendChild(new_box);
-
-        //updateValue.value = Number(updateValue.value) + Number(1);
-        //console.log(updateValue.value)
     }
 </script>
 {% endblock %}
