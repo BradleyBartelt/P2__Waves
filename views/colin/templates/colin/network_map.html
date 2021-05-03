@@ -37,23 +37,37 @@
     canvas = document.getElementById("canvas")
     let rect = canvas.getBoundingClientRect();
     b = 0
+
     canvas.addEventListener("click", function(event){
 
         var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
         var y = event.clientY - rect.top -25;    // Get the vertical coordinate
 
-        console.log('clicked canvas')
+        //console.log('clicked canvas')
         var coor = "X coords: " + x + ", Y coords: " + y;
-        console.log(coor)
+        //console.log(coor)
 
         b = Number(b) + 1;
         addBox(x,y,b)
 
+        console.log("number of deivces present:" +String(b))
+
+        //addingListners();
     }, false);
+
+    /*function addingListners(){
+        var i;
+        for (i = 1; i< b + 1;){
+            var string = "device" + String(b)
+            var device = document.getElementById(string)
+            device.addEventListener("mouseover", function (){
+                console.log("clicked: " + string)
+            }, false )
+        }
+    }*/
 
 
     function addBox(x,y, increment) {
-        //var i = numbAddedBoxes + 1
         var idButton = "device" + increment;
 
         new_box = document.createElement('div');
@@ -65,9 +79,13 @@
         new_box.style.marginTop = String(y)+'px';
         new_box.style.zIndex = 5;
 
-        console.log("getting the new idName: " + String(idButton));
+        //console.log("getting the new idName: " + String(idButton));
         new_box.setAttribute("id", idButton); //defining the id for the box
         canvas.appendChild(new_box);
+
+        new_box.addEventListener("mouseover", function (){
+            console.log("mouse over: " + idButton)
+        }, false )
     }
 </script>
 {% endblock %}
