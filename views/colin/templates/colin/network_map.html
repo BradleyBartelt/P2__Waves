@@ -21,6 +21,7 @@
         <!-- there is an inner div to draw the connections between devices-->
         <canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
     </div>
+    <button id="remove_button"> Remove </button>
 
     <div style="margin-top: 500px; position: absolute; z-index: -10">
         <br>
@@ -39,6 +40,25 @@
 <script>
     var canvasState = "unLocked"
     numbAddedBoxes = 0;
+
+    // code for removing the devices
+    var removeBox = document.getElementById("remove_button")
+    var deviceState = "none"
+    var toggleTrash = 0;
+    console.log("device State: none")
+
+    removeBox.addEventListener("click", function(){
+        if (toggleTrash % 2 != 0){
+            deviceState = "none"
+            console.log("device State: none")
+            toggleTrash = Number(toggleTrash) + 1
+        }else {
+            deviceState = "remove"
+            console.log("device State: remove")
+            toggleTrash = Number(toggleTrash) + 1
+        }
+    })
+    //end code to remove devices
 
     canvas = document.getElementById("canvas")
     let rect = canvas.getBoundingClientRect();
