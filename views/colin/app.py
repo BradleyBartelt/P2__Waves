@@ -12,7 +12,7 @@ colin_bp = Blueprint('colin_bp', __name__,
 
 @colin_bp.route('/')
 def index():
-    return render_template('colin/mini_lab_landing.html', active_page='colin')
+    return render_template('colin/.mini_lab_landing.html', active_page='colin')
 
 @colin_bp.route('/template')
 def school():
@@ -205,3 +205,7 @@ def clone():
 @colin_bp.route('/rabbit_racer')
 def rabbit_racer():
     return render_template('colin/rabbit_racer.html', active_page='colin')
+
+@colin_bp.route('/network_div')
+def network_div():
+    return render_template('colin/network_map_div.html', active_page='colin')
