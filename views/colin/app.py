@@ -201,3 +201,7 @@ def solar():
 @colin_bp.route('/clone')
 def clone():
     return render_template('colin/testingClone.html', active_page='colin')
+
+@colin_bp.route('/rabbit_racer')
+def rabbit_racer():
+    return render_template('colin/rabbit_racer.html', active_page='colin')

@@ -49,10 +49,12 @@
 
     removeBox.addEventListener("click", function(){
         if (toggleTrash % 2 != 0){
+            removeBox.style.backgroundColor = "#4CAF50";
             deviceState = "none"
             console.log("device State: none")
             toggleTrash = Number(toggleTrash) + 1
         }else {
+            removeBox.style.backgroundColor = "#dc1b1b";
             deviceState = "remove"
             console.log("device State: remove")
             toggleTrash = Number(toggleTrash) + 1
@@ -71,7 +73,7 @@
         var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
         var y = event.clientY - rect.top -25;    // Get the vertical coordinate
 
-        var coor = "X coords: " + x + ", Y coords: " + y;
+        //var coor = "X coords: " + x + ", Y coords: " + y;
 
 
         if (canvasState == "unLocked") {
@@ -81,9 +83,13 @@
             console.log("number of deivces present:" + String(b));
         } else {
             // if the canvas state is locked, this means that mouse is over a div
-            z = Number(z) + 1;
-            addLine(x,y,z)
-            connectionStatus = Number(connectionStatus) + 1;
+
+            if (deviceState != "remove") {
+                // when the program is not in the remove state
+                z = Number(z) + 1;
+                addLine(x,y,z)
+                connectionStatus = Number(connectionStatus) + 1;
+            }
         }
     }, false);
 
@@ -112,6 +118,15 @@
         // if the mouse moves out of a device, can create another device
         new_box.addEventListener("mouseout", function (){
             canvasState = "unLocked"
+        }, false )
+
+        // if the mouse moves out of a device, can create another device
+        new_box.addEventListener("click", function (){
+            if (deviceState == "remove") {
+                console.log("remove box")
+                var boxRemove = document.getElementById(idButton)
+                boxRemove.remove();
+            }
         }, false )
     }
 
