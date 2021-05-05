@@ -15,24 +15,26 @@
 {% block content %}
 <div style="margin-left: 15px" >
 <h1>Network Map</h1>
-
+<h1 id="state">Create device</h1>
     <!-- there is an outer div "canvas that is used to create the divs that represet the devices"-->
     <div id="canvas" style="width: 500px; height: 500px; background-color: #ecdfff; z-index: -1; position: absolute">
         <!-- there is an inner div to draw the connections between devices-->
         <canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
     </div>
     <button id="remove_button"> Remove </button>
+    <button id="remove_button1"> Clear Lines </button>
 
     <div style="margin-top: 500px; position: absolute; z-index: -10">
         <br>
         <p>References</p>
         <ul>
-            <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position.">article drawing</a></li>
-            <li><a href="https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_line">svg line</a></li>
-            <li><a href="https://www.geeksforgeeks.org/javascript-removeeventlistener-method-with-examples/#:~:text=The%20removeEventListener()%20is%20an,remove%20a%20click%20event%20listener.">removing listners</a></li>
-            <li><a href="https://www.javascripttutorial.net/web-apis/javascript-draw-line/"> in drawing lines from initial click to final click</a></li>
-            <li><a href="https://stackoverflow.com/questions/18012420/draw-diagonal-lines-in-div-background-with-css"> way to create the connections with divs</a></li>
-            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate()">way to rotate a div</a></li>
+            <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position." target="_blank">article drawing</a></li>
+            <li><a href="https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_line" target="_blank">svg line</a></li>
+            <li><a href="https://www.geeksforgeeks.org/javascript-removeeventlistener-method-with-examples/#:~:text=The%20removeEventListener()%20is%20an,remove%20a%20click%20event%20listener." target="_blank">removing listners</a></li>
+            <li><a href="https://www.javascripttutorial.net/web-apis/javascript-draw-line/" target="_blank"> in drawing lines from initial click to final click</a></li>
+            <li><a href="https://stackoverflow.com/questions/18012420/draw-diagonal-lines-in-div-background-with-css" target="_blank"> way to create the connections with divs</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate()" target="_blank">way to rotate a div</a></li>
+            <li><a href="https://stackoverflow.com/questions/7365436/erasing-previously-drawn-lines-on-an-html5-canvas" target="_blank">way to clear canvas of connection lines</a></li>
         </ul>
     </div>
 </div>
@@ -41,18 +43,26 @@
     var canvasState = "unLocked"
     numbAddedBoxes = 0;
 
+    var gameState = document.getElementById("state")
+
     // code for removing the devices
     var removeBox = document.getElementById("remove_button")
     var deviceState = "none"
     var toggleTrash = 0;
     console.log("device State: none")
 
+    //default color of the trash button
+    removeBox.style.backgroundColor = "#4CAF50";
     removeBox.addEventListener("click", function(){
         if (toggleTrash % 2 != 0){
             removeBox.style.backgroundColor = "#4CAF50";
             deviceState = "none"
             console.log("device State: none")
             toggleTrash = Number(toggleTrash) + 1
+
+            // need to move the canvas state as unlocked to create the device. This is as unlocked occurs when the mouse moves out of the device
+            // as the device would be removed when clicked, mouse out would never occur again
+            canvasState = "unLocked"
         }else {
             removeBox.style.backgroundColor = "#dc1b1b";
             deviceState = "remove"
@@ -75,22 +85,28 @@
 
         //var coor = "X coords: " + x + ", Y coords: " + y;
 
-
         if (canvasState == "unLocked") {
+            gameState.innerHTML = "add box";
             //if the canvas is unlocked, a new box will be created
             b = Number(b) + 1;
             addBox(x,y,b);
             console.log("number of deivces present:" + String(b));
-        } else {
+
+        }
+        if (canvasState == "locked") {
             // if the canvas state is locked, this means that mouse is over a div
+            gameState.innerHTML = "Locked";
 
             if (deviceState != "remove") {
+                gameState.innerHTML = "add line";
                 // when the program is not in the remove state
                 z = Number(z) + 1;
                 addLine(x,y,z)
                 connectionStatus = Number(connectionStatus) + 1;
             }
+
         }
+
     }, false);
 
     function addBox(x,y, increment) {
@@ -120,17 +136,21 @@
             canvasState = "unLocked"
         }, false )
 
-        // if the mouse moves out of a device, can create another device
+        // if the state is correct then remove the box
         new_box.addEventListener("click", function (){
             if (deviceState == "remove") {
                 console.log("remove box")
                 var boxRemove = document.getElementById(idButton)
                 boxRemove.remove();
             }
-        }, false )
+        })
     }
 
-    //temporary values (default values of where the intial click was)
+    /*** Here is where the drawing line code occurs ***/
+    const canvasInner = document.getElementById('canvasInner');
+    const ctx = canvasInner.getContext('2d');
+
+    //temporary values (default values of where the inital click was)
     var intialXLinesave = 0;
     var intialYLinesave = 0;
 
@@ -173,9 +193,7 @@
             console.log(allPos)
 
             //creating the line
-            const canvasInner = document.getElementById('canvasInner');
             if (canvasInner.getContext) {
-                const ctx = canvasInner.getContext('2d');
                 drawLine(ctx, [intialXLinesave+25, intialYLinesave+25], [x+25, y+25], 'green', 5); //adding half the width of each box
             }
 
@@ -187,5 +205,11 @@
         }
 
     }
+
+    var removeLine = document.getElementById("remove_button1")
+    removeLine.addEventListener("click", function (){
+        console.log("clear canvas")
+        ctx.clearRect(0, 0, canvasInner.width, canvasInner.width);
+    })
 </script>
 {% endblock %}
