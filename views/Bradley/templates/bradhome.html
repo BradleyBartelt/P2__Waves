@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+{% extends "base2.html" %}
+{{ super() }}
 
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <title>Bradley Mini Projects</title>
@@ -12,5 +15,6 @@
 <a href="{{ url_for('bradley_bp.bubblesorter') }}">Bubble sort</a>
 <br>
 </body>
+{% endblock %}
 
 </html>
