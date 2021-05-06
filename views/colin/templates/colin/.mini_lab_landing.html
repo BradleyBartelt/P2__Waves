@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 {% extends "base2.html" %}
-{{ super() }}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Colin{% endblock %}</title>
+
+    {% block style %}
+    {% endblock %}
 </head>
 {% block content %}
 <body>

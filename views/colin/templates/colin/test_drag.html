@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Test Drag{% endblock %}</title>
+
+
+    {% block style %}
+
+    <style>
+        #redDiv {
+            width: 100px;
+            height: 50px;
+            background-color: red;
+            z-index: -5;
+            margin-top: 100px;
+            margin-left: 100px;
+        }
+
+        #canvas {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background-color: rgb(238, 215, 247);
+        }
+    </style>
+    {% endblock %}
+</head>
+
+{% block content %}
+<div style="margin-left: 15px" >
+    <h1>Test Drag</h1>
+    <div id="canvas" style="width: 500px; height: 500px; background-color: #ecdfff; z-index: -1;">
+        <br>
+        <p>hello there</p>
+        <div id="redDiv"></div>
+    </div>
+    <p id="displayArea"></p>
+
+</div>
+
+<script>
+    var canvas = document.getElementById("canvas")
+
+    canvas.addEventListener("mousemove", function (e){
+        x=e.clientX;
+        y=e.clientY;
+        cursor="Your Mouse Position Is : " + x + " and " + y ;
+        document.getElementById("displayArea").innerHTML=cursor
+    });
+
+    canvas.addEventListener("mouseout", function (){
+        document.getElementById("displayArea").innerHTML="";
+    })
+</script>
+{% endblock %}

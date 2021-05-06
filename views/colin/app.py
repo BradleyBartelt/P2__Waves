@@ -209,3 +209,7 @@ def rabbit_racer():
 @colin_bp.route('/network_div')
 def network_div():
     return render_template('colin/network_map_div.html', active_page='colin')
+
+@colin_bp.route('/test_drag')
+def test_drag():
+    return render_template('colin/test_drag.html', active_page='colin')

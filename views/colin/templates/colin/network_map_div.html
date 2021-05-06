@@ -101,8 +101,10 @@
             if (deviceState != "remove") {
                 gameState.innerHTML = "add line";
                 // when the program is not in the remove state
+
                 z = Number(z) + 1;
-                addLine(x,y,z)
+                drawDiv(x,y,z)
+                //addLine(x,y,z)
                 connectionStatus = Number(connectionStatus) + 1;
             }
 
@@ -128,7 +130,7 @@
 
         // if the mouse is over a device, can not create a device on top of device
         new_box.addEventListener("mouseover", function (){
-            console.log("mouse over: " + idButton);
+            //console.log("mouse over: " + idButton);
             canvasState = "locked"
         }, false )
 
@@ -207,6 +209,63 @@
 
     }
 
+    function radians_to_degrees(radians)
+    {
+        var pi = Math.PI;
+        return radians * (180/pi);
+    }
+
+
+    function drawDiv (x, y, increment){
+        var idConnection = "connection"+String(increment)
+        if (connectionStatus == 0){ //saving the initial position of the first device (happens on the first click)
+            console.log('first point'+ ' x: '+x +","+" y: "+y)
+
+            intialXLinesave = x;
+            intialYLinesave = y;
+        }
+        if (connectionStatus == 1) { //starting on the second click
+
+            console.log('second point'+ ' x: '+x +","+" y: "+y)
+            var allPos = intialXLinesave + "," + intialYLinesave + "," + x + "," + y;
+            console.log(allPos)
+
+            var width = Math.abs(x) - Math.abs(intialXLinesave)
+            var height = Math.abs(y) - Math.abs(intialYLinesave)
+            var hypo = Math.sqrt(width*width + height*height);
+            var angle = Math.atan(height/width);
+            var angleDeg = 180- radians_to_degrees(angle)
+
+            console.log("hypotonuse of triangle: " + hypo + " angle: " + angle)
+
+            new_connection = document.createElement('div');
+            new_connection.style.position = 'absolute';
+            new_connection.style.background = "rgb(26,37,180)";
+            new_connection.style.width ='5px';
+            new_connection.style.height = String(height) + "px";
+            new_connection.style.marginLeft = String(intialXLinesave-100)+'px';
+            new_connection.style.marginTop = String(intialYLinesave-100)+'px';
+
+            //new_connection.style.marginLeft = x+'px';
+            //new_connection.style.marginTop = y+'px';
+
+
+            new_connection.style.zIndex = 4;
+            var rotateContent = "rotate(" + String(Math.round(angleDeg)) +"deg)"
+            console.log(rotateContent)
+            new_connection.style.transform = rotateContent;
+
+
+            new_connection.setAttribute("id", idConnection); //defining the id for the box
+            canvas.appendChild(new_connection);
+
+            intialXLinesave = 0;
+            intialYLinesave = 0;
+
+            //reseting connection status
+            connectionStatus = -1;
+        }
+    }
     var removeLine = document.getElementById("remove_button1")
     removeLine.addEventListener("click", function (){
         console.log("clear canvas")
