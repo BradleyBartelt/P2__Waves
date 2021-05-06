@@ -32,9 +32,6 @@
 <div style="margin-left: 15px" >
     <h1>Test Drag</h1>
     <div id="canvas" style="width: 500px; height: 500px; background-color: #ecdfff; z-index: -1;">
-        <br>
-        <p>hello there</p>
-        <div id="redDiv"></div>
     </div>
     <p id="displayArea"></p>
 
@@ -42,10 +39,11 @@
 
 <script>
     var canvas = document.getElementById("canvas")
+    let rect = canvas.getBoundingClientRect();
 
     canvas.addEventListener("mousemove", function (e){
-        x=e.clientX;
-        y=e.clientY;
+        x=e.clientX - rect.left;
+        y=e.clientY - rect.top;
         cursor="Your Mouse Position Is : " + x + " and " + y ;
         document.getElementById("displayArea").innerHTML=cursor
     });
@@ -53,5 +51,126 @@
     canvas.addEventListener("mouseout", function (){
         document.getElementById("displayArea").innerHTML="";
     })
+
+    // default initial coordinates
+    initialX = 0;
+    initialY = 0;
+    finalX = 0;
+    finalY = 0;
+
+    canvas.addEventListener("mousedown", function (e){
+        initialX = e.clientX -rect.left;
+        initialY = e.clientY - rect.top;
+        console.log("initial coordinate: "+ initialX + "," + initialY);
+        createPoint(initialX, initialY);
+    })
+
+    canvas.addEventListener("mouseup", function (e){
+        finalX = e.clientX - rect.left;
+        finalY = e.clientY - rect.top;
+        console.log("final coordinate: "+finalX + "," + finalY);
+        compareNumb(initialX, initialY, finalX, finalY);
+        var angle = calculateNumb(rightX, bottomY, leftX, topY)
+        createPoint(finalX, finalY);
+        drawDiv(leftX, bottomY, width, height, hypo, angle)
+    })
+
+    // to make the variables of width and height global
+    width = 0;
+    height = 0;
+    hypo = 0;
+
+    function radians_to_degrees(radians)
+    {
+        var pi = Math.PI;
+        return radians * (180/pi);
+    }
+
+    function calculateNumb (xi, yi, xf, yf){
+        width = xf - xi ;
+        height = yf - yi;
+        hypo = Math.sqrt(width*width + height*height)
+        var angle = Math.atan(height/width)
+        angleDeg = radians_to_degrees(angle)
+        console.log("width: "+width + ","+ "hegiht: "+height + ", Hypo: " + hypo, "angle: "+ angleDeg)
+        return angleDeg
+    };
+
+    var rightX = 0;
+    var leftX = 0;
+    var topY = 0;
+    var bottomY = 0;
+
+    function compareNumb (xi, yi, xf, yf) {
+        if (xi > xf) {
+            // if initial point is greater than final points
+            rightX = xi; // furthest point is initial
+            leftX = xf; // final is point closest
+        } else {
+            // if initial point is less than final point
+            leftX = xi; // initial is left point
+            rightX = xf; // final is right point
+        }
+
+        if (yi > yf) {
+            topY = yi;
+            bottomY = yf;
+        } else {
+            topY = yf;
+            bottomY = yi;
+        }
+        console.log("left most x point" + leftX)
+        console.log("furthest x point" + rightX)
+        console.log("top most y point" + topY)
+        console.log("bottom lest y point" + bottomY)
+    }
+
+    function drawDiv (x,y, width, height, hypo, angle){
+        //console.log("angle recived" + angle)
+        new_connection = document.createElement('div');
+        new_connection.style.position = 'absolute';
+        new_connection.style.background = "rgb(26,37,180)";
+        new_connection.style.width ='5px';
+        new_connection.style.height = String(hypo) + "px";
+        //new_connection.style.marginLeft = String(x) - String(width/2)+"px";
+
+        var translateXString = "translateX(" + String(x -width/2) +"px)";
+        var translateYString = "translateY(" + String(y - y/2) +"px)";
+        var rotateContent = "rotate(" + String(Math.round(90+Number(angle))) +"deg)"
+
+        console.log(translateXString)
+        console.log(translateYString)
+        console.log(rotateContent)
+        new_connection.style.transform = translateXString + translateYString + rotateContent;
+
+        console.log(rotateContent)
+        //new_connection.style.transform = rotateContent;
+
+        //new_connection.setAttribute("id", idConnection); //defining the id for the box
+        canvas.appendChild(new_connection);
+    }
+
+    function createPoint (x, y){
+        dot = document.createElement('div');
+
+        // making the div small and round
+        dot.style.width = "10px";
+        dot.style.height = "10px";
+        dot.style.borderRadius = "50%";
+        dot.style.backgroundColor = "rgb(129,27,227)";
+
+        // so that it appears above everything
+        dot.style.zIndex = 20;
+        dot.style.marginTop = String(y - 5) +"px"; //subtracting the
+        dot.style.marginLeft = String(x - 5) +"px";
+        dot.style.position = "absolute";
+
+        // mapping the coordinates to the touch points
+        dot.innerText = String(x)+","+String(y);
+        dot.style.color = "rgb(34,4,66)";
+        dot.style.userSelect = "none"; // to ensure that the coordinates are unselectable
+
+        canvas.appendChild(dot);
+    }
 </script>
 {% endblock %}
