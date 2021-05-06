@@ -51,17 +51,24 @@
 </div>
 
 <script>
+    // if the state is correct then remove the box
+    var previousTarget=null;
+
     var deviceList = [];
     var deviceListStorage = []; // to pass into python
     var displayList = document.getElementById("div_of_devices")
 
+    //var devicesClicked = 0; //to keep track if there is a new device comming to town
+
     var divConnections = document.getElementById("div_of_connections")
 
+    var clickState = "";
     var canvasState = "unLocked"
     numbAddedBoxes = 0;
 
     // global varaibles to ensure that connections are documented
     var deviceOver = "";
+    var deviceOverLog = "";
     var deviceConnections = [];
     var deviceConnectionsStorage = []; // to pass into python
 
@@ -125,7 +132,7 @@
             // if the canvas state is locked, this means that mouse is over a div
             gameState.innerHTML = "Locked";
 
-            if (deviceState != "remove") {
+            if (deviceState != "remove" && clickState != "twice") {
                 gameState.innerHTML = "add line";
                 // when the program is not in the remove state
                 z = Number(z) + 1;
@@ -134,6 +141,8 @@
                 console.log("connection status: " + connectionStatus)
 
                 connectionDocumentation()
+            } else {
+                clickState = ""; //reseting the click state
             }
         }
 
@@ -195,7 +204,8 @@
 
         // if the mouse is over a device, can not create a device on top of device
         new_box.addEventListener("mouseover", function (){
-            deviceOver = idButton;
+            deviceOver = idButton; //this is cleared after the mouse moves out
+            //deviceOverLog = idButton;
             console.log("mouse over: " + deviceOver);
             canvasState = "locked"
         }, false )
@@ -206,8 +216,10 @@
             deviceOver = "";
         }, false )
 
-        // if the state is correct then remove the box
         new_box.addEventListener("click", function (){
+            console.log("clicked")
+
+
             if (deviceState == "remove") {
                 console.log("remove box")
                 var boxRemove = document.getElementById(idButton)
@@ -215,7 +227,17 @@
 
                 removeFromList(idButton)
                 //displayList.remove();
+            } else {
+                if (this==previousTarget) {
+                    alert("You've clicked " + idButton+  " twice. Please select another device to connect up.");
+                    clickState = "twice";
+                }
+                previousTarget=this;
+                //return false;
             }
+
+
+
         })
     }
 
@@ -296,6 +318,8 @@
 
             //reseting connection status
             connectionStatus = -1;
+
+            previousTarget = null;
         }
 
     }
