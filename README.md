@@ -33,7 +33,7 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
     - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/network/network_map.html) [runtime link](http://pieceofthepi.cf/colin/network) worked on networking diagram maker 
         - lessons learned: use the canvas for drawing lines 
         - simple is usually better
-    - worked on connecting database with API
+    - worked on connecting database with API [forked code](https://github.com/colin-szeto/flask_api_sql)
     - Prototypes made
         - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/rabbit_racer.html) rabbit racer from Khan academy
         - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/planets.html) planets from khan academy (learning about appending children to parents)
