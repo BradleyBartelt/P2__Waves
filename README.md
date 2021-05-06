@@ -28,6 +28,19 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.pieceofthepi.cf/)
 
 ## Change log
+### week 6 (progress for week of 5/3/21)
+- Colin 
+    - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/network/network_map.html) [runtime link](http://pieceofthepi.cf/colin/network) worked on networking diagram maker 
+        - lessons learned: use the canvas for drawing lines 
+        - simple is usually better
+    - worked on connecting database with API
+    - Prototypes made
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/rabbit_racer.html) rabbit racer from Khan academy
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/planets.html) planets from khan academy (learning about appending children to parents)
+        - [code](https://replit.com/@colinszeto/rotating#index.html) testing to see how div would interact with transform: rotate(180deg)
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/network/test_drag.html) testing if making connections by rotating div would work
+            - used points to document where the mousedown and mouse up occured
+    
 ### week 5 (progress for week of 4/26/21)
 - Colin 
     - worked on the admin page
