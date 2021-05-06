@@ -15,7 +15,7 @@
 {% block content %}
 <div style="margin-left: 15px" >
 <h1>Network Map</h1>
-<h1 id="state">Create device</h1>
+<h1 id="state" style="display: none;">Create device</h1>
     <!-- there is an outer div "canvas that is used to create the divs that represet the devices"-->
     <div id="canvas" style="width: 500px; height: 500px; background-color: #ecdfff; z-index: -1; position: absolute">
         <!-- there is an inner div to draw the connections between devices-->
@@ -26,6 +26,14 @@
         <button id="remove_button"> Remove </button>
         <button id="remove_button1"> Clear Lines </button>
         <br>
+
+        <h6>List of Devices</h6>
+        <p id="div_of_devices"></p>
+        
+
+        <h6>List of Connections</h6>
+        <ol id="div_of_connections">
+        </ol>
         <p>References</p>
         <ul>
             <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position." target="_blank">article drawing</a></li>
@@ -36,12 +44,25 @@
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate()" target="_blank">way to rotate a div</a></li>
             <li><a href="https://stackoverflow.com/questions/7365436/erasing-previously-drawn-lines-on-an-html5-canvas" target="_blank">way to clear canvas of connection lines</a></li>
         </ul>
+
+
     </div>
 </div>
 
 <script>
+    var deviceList = [];
+    var deviceListStorage = []; // to pass into python
+    var displayList = document.getElementById("div_of_devices")
+
+    var divConnections = document.getElementById("div_of_connections")
+
     var canvasState = "unLocked"
     numbAddedBoxes = 0;
+
+    // global varaibles to ensure that connections are documented
+    var deviceOver = "";
+    var deviceConnections = [];
+    var deviceConnectionsStorage = []; // to pass into python
 
     var gameState = document.getElementById("state")
 
@@ -50,6 +71,12 @@
     var deviceState = "none"
     var toggleTrash = 0;
     console.log("device State: none")
+
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
 
     //default color of the trash button
     removeBox.style.backgroundColor = "#4CAF50";
@@ -103,11 +130,41 @@
                 z = Number(z) + 1;
                 addLine(x,y,z)
                 connectionStatus = Number(connectionStatus) + 1;
-            }
+                console.log("connection status: " + connectionStatus)
 
+                connectionDocumentation()
+            }
         }
 
     }, false);
+
+    function connectionDocumentation(){
+        //managing the connection creation
+        if (connectionStatus == 1){
+            //first device clicked
+            console.log("first over:" + deviceOver)
+            deviceConnections.push(deviceOver);
+            console.log(deviceConnections)
+        } else {
+            //second device clicked
+            console.log("second over:" + deviceOver)
+            deviceConnections.push(deviceOver);
+            console.log(deviceConnections)
+        }
+        if (deviceConnections.length == 2 ){
+            console.log("pushing into connection list")
+
+            new_connection_display = document.createElement('li');
+            new_connection_display.innerText = String(deviceConnections);
+            new_connection_display.setAttribute("class", "connection");
+            divConnections.appendChild(new_connection_display);
+
+            deviceConnectionsStorage.push(deviceConnections);
+
+            deviceConnections = []; //resetting the array to be empty
+
+        }
+    }
 
     function addBox(x,y, increment) {
         var idButton = "device" + increment;
@@ -123,17 +180,29 @@
         new_box.style.zIndex = 5;
 
         new_box.setAttribute("id", idButton); //defining the id for the box
+
+        // updating the list of devices
+        deviceList.push(idButton);
+        //displayList.innerHTML = deviceList;*/
+
+        deviceItem = document.createElement('li');
+        deviceItem.innerText = String(idButton);
+        deviceItem.setAttribute("class", "device");
+        displayList.appendChild(deviceItem);
+
         canvas.appendChild(new_box);
 
         // if the mouse is over a device, can not create a device on top of device
         new_box.addEventListener("mouseover", function (){
-            console.log("mouse over: " + idButton);
+            deviceOver = idButton;
+            console.log("mouse over: " + deviceOver);
             canvasState = "locked"
         }, false )
 
         // if the mouse moves out of a device, can create another device
         new_box.addEventListener("mouseout", function (){
             canvasState = "unLocked"
+            deviceOver = "";
         }, false )
 
         // if the state is correct then remove the box
@@ -142,10 +211,34 @@
                 console.log("remove box")
                 var boxRemove = document.getElementById(idButton)
                 boxRemove.remove();
+
+                removeFromList(idButton)
+                //displayList.remove();
             }
         })
     }
 
+    function removeFromList(id) {
+        for (var i = 0; i < deviceList.length; i++) {
+            if (deviceList[i] == id) {
+                //console.log(id)
+                var removed = deviceList.splice(i, 1);
+                //console.log("removed from list" + removed)
+            }
+        }
+
+        removeAllChildNodes(displayList)
+
+        for (var i = 0; i < deviceList.length; i++){
+            deviceItem = document.createElement('li');
+            deviceItem.innerText = String(deviceList[i]);
+            deviceItem.setAttribute("class", "device");
+            displayList.appendChild(deviceItem);
+        }
+
+
+        //displayList.innerHTML = deviceList;
+    }
     /*** Here is where the drawing line code occurs ***/
     const canvasInner = document.getElementById('canvasInner');
     const ctx = canvasInner.getContext('2d');
@@ -206,10 +299,17 @@
 
     }
 
+    //deleting all of the connections
     var removeLine = document.getElementById("remove_button1")
     removeLine.addEventListener("click", function (){
         console.log("clear canvas")
         ctx.clearRect(0, 0, canvasInner.width, canvasInner.width);
+
+        removeAllChildNodes(divConnections)
+
+        connectionStatus = 0; // to reset the increment of creating lines
+        deviceConnections = []; // resetting the array to be empty
+        deviceConnectionsStorage = []; //reseting all fo the connections to be empty
     })
 </script>
 {% endblock %}
