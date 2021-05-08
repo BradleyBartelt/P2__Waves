@@ -71,6 +71,8 @@
     var displayListConnection = document.getElementById("nested_arrays_connections")
     var divConnections = document.getElementById("div_of_connections")
 
+    var connectionIncrement = 0;
+
     var clickState = "";
     var canvasState = "unLocked"
     numbAddedBoxes = 0;
@@ -184,7 +186,6 @@
             createDisplayListFromBackend();
             displayListConnection.innerHTML = deviceConnectionsStorage;
             deviceConnections = []; //resetting the array to be empty (this is used as a counter now)
-
         }
     }
 
@@ -267,7 +268,6 @@
                 console.log(deviceConnectionsStorage)
                 displayListConnection.innerHTML = deviceConnectionsStorage
 
-
             } else {
                 if (this==previousTarget) {
                     alert("You've clicked " + idButton+  " twice. Please select another device to connect up.");
@@ -334,10 +334,48 @@
 
         //creating the children based off of the list of connections
         for (var i = 0; i<deviceConnectionsStorage.length; i ++) {
+            var increment = i;
+            console.log("incremetn" + increment)
+
+            var connectionName = deviceConnectionsStorage[i];
+
+            //creating list elements
             new_connection_display = document.createElement('li');
             new_connection_display.innerText = String(deviceConnectionsStorage[i]);
             new_connection_display.setAttribute("class", "connection");
             divConnections.appendChild(new_connection_display);
+
+            //creating button to delete list elements
+            deleteButton = document.createElement("BUTTON");
+            deleteButton.innerHTML = "x";
+            deleteButton.value = deviceConnectionsStorage[i];
+            deleteButton.setAttribute("id", "connection"+increment);
+            deleteButton.style.marginLeft = "10px";
+            new_connection_display.appendChild(deleteButton)
+
+            //adding code to the button
+            deleteButton.addEventListener("click", function (){
+                console.log(this.value) //specifice which button was pressed
+                //value of each button is the value of the connection
+
+                var connectionToDelete = 0;
+                for (var i = 0; i < deviceConnectionsStorage.length; i++){
+                    if (this.value==String(deviceConnectionsStorage[i])){
+                        console.log("found a matching connection" + String(deviceConnectionsStorage[i]))
+                        connectionToDelete = i;
+                    }
+                }
+                //console.log("before:" + String(deviceConnectionsStorage))
+                deviceConnectionsStorage.splice(connectionToDelete,1);
+                //console.log("after:" + String(deviceConnectionsStorage))
+                displayListConnection.innerHTML = deviceConnectionsStorage; //updating the master list
+
+                //updating the front end based off the master list
+                createDisplayListFromBackend();
+                redrawLinesRemoveDevice();
+
+            })
+
         }
     }
 
