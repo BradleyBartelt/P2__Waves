@@ -180,14 +180,10 @@
         if (deviceConnections.length == 2 ){
             console.log("pushing into connection list")
 
-            new_connection_display = document.createElement('li');
-            new_connection_display.innerText = String(deviceConnections);
-            new_connection_display.setAttribute("class", "connection");
-            divConnections.appendChild(new_connection_display);
-
             deviceConnectionsStorage.push(deviceConnections);
+            createDisplayListFromBackend();
             displayListConnection.innerHTML = deviceConnectionsStorage;
-            deviceConnections = []; //resetting the array to be empty
+            deviceConnections = []; //resetting the array to be empty (this is used as a counter now)
 
         }
     }
@@ -454,7 +450,7 @@
             intialXLinesave = 0;
             intialYLinesave = 0;
 
-            //reseting connection status
+            //resetting connection status
             connectionStatus = -1;
 
             previousTarget = null;
