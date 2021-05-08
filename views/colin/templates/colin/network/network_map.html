@@ -26,12 +26,17 @@
         <button id="remove_button"> Remove </button>
         <button id="remove_button1"> Clear Lines </button>
         <br>
+        <p id="displayArea"></p>
+        <br>
 
         <h6>List of Devices</h6>
+        <p id="displayCoordSore"></p>
+        <p id="array_of_coords"></p>
         <ul id="div_of_devices"></ul>
         
 
         <h6>List of Connections</h6>
+        <p id="nested_arrays_connections"></p>
         <ol id="div_of_connections">
         </ol>
         <p>References</p>
@@ -58,21 +63,32 @@
     var deviceListStorage = []; // to pass into python
     var displayList = document.getElementById("div_of_devices")
 
-    //var devicesClicked = 0; //to keep track if there is a new device comming to town
+    //to display all of the devices and theri coordinates in one list
+    var deviceCoordStore = [];
+    var displayCoordStore = document.getElementById("displayCoordSore")
 
+    //var devicesClicked = 0; //to keep track if there is a new device comming to town
+    var displayListConnection = document.getElementById("nested_arrays_connections")
     var divConnections = document.getElementById("div_of_connections")
 
     var clickState = "";
     var canvasState = "unLocked"
     numbAddedBoxes = 0;
 
-    // global varaibles to ensure that connections are documented
+    // global variables to ensure that connections are documented
     var deviceOver = "";
     var deviceOverLog = "";
     var deviceConnections = [];
     var deviceConnectionsStorage = []; // to pass into python
 
     var gameState = document.getElementById("state")
+
+    canvas.addEventListener("mousemove", function (e){
+        x=e.clientX - rect.left;
+        y=e.clientY - rect.top;
+        cursor="Your Mouse Position Is : " + x + " and " + y ;
+        document.getElementById("displayArea").innerHTML=cursor
+    });
 
     // code for removing the devices
     var removeBox = document.getElementById("remove_button")
@@ -170,7 +186,7 @@
             divConnections.appendChild(new_connection_display);
 
             deviceConnectionsStorage.push(deviceConnections);
-
+            displayListConnection.innerHTML = deviceConnectionsStorage;
             deviceConnections = []; //resetting the array to be empty
 
         }
@@ -208,17 +224,25 @@
         displayText.appendChild(t)
         displayText.style.color = "white";
         displayText.style.fontSize = "35px";
+        displayText.style.userSelect = "none"; // to ensure that the coordinates are unselectable
 
         // apending the text into the div
         new_box.appendChild(displayText)
 
         displayText.style.textAlign = "center";
 
+        //storing the information of the each device in a list
+        deviceCoordStore.push(idButton)
+        deviceCoordStore.push(x)
+        deviceCoordStore.push(y)
+
+        displayCoordStore.innerHTML = deviceCoordStore;
+
         // if the mouse is over a device, can not create a device on top of device
         new_box.addEventListener("mouseover", function (){
             deviceOver = idButton; //this is cleared after the mouse moves out
             //deviceOverLog = idButton;
-            console.log("mouse over: " + deviceOver);
+            //console.log("mouse over: " + deviceOver);
             canvasState = "locked"
         }, false )
 
@@ -237,8 +261,17 @@
                 var boxRemove = document.getElementById(idButton)
                 boxRemove.remove();
 
-                removeFromList(idButton)
-                //displayList.remove();
+                removeFromListFrontEnd(idButton)
+                removeFromListBackEnd(idButton)
+                removeConnectionBackend(idButton)
+                createDisplayListFromBackend()
+                redrawLinesRemoveDevice()
+
+
+                console.log(deviceConnectionsStorage)
+                displayListConnection.innerHTML = deviceConnectionsStorage
+
+
             } else {
                 if (this==previousTarget) {
                     alert("You've clicked " + idButton+  " twice. Please select another device to connect up.");
@@ -252,8 +285,108 @@
 
         })
     }
+    function redrawLinesRemoveDevice(){
+        //clearing the canvas but not clearing the connections between devices
+        ctx.clearRect(0, 0, canvasInner.width, canvasInner.width);
 
-    function removeFromList(id) {
+        //objective get devices that are connected
+        //get the coordinate for devices that are connected
+        let devicesLeft = []
+        console.log("here are the number of connections to be rebuilt: "+deviceConnectionsStorage.length)
+        for (var i = 0; i < deviceConnectionsStorage.length; i++){
+            innerList = deviceConnectionsStorage[i];
+            console.log("inner lists: "+innerList)
+
+            for (var b = 0; b < innerList.length; b++){
+                console.log("content of inner list is: " + innerList[b])
+                devicesLeft.push(innerList[b])
+            }
+
+        }
+        console.log("devices left: "+ String(devicesLeft))
+        let coordStoreDraw = []
+        for (var i =0; i<devicesLeft.length; i++) {
+
+            for (var b = 0; b<deviceCoordStore.length; b++){
+
+                if (devicesLeft[i]==deviceCoordStore[b]){
+                    coordStoreDraw.push(deviceCoordStore[b+1])
+                    coordStoreDraw.push(deviceCoordStore[b+2])
+                }
+
+            }
+        }
+        console.log("deviceCoordStore: " + String(coordStoreDraw))
+        var connectionNumber =  Number(coordStoreDraw.length)/4
+        console.log("number of lines" + connectionNumber)
+
+        console.log("drawwing")
+        for (var d =0; d<coordStoreDraw.length; d=d+4) {
+            console.log("connection"+d)
+            var coord1 = [coordStoreDraw[d]+25, coordStoreDraw[d+1]+25]
+            var coord2 = [coordStoreDraw[d+2]+25, coordStoreDraw[d+3]+25]
+            console.log("coord1: " + coord1)
+            console.log("coord2: " + coord2)
+            if (canvasInner.getContext) {
+                drawLine(ctx, coord1, coord2, 'green', 5); //adding half the width of each box
+            }
+        }
+    }
+
+    function createDisplayListFromBackend () {
+        removeAllChildNodes(divConnections) //remove all exsiting children of the display list
+
+        //creating the children based off of the list of connections
+        for (var i = 0; i<deviceConnectionsStorage.length; i ++) {
+            new_connection_display = document.createElement('li');
+            new_connection_display.innerText = String(deviceConnectionsStorage[i]);
+            new_connection_display.setAttribute("class", "connection");
+            divConnections.appendChild(new_connection_display);
+        }
+    }
+
+    function removeConnectionBackend(id){
+        console.log("selaring for " + deviceConnectionsStorage.length)
+        console.log(deviceConnectionsStorage)
+
+        let indexToRemove = []
+        for (var i = 0; i < deviceConnectionsStorage.length; i++){
+            innerList = deviceConnectionsStorage[i];
+            console.log("inner lists: "+innerList)
+
+            for (var b = 0; b < innerList.length; b++){
+                console.log("content of inner list is: " + innerList[b])
+
+                if (innerList[b] == id) {
+                    indexToRemove.push(i)
+                }
+            }
+
+        }
+        console.log("indexToRemove: "+indexToRemove)
+        for (var z=0; z<indexToRemove.length; z++){
+            deviceConnectionsStorage.splice(indexToRemove[z]-z,1)
+            //removing each list then removing all of the
+        }
+    }
+    function removeFromListBackEnd(id) {
+        // to remove the points from the back end
+        for (var i = 0; i< deviceCoordStore.length; i++){
+            //itterate throught the length of deivceCoordStore
+            if (deviceCoordStore[i] == id){
+                console.log("found id in deviceCoordStore" + deviceCoordStore[i])
+
+                console.log(deviceCoordStore)
+                deviceCoordStore.splice(i, 3); //removing the id and the coordinates from the list
+                console.log(deviceCoordStore)
+
+                displayCoordStore.innerHTML = deviceCoordStore; //update the front end
+            }
+        }
+
+        console.log("end of removeFromListBackEnd")
+    }
+    function removeFromListFrontEnd(id) {
         for (var i = 0; i < deviceList.length; i++) {
             if (deviceList[i] == id) {
                 //console.log(id)
@@ -271,9 +404,10 @@
             displayList.appendChild(deviceItem);
         }
 
+        console.log("end of remove from list front end")
 
-        //displayList.innerHTML = deviceList;
     }
+
     /*** Here is where the drawing line code occurs ***/
     const canvasInner = document.getElementById('canvasInner');
     const ctx = canvasInner.getContext('2d');
@@ -308,14 +442,6 @@
             console.log(startingCoord)
         }
         if (connectionStatus == 1){ //starting on the second click
-            new_line = document.createElement('polyline');
-            new_svg = document.createElement('svg');
-            new_box.style.position = 'absolute';
-
-            console.log('line stop')
-
-            //var endingCoords = "Ending X coords: " + x + ", Y coords: " + y;
-            //console.log(endingCoords)
 
             var allPos = intialXLinesave +"," + intialYLinesave+","+x + ","+y;
             console.log(allPos)
@@ -347,6 +473,7 @@
         connectionStatus = 0; // to reset the increment of creating lines
         deviceConnections = []; // resetting the array to be empty
         deviceConnectionsStorage = []; //reseting all fo the connections to be empty
+        displayListConnection.innerHTML = deviceConnectionsStorage;
     })
 </script>
 {% endblock %}
