@@ -193,14 +193,26 @@
 
         // updating the list of devices
         deviceList.push(idButton);
-        //displayList.innerHTML = deviceList;*/
 
         deviceItem = document.createElement('li');
         deviceItem.innerText = String(idButton);
         deviceItem.setAttribute("class", "device");
-        displayList.appendChild(deviceItem);
 
+        displayList.appendChild(deviceItem);
         canvas.appendChild(new_box);
+
+        //adding text into the div
+        console.log('creating text');
+        displayText = document.createElement('P');
+        t = document.createTextNode(increment);
+        displayText.appendChild(t)
+        displayText.style.color = "white";
+        displayText.style.fontSize = "35px";
+
+        // apending the text into the div
+        new_box.appendChild(displayText)
+
+        displayText.style.textAlign = "center";
 
         // if the mouse is over a device, can not create a device on top of device
         new_box.addEventListener("mouseover", function (){
