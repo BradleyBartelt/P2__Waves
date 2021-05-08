@@ -22,23 +22,28 @@
         <canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
     </div>
 
+    <div style="margin-left: 550px; position: absolute; z-index: 10">
+        <h6>List of Devices</h6>
+        <p id="displayCoordSore" style="display: none"></p>
+        <p id="array_of_coords"></p>
+        <ul id="div_of_devices"></ul>
+
+
+        <h6>List of Connections</h6>
+        <p id="nested_arrays_connections" style="display: none"></p>
+        <ol id="div_of_connections">
+        </ol>
+    </div>
+
     <div style="margin-top: 500px; position: absolute; z-index: -10">
         <button id="remove_button"> Remove </button>
         <button id="remove_button1"> Clear Lines </button>
+        <button id="remove_button_all_devices"> Remove All Devices</button>
         <br>
         <p id="displayArea"></p>
         <br>
 
-        <h6>List of Devices</h6>
-        <p id="displayCoordSore"></p>
-        <p id="array_of_coords"></p>
-        <ul id="div_of_devices"></ul>
-        
 
-        <h6>List of Connections</h6>
-        <p id="nested_arrays_connections"></p>
-        <ol id="div_of_connections">
-        </ol>
         <p>References</p>
         <ul>
             <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position." target="_blank">article drawing</a></li>
@@ -94,6 +99,7 @@
 
     // code for removing the devices
     var removeBox = document.getElementById("remove_button")
+    var removeAllBox = document.getElementById("remove_button_all_devices")
     var deviceState = "none"
     var toggleTrash = 0;
     console.log("device State: none")
@@ -123,6 +129,28 @@
             toggleTrash = Number(toggleTrash) + 1
         }
     })
+
+    removeAllBox.addEventListener("click", function (){
+        deviceCoordStore = []
+        displayCoordStore.innerHTML = deviceCoordStore; //upldating front end display
+        createDeviceListFromBackend()
+
+        var ancestor = document.getElementById('canvas'),
+        descendents = ancestor.getElementsByTagName('*');
+        for (i = 0; i < descendents.length; i++) {
+            canvas.removeChild(canvas.lastChild) //removes most of the devices
+        }
+        canvas.removeChild(canvas.lastChild) //to remove the final stanf out
+    })
+
+    function createCanvasInner (){
+        //<canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
+        var canvasInner = document.createElement('CANVAS');
+        canvasInner.style.height = "500px";
+        canvasInner.style.width = "500px";
+        canvasInner.style.position = "absolute";
+        canvas.appendChild(canvasInner)
+    }
     //end code to remove devices
 
     canvas = document.getElementById("canvas")
@@ -143,6 +171,7 @@
             //if the canvas is unlocked, a new box will be created
             b = Number(b) + 1;
             addBox(x,y,b);
+            createDeviceListFromBackend(b);
             console.log("number of deivces present:" + String(b));
 
         }
@@ -207,11 +236,11 @@
         // updating the list of devices
         deviceList.push(idButton);
 
-        deviceItem = document.createElement('li');
+        /*deviceItem = document.createElement('li');
         deviceItem.innerText = String(idButton);
         deviceItem.setAttribute("class", "device");
 
-        displayList.appendChild(deviceItem);
+        displayList.appendChild(deviceItem);*/
         canvas.appendChild(new_box);
 
         //adding text into the div
@@ -264,6 +293,8 @@
                 createDisplayListFromBackend()
                 redrawLinesRemoveDevice()
 
+                createDeviceListFromBackend()
+
 
                 console.log(deviceConnectionsStorage)
                 displayListConnection.innerHTML = deviceConnectionsStorage
@@ -280,6 +311,21 @@
 
 
         })
+    }
+    function createDeviceListFromBackend(increment) {
+        //increment = increment-increment.
+        removeAllChildNodes(displayList);
+        var idButton = "device" + increment;
+        console.log("appending")
+        //creating the children based off of the list of devices
+        for (var i = 0; i < (deviceCoordStore.length); i=i+3) {
+            //creating list elements
+            deviceItem = document.createElement('li');
+            deviceItem.innerText = deviceCoordStore[i];
+            deviceItem.setAttribute("class", "device");
+
+            displayList.appendChild(deviceItem);
+        }
     }
     function redrawLinesRemoveDevice(){
         //clearing the canvas but not clearing the connections between devices
