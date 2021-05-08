@@ -130,19 +130,6 @@
         }
     })
 
-    removeAllBox.addEventListener("click", function (){
-        deviceCoordStore = []
-        displayCoordStore.innerHTML = deviceCoordStore; //upldating front end display
-        createDeviceListFromBackend()
-
-        var ancestor = document.getElementById('canvas'),
-        descendents = ancestor.getElementsByTagName('*');
-        for (i = 0; i < descendents.length; i++) {
-            canvas.removeChild(canvas.lastChild) //removes most of the devices
-        }
-        canvas.removeChild(canvas.lastChild) //to remove the final stanf out
-    })
-
     function createCanvasInner (){
         //<canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
         var canvasInner = document.createElement('CANVAS');
@@ -555,5 +542,33 @@
         deviceConnectionsStorage = []; //reseting all fo the connections to be empty
         displayListConnection.innerHTML = deviceConnectionsStorage;
     })
+
+    function removeConnections(){
+        console.log("clear canvas")
+        ctx.clearRect(0, 0, canvasInner.width, canvasInner.width);
+
+        removeAllChildNodes(divConnections)
+
+        connectionStatus = 0; // to reset the increment of creating lines
+        deviceConnections = []; // resetting the array to be empty
+        deviceConnectionsStorage = []; //reseting all fo the connections to be empty
+        displayListConnection.innerHTML = deviceConnectionsStorage;
+    }
+
+    removeAllBox.addEventListener("click", function (){
+        removeConnections()
+        deviceCoordStore = []
+        displayCoordStore.innerHTML = deviceCoordStore; //upldating front end display
+        createDeviceListFromBackend()
+
+        var ancestor = document.getElementById('canvas'),
+            descendents = ancestor.getElementsByTagName('*');
+        for (i = 1; i < descendents.length*2; i++) { //starting at i=1 to ensure that the inner canvas is not removed
+            console.log(descendents[i])
+            canvas.removeChild(canvas.lastChild) //removes most of the devices
+        }
+
+    })
+
 </script>
 {% endblock %}
