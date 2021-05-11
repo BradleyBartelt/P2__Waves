@@ -655,6 +655,12 @@
     }
 
     removeAllBox.addEventListener("click", function (){
+        //runs twices to ensure all divs are removed
+        removeAll();
+        removeAll();
+    })
+
+    function removeAll(){
         removeConnections()
         deviceCoordStore = []
         displayCoordStore.innerHTML = deviceCoordStore; //upldating front end display
@@ -662,12 +668,13 @@
 
         var ancestor = document.getElementById('canvas'),
             descendents = ancestor.getElementsByTagName('*');
-        for (i = 1; i < descendents.length*2; i++) { //starting at i=1 to ensure that the inner canvas is not removed
-            console.log(descendents[i])
-            canvas.removeChild(canvas.lastChild) //removes most of the devices
+        if ( descendents.length > 1 ){ //condition to ensrue that the drawwing canvas is not deleted
+            for (i = 1; i < descendents.length*2; i++) { //starting at i=1 to ensure that the inner canvas is not removed
+                console.log(descendents[i])
+                canvas.removeChild(canvas.lastChild) //removes most of the devices
+            }
         }
-
-    })
+    }
 
     /*
     def stringToList(string):
@@ -718,13 +725,20 @@
     }
 
     var demo_map  = document.getElementById("demo_map")
-    var device_store = document.getElementById("device_list")
-    var connection_store = document.getElementById("connections_list")
     demo_map.addEventListener("click", function (){
+        createFromList("device_list", "connections_list");
+    })
+
+    function createFromList(device_list, connections_list){
+        removeAll(); // clears all
+        removeAll(); // clears all
+
+        var device_store = document.getElementById(device_list)
+        var connection_store = document.getElementById(connections_list)
+
         console.log("demo_map clicked")
         //console.log(device_store.innerText)
         //console.log(connection_store.innerText)
-
         deviceCoordStore = stringToList(device_store.innerText);
         console.log(deviceCoordStore)
         displayCoordStore.innerHTML = deviceCoordStore;
@@ -753,7 +767,7 @@
         createDisplayListFromBackend();
         redrawLinesRemoveDevice();
         createDeviceListFromBackend();
-    })
+    }
 
 </script>
 {% endblock %}
