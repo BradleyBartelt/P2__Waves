@@ -35,6 +35,14 @@
         </ol>
     </div>
 
+    <div style="margin-left: 750px; position: absolute; z-index: 10; ">
+
+        <p id="device_list" style="display: none">device1,164.00000095367432,108.10511779785156,device2,82.00000095367432,200.10511779785156,device3,247.00000095367432,197.10511779785156,device4,75.00000095367432,334.10511779785156,device5,290.0000009536743,327.10511779785156</p>
+        <p id="connections_list" style="display: none">device1,device2,device2,device4,device1,device3,device3,device5</p>
+        <button type="submit" id="demo_map">demo_map</button>
+
+    </div>
+
     <div style="margin-top: 500px; position: absolute; z-index: -10">
         <button id="remove_button"> Remove </button>
         <button id="remove_button1"> Clear Lines </button>
@@ -299,6 +307,97 @@
 
         })
     }
+
+
+    function addBoxNoPush(x,y, increment) {
+        var idButton = "device" + increment;
+
+        //the code to set all the styles correctly to create a box
+        new_box = document.createElement('div');
+        new_box.style.position = 'absolute';
+        new_box.style.background = "rgb(126, 127, 143)";
+        new_box.style.width ='50px';
+        new_box.style.height ='50px';
+        new_box.style.marginLeft = String(x)+'px';
+        new_box.style.marginTop = String(y)+'px';
+        new_box.style.zIndex = 5;
+
+        new_box.setAttribute("id", idButton); //defining the id for the box
+
+        //deviceList.push(idButton);
+
+        canvas.appendChild(new_box);
+
+        //adding text into the div
+        console.log('creating text');
+        displayText = document.createElement('P');
+        t = document.createTextNode(increment);
+        displayText.appendChild(t)
+        displayText.style.color = "white";
+        displayText.style.fontSize = "35px";
+        displayText.style.userSelect = "none"; // to ensure that the coordinates are unselectable
+
+        // apending the text into the div
+        new_box.appendChild(displayText)
+
+        displayText.style.textAlign = "center";
+
+        //storing the information of the each device in a list
+        //deviceCoordStore.push(idButton)
+        //deviceCoordStore.push(x)
+        //deviceCoordStore.push(y)
+
+        //displayCoordStore.innerHTML = deviceCoordStore;
+
+        // if the mouse is over a device, can not create a device on top of device
+        new_box.addEventListener("mouseover", function (){
+            deviceOver = idButton; //this is cleared after the mouse moves out
+            //deviceOverLog = idButton;
+            //console.log("mouse over: " + deviceOver);
+            canvasState = "locked"
+        }, false )
+
+        // if the mouse moves out of a device, can create another device
+        new_box.addEventListener("mouseout", function (){
+            canvasState = "unLocked"
+            deviceOver = "";
+        }, false )
+
+        new_box.addEventListener("click", function (){
+            console.log("clicked")
+
+
+            if (deviceState == "remove") {
+                console.log("remove box")
+                var boxRemove = document.getElementById(idButton)
+                boxRemove.remove();
+
+                removeFromListFrontEnd(idButton)
+                removeFromListBackEnd(idButton)
+                removeConnectionBackend(idButton)
+                createDisplayListFromBackend()
+                redrawLinesRemoveDevice()
+
+                createDeviceListFromBackend()
+
+
+                console.log(deviceConnectionsStorage)
+                displayListConnection.innerHTML = deviceConnectionsStorage
+
+            } else {
+                if (this==previousTarget) {
+                    alert("You've clicked " + idButton+  " twice. Please select another device to connect up.");
+                    clickState = "twice";
+                }
+                previousTarget=this;
+                //return false;
+            }
+
+
+
+        })
+    }
+
     function createDeviceListFromBackend(increment) {
         //increment = increment-increment.
         removeAllChildNodes(displayList);
@@ -568,6 +667,92 @@
             canvas.removeChild(canvas.lastChild) //removes most of the devices
         }
 
+    })
+
+    /*
+    def stringToList(string):
+        output_list = string.split(",")
+        return output_list
+    */
+
+    function stringToList(string){
+        var output_list = string.split(",");
+        return output_list
+    }
+    /*
+    def stringTo3List(string):
+        final_list = []
+        output_list = string.split(",")
+        #i = 0
+        for i in range(0,len(output_list)):
+            if i%2 != 0:
+                print(output_list[i])
+                pair_list.append(output_list[i])
+                final_list.append(pair_list)
+            else:
+                # this is the part that will run first
+                pair_list = []
+                print(i)
+                print(output_list[i])
+                pair_list.append(output_list[i])
+
+        return final_list
+    */
+
+    function stringTo3List(string){
+        var final_list = []
+        output_list = string.split(",");
+        for (var i = 0; i < output_list.length; i++){
+            if (i%2 != 0){
+                console.log(output_list[i])
+                pair_list.push(output_list[i])
+                final_list.push(pair_list)
+            }else{
+                var pair_list = []
+                console.log(i)
+                console.log(output_list[i])
+                pair_list.push(output_list[i])
+            }
+        }
+        return final_list
+    }
+
+    var demo_map  = document.getElementById("demo_map")
+    var device_store = document.getElementById("device_list")
+    var connection_store = document.getElementById("connections_list")
+    demo_map.addEventListener("click", function (){
+        console.log("demo_map clicked")
+        //console.log(device_store.innerText)
+        //console.log(connection_store.innerText)
+
+        deviceCoordStore = stringToList(device_store.innerText);
+        console.log(deviceCoordStore)
+        displayCoordStore.innerHTML = deviceCoordStore;
+
+        console.log("length of list" + deviceCoordStore.length)
+        //console.log()
+        var b = 0;
+        for (var i = 0; i <= deviceCoordStore.length-1; i = i + 3){
+            b = Number(b) + 1
+            console.log(b)
+            //console.log("drawwing")
+            var x = Number(deviceCoordStore[i+1]);
+            var y = Number(deviceCoordStore[i+2]);
+            console.log(deviceCoordStore[i])
+            console.log(deviceCoordStore[i+1])
+            console.log(deviceCoordStore[i+2])
+
+            addBoxNoPush(x-25, y-25, String(b));
+
+        }
+
+        deviceConnectionsStorage = stringTo3List(connection_store.innerText);
+        console.log(String(deviceConnectionsStorage))
+        displayListConnection.innerHTML =deviceConnectionsStorage;
+
+        createDisplayListFromBackend();
+        redrawLinesRemoveDevice();
+        createDeviceListFromBackend();
     })
 
 </script>
