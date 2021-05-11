@@ -15,6 +15,9 @@ from views.colin.app import colin_bp
 from views.Dk.app import dk_bp
 from flask_bootstrap import Bootstrap
 
+from model.module import Api
+from model.module import GetReviewResource
+
 app = Flask(__name__)
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(diego_bp, url_prefix='/diego')
@@ -29,6 +32,8 @@ app.config.update(dict(
 ))
 bootstrap = Bootstrap(app)
 
+api = Api(app)
+api.add_resource(GetReviewResource, '/Food', '/Food/<string:id>')
 
 @app.route('/')
 def index():
@@ -37,7 +42,6 @@ def index():
 @app.route('/easteregg')
 def PythonMiniLab():
     return render_template("Easter_egg.html")
-
 
 if __name__ == "__main__":
     # runs the application on the repl development server
