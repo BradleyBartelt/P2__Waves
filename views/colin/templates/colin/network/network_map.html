@@ -91,8 +91,8 @@
     var gameState = document.getElementById("state")
 
     canvas.addEventListener("mousemove", function (e){
-        x=e.clientX - rect.left;
-        y=e.clientY - rect.top;
+        x=e.pageX - rect.left;
+        y=e.pageY - rect.top;
         cursor="Your Mouse Position Is : " + x + " and " + y ;
         document.getElementById("displayArea").innerHTML=cursor
     });
@@ -148,8 +148,8 @@
 
     canvas.addEventListener("click", function(event){
 
-        var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
-        var y = event.clientY - rect.top -25;    // Get the vertical coordinate
+        var x = event.pageX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
+        var y = event.pageY - rect.top -25;    // Get the vertical coordinate
 
         //var coor = "X coords: " + x + ", Y coords: " + y;
 
