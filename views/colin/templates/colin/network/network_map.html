@@ -36,10 +36,30 @@
     </div>
 
     <div style="margin-left: 750px; position: absolute; z-index: 10; ">
-
-        <p id="device_list" style="display: none">device1,164.00000095367432,108.10511779785156,device2,82.00000095367432,200.10511779785156,device3,247.00000095367432,197.10511779785156,device4,75.00000095367432,334.10511779785156,device5,290.0000009536743,327.10511779785156</p>
-        <p id="connections_list" style="display: none">device1,device2,device2,device4,device1,device3,device3,device5</p>
-        <button type="submit" id="demo_map">demo_map</button>
+            <g>
+                <p id="device_list0" style="display: none">device1,164.00000095367432,108.10511779785156,device2,82.00000095367432,200.10511779785156,device3,247.00000095367432,197.10511779785156,device4,75.00000095367432,334.10511779785156,device5,290.0000009536743,327.10511779785156</p>
+                <p id="connections_list0" style="display: none">device1,device2,device2,device4,device1,device3,device3,device5</p>
+                <button type="submit" id="demo_map0">Routing</button>
+            </g>
+        <br>
+            <g>
+                <p id="device_list1" style="display: none">device1,164.00000095367432,108.10511779785156,device2,82.00000095367432,200.10511779785156,device3,247.00000095367432,197.10511779785156,device4,75.00000095367432,334.10511779785156,device5,290.0000009536743,327.10511779785156</p>
+                <p id="connections_list1" style="display: none">device1,device2,device2,device4,device1,device3,device3,device5,device4,device5</p>
+                <button type="submit" id="demo_map1">Fault tolerant Routing</button>
+            </g>
+        <br>
+            <g>
+                <p id="device_list2" style="display: none">device1,169.00000000000000,126.00000000000000,device2,320.00000000000000,67.00000000000000,device3,400.00000000000000,227.00000000000000,device4,309.00000000000000,323.00000000000000,device5,125.00000000000000,319.00000000000000</p>
+                <p id="connections_list2" style="display: none">device1,device2,device2,device3,device3,device4,device4,device5</p>
+                <button type="submit" id="demo_map2">Non-Fault tolerant system</button>
+            </g>
+        <br>
+            <g>
+                <p id="device_list3" style="display: none">device1,169.00000000000000,126.00000000000000,device2,320.00000000000000,67.00000000000000,device3,400.00000000000000,227.00000000000000,device4,309.00000000000000,323.00000000000000,device5,125.00000000000000,319.00000000000000</p>
+                <p id="connections_list3" style="display: none">device1,device2,device2,device3,device3,device4,device4,device5,device1,device3,device2,device4,device2,device5</p>
+                <button type="submit" id="demo_map3">Fault tolerant system</button>
+            </g>
+        <br>
 
     </div>
 
@@ -724,10 +744,6 @@
         return final_list
     }
 
-    var demo_map  = document.getElementById("demo_map")
-    demo_map.addEventListener("click", function (){
-        createFromList("device_list", "connections_list");
-    })
 
     function createFromList(device_list, connections_list){
         removeAll(); // clears all
@@ -768,6 +784,24 @@
         redrawLinesRemoveDevice();
         createDeviceListFromBackend();
     }
+
+    document.getElementById("demo_map0").addEventListener("click", function (){
+        createFromList("device_list0", "connections_list0");
+    })
+    document.getElementById("demo_map1").addEventListener("click", function (){
+        console.log("hellooooo")
+        createFromList("device_list1", "connections_list1");
+    })
+    document.getElementById("demo_map2").addEventListener("click", function (){
+        createFromList("device_list2", "connections_list2");
+    })
+    document.getElementById("demo_map3").addEventListener("click", function (){
+        createFromList("device_list3", "connections_list3");
+    })
+    /*document.getElementById("demo_map4").addEventListener("click", function (){
+        createFromList("device_list4", "connections_list4");
+    })*/
+
 
 </script>
 {% endblock %}
