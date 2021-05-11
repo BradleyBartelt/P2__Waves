@@ -60,6 +60,12 @@
                 <button type="submit" id="demo_map3">Fault tolerant system</button>
             </g>
         <br>
+            <g>
+                <p id="device_list4" style="display: none">device1,169.00000000000000,126.00000000000000,device2,320.00000000000000,67.00000000000000,device3,400.00000000000000,227.00000000000000,device4,309.00000000000000,323.00000000000000,device5,125.00000000000000,319.00000000000000</p>
+                <p id="connections_list4" style="display: none">device1,device2,device2,device3,device3,device4,device4,device5,device1,device3,device2,device4</p>
+                <button type="submit" id="demo_map4">Non-Fault tolerant system</button>
+            </g>
+        <br>
 
     </div>
 
@@ -797,6 +803,9 @@
     })
     document.getElementById("demo_map3").addEventListener("click", function (){
         createFromList("device_list3", "connections_list3");
+    })
+    document.getElementById("demo_map4").addEventListener("click", function (){
+        createFromList("device_list4", "connections_list4");
     })
     /*document.getElementById("demo_map4").addEventListener("click", function (){
         createFromList("device_list4", "connections_list4");
