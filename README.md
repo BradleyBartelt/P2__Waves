@@ -28,7 +28,16 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.pieceofthepi.cf/)
 
 ## Change log
-### week 6 (progress for week of 5/3/21)
+### 5 week left of school
+
+### week 6 (progress for week of 5/10/21)
+- Colin 
+    - [code](https://github.com/BradleyBartelt/P2__Waves/blob/0579ad9946b8587c1b2031743213645070846e61/model/module.py#L172-L196) worked on getting the getters up for publishing database information in an API 
+        - using workaround to map information from database into a list of json (each item within the list is a JSON which represents each row of data)
+        - this is as the database file init is not in the app.py (highest level route management)
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/0579ad9946b8587c1b2031743213645070846e61/app.py#L35-L36) location where api routes are within the code
+
+### week 5 (progress for week of 5/3/21)
 - Colin 
     - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/network/network_map.html) [runtime link](http://pieceofthepi.cf/colin/network) worked on networking diagram maker 
         - lessons learned: use the canvas for drawing lines 
@@ -41,15 +50,15 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
         - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/network/test_drag.html) testing if making connections by rotating div would work
             - used points to document where the mousedown and mouse up occured
     
-### week 5 (progress for week of 4/26/21)
+### week 4 (progress for week of 4/26/21)
 - Colin 
     - worked on the admin page
         - worked on connecting up the database information to be shown in the front end
     - worked on college board submission redrawing polygon based off of user input
+    
+### week 3.5 spring break (4/19/21)
+### week 2 (3/29/21) - 3 (4/5/21) Python Mini Labs
 
-### week 3 - 4
-
-## Python Mini Labs
 ### Colin
 - [link to runtime](http://www.pieceofthepi.cf/colin/) (this is the landing page, please ignore fibonacci as it was a reference for myself)
 - [link to runtime](http://www.pieceofthepi.cf/colin/conversion) (this is the real mini lab, all decriptions and instructions are on the page)
