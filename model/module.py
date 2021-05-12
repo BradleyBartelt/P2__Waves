@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-import os
+import os, json
 from flask_migrate import Migrate
 from flask_restful import Resource, Api
 
@@ -192,7 +192,9 @@ class GetReviewResource(Resource):
     def get(self, id):
         # to decrement the id to ensure that row matches the contents of the list
         review = review_info[int(id)-1]
-        return review
+        # converting to json
+        jsonStr = json.dumps(review)
+        return jsonStr
     pass
 
 class AllReviews(Resource):

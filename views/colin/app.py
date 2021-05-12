@@ -4,7 +4,7 @@ from views.colin.algo.fibonacci import Fibonacci
 from views.colin.algo.conversion import Conversion
 from views.colin.algo.bubble_sort import BubbleSort
 from views.colin.algo.bubble_sort2 import BubbleSortString
-import json
+import json, random, requests
 
 colin_bp = Blueprint('colin_bp', __name__,
                           template_folder='templates',
@@ -216,4 +216,12 @@ def test_drag():
 
 @colin_bp.route('/api_pull')
 def api_pull():
-    return render_template('colin/api_pull.html', active_page='colin')
+    # getting a random
+    url = "http://pieceofthepi.cf/Food/" + str(random.randint(1, 7))
+    # print(url)
+    response = requests.request("GET", url)
+    print(response.text)
+    # current the request
+    dictionary = response.text
+    y = json.loads(dictionary)
+    return render_template('colin/api_pull.html', active_page='colin', data = y)
