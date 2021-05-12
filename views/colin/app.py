@@ -213,3 +213,7 @@ def network_div():
 @colin_bp.route('/test_drag')
 def test_drag():
     return render_template('colin/network/test_drag.html', active_page='colin')
+
+@colin_bp.route('/api_pull')
+def api_pull():
+    return render_template('colin/api_pull.html', active_page='colin')
