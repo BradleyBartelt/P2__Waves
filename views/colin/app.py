@@ -216,11 +216,18 @@ def test_drag():
 
 @colin_bp.route('/api_pull')
 def api_pull():
-    # getting a random
-    url = "http://pieceofthepi.cf/Food/" + str(random.randint(1, 7))
+    # getting the qunaity of row entries to use for the random selection
+    urlList = "http://pieceofthepi.cf/AllFood"
+    response_list = requests.request("GET", urlList)
+    # print("all contents: "+ str(response_list.text))
+    all_list = json.loads(response_list.text)
+    # print("number of rows: " + str(len(all_list)))
+
+    # getting a random field from the entire database len(all_list) corresponds to number of rows in database
+    url = "http://pieceofthepi.cf/Food/" + str(random.randint(1, len(all_list)))
     # print(url)
     response = requests.request("GET", url)
-    print(response.text)
+    # print(response.text)
     # current the request
     dictionary = response.text
     y = json.loads(dictionary)
