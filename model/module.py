@@ -194,7 +194,7 @@ class GetReviewResource(Resource):
         review = review_info[int(id)-1]
         # converting to json
         jsonStr = json.dumps(review)
-        return jsonStr
+        return review
     pass
 
 class AllReviews(Resource):
