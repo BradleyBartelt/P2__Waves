@@ -16,7 +16,7 @@ from views.Dk.app import dk_bp
 from flask_bootstrap import Bootstrap
 
 from model.module import Api
-from model.module import GetReviewResource
+from model.module import GetReviewResource, AllReviews
 
 app = Flask(__name__)
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
@@ -34,7 +34,7 @@ bootstrap = Bootstrap(app)
 
 api = Api(app)
 api.add_resource(GetReviewResource, '/Food', '/Food/<string:id>')
-
+api.add_resource(AllReviews, '/AllFood')
 @app.route('/')
 def index():
     return render_template("home.html")

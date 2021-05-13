@@ -199,9 +199,9 @@ class GetReviewResource(Resource):
 
 class AllReviews(Resource):
     def get(self):
-        review = RatingFood.query.all()
-
-        return [peep.json() for peep in review]
+        #review = review_info
+        #return [peep.json() for peep in review]
+        return review_info
     pass
 
 db.create_all()
