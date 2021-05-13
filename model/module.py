@@ -1,8 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask import Flask
+from flask import Flask, request
 import os, json
 from flask_migrate import Migrate
 from flask_restful import Resource, Api
+from sqlalchemy import func
+from datetime import datetime
 
 # create a Flask instance
 "Setting up the keys are needed for the database"
@@ -15,17 +17,20 @@ app.config['SECRET_KEY'] = ':)'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#Bootstrap(app)
+# Bootstrap(app)
 db = SQLAlchemy(app)
-Migrate(app,db)
+Migrate(app, db)
 api = Api(app)
-#api.init_app(app)
+
+
+# api.init_app(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
     email = db.Column(db.String(50))
     password = db.Column(db.String(80))
+
 
 class UserInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -42,6 +47,7 @@ class UserInfo(db.Model):
 
     pass
 
+
 class GroupChat(db.Model):
     id = db.Column('dm_id', db.Integer, primary_key=True)
     users = db.Column(db.String(100))
@@ -49,13 +55,14 @@ class GroupChat(db.Model):
     chat_name = db.Column(db.String(1000))
     description = db.Column(db.String(1000))
 
-
     def __init__(self, users, chat_name, time, description):
         self.users = users
-        self.chat_name= chat_name
+        self.chat_name = chat_name
         self.time = time
         self.description = description
+
     pass
+
 
 class Dm(db.Model):
     id = db.Column('dm_id', db.Integer, primary_key=True)
@@ -64,15 +71,14 @@ class Dm(db.Model):
     time = db.Column(db.DateTime)
     content = db.Column(db.String(1000))
 
-
     def __init__(self, chatid, username, time, content):
         self.username = username
-        self.chatid= chatid
+        self.chatid = chatid
         self.username = username
         self.time = time
         self.content = content
-    pass
 
+    pass
 
 
 class Posts(db.Model):
@@ -83,14 +89,14 @@ class Posts(db.Model):
     time = db.Column(db.DateTime)
     location = db.Column(db.String(1000))
 
-
-
     def __init__(self, username, tags, likes, time):
         self.username = username
         self.tags = tags
         self.likes = likes
         self.time = time
+
     pass
+
 
 class Locations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -99,13 +105,14 @@ class Locations(db.Model):
     phone = db.Column(db.Integer)
     description = db.Column(db.String(1000))
 
-    def __init__(self,address, name, phone, description):
+    def __init__(self, address, name, phone, description):
         self.address = address
         self.name = name
         self.phone = phone
         self.description = description
 
     pass
+
 
 class RatingLocation(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -115,18 +122,18 @@ class RatingLocation(db.Model):
     stars = db.Column(db.Float(10))
     description = db.Column(db.String(1000))
 
-    def __init__(self,address, name, time, stars, description):
+    def __init__(self, address, name, time, stars, description):
         self.address = address
         self.name = name
         self.phone = time
-        self.stars= stars
+        self.stars = stars
         self.description = description
 
     pass
 
-class RatingFood(db.Model):
 
-    __tablename__= 'RatingFood'
+class RatingFood(db.Model):
+    __tablename__ = 'RatingFood'
 
     id = db.Column(db.Integer, primary_key=True)
     restaurant = db.Column(db.String(1000))
@@ -160,20 +167,27 @@ class RatingFood(db.Model):
     def returnJson(self):
         return self.json(self.id)
 
+
 review_info = []
+
+
 # mapping the backend to the frontend
 def review_map():
     ratings = RatingFood.query.all()
     for reviews in ratings:
         # id, restaurant, name, user, time, stars, description
-        info = {'id': reviews.id, 'restaurant': reviews.restaurant, 'name': reviews.name, 'user': reviews.user, 'time': reviews.time, 'stars': reviews.stars, 'description': reviews.description}
+        info = {'id': reviews.id, 'restaurant': reviews.restaurant, 'name': reviews.name, 'user': reviews.user,
+                'time': reviews.time, 'stars': reviews.stars, 'description': reviews.description}
         review_info.append(info)
 
-review_map()
-class GetReviewResource(Resource):
 
+review_map()
+
+
+class GetReviewResource(Resource):
     # remapping the front end each time a get request is sent
     review_info = []
+
     def review_map_embbed(self):
         ratings = RatingFood.query.all()
         for reviews in ratings:
@@ -186,32 +200,78 @@ class GetReviewResource(Resource):
                 'time': reviews.time,
                 'stars': reviews.stars,
                 'description': reviews.description
-                    }
+            }
             review_info.append(info)
 
     def get(self, id):
         # to decrement the id to ensure that row matches the contents of the list
-        review = review_info[int(id)-1]
+        review = review_info[int(id) - 1]
         # converting to json
         jsonStr = json.dumps(review)
         return review
+
     pass
+
+
+class CreateReview(Resource):
+
+    def post(self, restaurant, name, user, stars, description):
+        """info = {
+                'id': reviews.id,
+                'restaurant': reviews.restaurant,
+                'name': reviews.name,
+                'user': reviews.user,
+                'time': reviews.time,
+                'stars': reviews.stars,
+                'description': reviews.description
+                    }"""
+        # info_data = request.get_json()
+
+        # getting the max id
+        userid = db.session.query(func.max(RatingFood.id))
+
+        # getting the current time
+        now = datetime.now()
+
+        # filling in the data to populate the database
+        review = RatingFood(
+            id=userid,
+            restaurant=restaurant,
+            name=name,
+            user=user,
+            time=now,
+            stars=stars,
+            description=description
+        )
+
+        # committing information into the database
+        db.session.add(review)
+        db.session.commit()
+
+        return review.json()
+
 
 class AllReviews(Resource):
     def get(self):
-        #review = review_info
-        #return [peep.json() for peep in review]
+        # review = review_info
+        # return [peep.json() for peep in review]
         return review_info
+
     pass
+
 
 db.create_all()
 
 # information to display on the admin page
 user_records = []
-def list_user_map():  # mapping the front end to the backend, put in the function so we don't have to copy and paste
+
+
+# mapping the front end to the backend, put in the function so we don't have to copy and paste
+def list_user_map():
     user = User.query.all()
     for user in user:
         user_info = {'id': user.id, 'username': user.username, 'email': user.email, 'password': user.password}
         user_records.append(user_info)
-list_user_map()
 
+
+list_user_map()

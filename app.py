@@ -16,7 +16,7 @@ from views.Dk.app import dk_bp
 from flask_bootstrap import Bootstrap
 
 from model.module import Api
-from model.module import GetReviewResource, AllReviews
+from model.module import GetReviewResource, AllReviews, CreateReview
 
 app = Flask(__name__)
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
@@ -34,14 +34,25 @@ bootstrap = Bootstrap(app)
 
 api = Api(app)
 api.add_resource(GetReviewResource, '/Food', '/Food/<string:id>')
+
+api.add_resource(
+    CreateReview,
+    '/createReview',
+    '/createReview/<string:restaurant>/<string:name>/<string:user>/<string:stars>/<string:description>'
+)
+
 api.add_resource(AllReviews, '/AllFood')
+
+
 @app.route('/')
 def index():
     return render_template("home.html")
 
+
 @app.route('/easteregg')
 def PythonMiniLab():
     return render_template("Easter_egg.html")
+
 
 if __name__ == "__main__":
     # runs the application on the repl development server
