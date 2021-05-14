@@ -35,7 +35,7 @@
         </ol>
     </div>
 
-    <div style="margin-left: 750px; position: absolute; z-index: 10; ">
+    <div id="button_store" style="margin-left: 750px; position: absolute; z-index: 10; " >
         <!--
             <g>
                 <p id="device_list0" style="display: none">device1,164.00000095367432,108.10511779785156,device2,82.00000095367432,200.10511779785156,device3,247.00000095367432,197.10511779785156,device4,75.00000095367432,334.10511779785156,device5,290.0000009536743,327.10511779785156</p>
@@ -77,8 +77,8 @@
                     <p id={{key}} style="display: none">{{value}}</p>
                 {% endif %}
             {% endfor %}
+            <br>
         </g>
-        <br>
         {% endfor %}
 
     </div>
@@ -806,12 +806,26 @@
         redrawLinesRemoveDevice();
         createDeviceListFromBackend();
     }
+    /*
+    var buttonStore = document.getElementById("button_store")
+    for (let i = 0; i < buttonStore.children.length; i++) {
+        //console.log(buttonStore.children[i].tagName);
+        var idButton = "demo_map" + String(i)
+        var idListDevices = "device_list" + String(i)
+        var idListConnections = "connections_list" + + String(i)
+
+        document.getElementById(idButton).addEventListener("click", function (){
+            console.log(idButton+idListDevices+idListConnections)
+            createFromList(idListDevices, idListConnections);
+        })
+
+    }*/
+
 
     document.getElementById("demo_map0").addEventListener("click", function (){
         createFromList("device_list0", "connections_list0");
     })
     document.getElementById("demo_map1").addEventListener("click", function (){
-        console.log("hellooooo")
         createFromList("device_list1", "connections_list1");
     })
     document.getElementById("demo_map2").addEventListener("click", function (){
@@ -823,10 +837,6 @@
     document.getElementById("demo_map4").addEventListener("click", function (){
         createFromList("device_list4", "connections_list4");
     })
-    /*document.getElementById("demo_map4").addEventListener("click", function (){
-        createFromList("device_list4", "connections_list4");
-    })*/
-
 
 </script>
 {% endblock %}
