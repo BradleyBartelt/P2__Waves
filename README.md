@@ -31,11 +31,28 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 ### 5 week left of school
 
 ### week 6 (progress for week of 5/10/21)
-- Colin 
-    - [code](https://github.com/BradleyBartelt/P2__Waves/blob/0579ad9946b8587c1b2031743213645070846e61/model/module.py#L172-L196) worked on getting the getters up for publishing database information in an API 
-        - using workaround to map information from database into a list of json (each item within the list is a JSON which represents each row of data)
-        - this is as the database file init is not in the app.py (highest level route management)
-        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/0579ad9946b8587c1b2031743213645070846e61/app.py#L35-L36) location where api routes are within the code
+- Colin
+    - [Ticket #1:](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-60810362)
+        - [runtime link](http://pieceofthepi.cf/colin/api_pull),
+        - [Frontend code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/api_pull.html),
+            - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4d359237a2c4984778ea24b2229f5a5906f315dc/views/colin/templates/colin/api_pull.html#L76-L95) implementation of js to display number of stars based off integer of rating of review
+        - Backend Code
+          - [code](https://github.com/BradleyBartelt/P2__Waves/blob/0579ad9946b8587c1b2031743213645070846e61/model/module.py#L172-L196) worked on getting the getters up for publishing database information in an API
+                  - using workaround to map information from database into a list of json (each item within the list is a JSON which represents each row of data)
+              - this is as the database file init is not in the app.py (highest level route management)
+
+          - [code](https://github.com/BradleyBartelt/P2__Waves/blob/0579ad9946b8587c1b2031743213645070846e61/app.py#L35-L36) location where api routes are within the code
+          - [Code backend to choose random review from database](https://github.com/BradleyBartelt/P2__Waves/blob/7c4cc355f728e8c73c92581888e6b84f8e5bd7db/views/colin/app.py#L217-L234)
+          - [first counts number of entries in database](https://github.com/BradleyBartelt/P2__Waves/blob/7c4cc355f728e8c73c92581888e6b84f8e5bd7db/views/colin/app.py#L219-L224)
+          - [choose entry to display based off random selection of all entries in database](https://github.com/BradleyBartelt/P2__Waves/blob/7c4cc355f728e8c73c92581888e6b84f8e5bd7db/views/colin/app.py#L226-L234) 
+        
+    - [Ticket #2](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-60811255):
+        - Objective, to create listeners dynamically based off presets (precursor to linking the network map with the database)
+        - [Runtime link](http://pieceofthepi.cf/colin/network) see buttons on right side of screen
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4152cf5a228c38db290af4b8748b9f6531188ffa/views/colin/templates/colin/network/network_map.html#L39-L69) Old way in storing presets
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4152cf5a228c38db290af4b8748b9f6531188ffa/views/colin/templates/colin/network/network_map.html#L71-L82) using jinja for loops to iterate through data
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/algo/network_store.py) preset info stored in external python document
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4152cf5a228c38db290af4b8748b9f6531188ffa/views/colin/templates/colin/network/network_map.html#L810-L822) Failed attempt in creating listeners dynamically, will explore using [.this](https://learn.jquery.com/events/event-delegation/) to read the value of selected item and use the children to find the id of corresponding tags storing values
 
 ### week 5 (progress for week of 5/3/21)
 - Colin 
