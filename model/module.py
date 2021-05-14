@@ -214,21 +214,15 @@ class GetReviewResource(Resource):
 
 
 class CreateReview(Resource):
-
     def post(self, restaurant, name, user, stars, description):
-        """info = {
-                'id': reviews.id,
-                'restaurant': reviews.restaurant,
-                'name': reviews.name,
-                'user': reviews.user,
-                'time': reviews.time,
-                'stars': reviews.stars,
-                'description': reviews.description
-                    }"""
+
         # info_data = request.get_json()
 
         # getting the max id
-        userid = db.session.query(func.max(RatingFood.id))
+        # userid = db.session.query(func.max(RatingFood.id))
+        userid = len(review_info) + 1
+        print(userid)
+
 
         # getting the current time
         now = datetime.now()
@@ -240,9 +234,10 @@ class CreateReview(Resource):
             name=name,
             user=user,
             time=now,
-            stars=stars,
-            description=description
+            stars=int(stars),
+            description=str(description)
         )
+        print(review.json())
 
         # committing information into the database
         db.session.add(review)
