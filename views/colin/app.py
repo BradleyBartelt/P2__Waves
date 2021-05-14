@@ -6,6 +6,8 @@ from views.colin.algo.bubble_sort import BubbleSort
 from views.colin.algo.bubble_sort2 import BubbleSortString
 import json, random, requests
 from views.colin.algo.network_store import list_store
+from model.module import RatingFood, CreateReview, review_info, db, SQLAlchemy, api
+from datetime import datetime
 
 colin_bp = Blueprint('colin_bp', __name__,
                           template_folder='templates',
@@ -233,3 +235,50 @@ def api_pull():
     dictionary = response.text
     y = json.loads(dictionary)
     return render_template('colin/api_pull.html', active_page='colin', data = y)
+
+@colin_bp.route('/api_form', methods=["GET", "POST"])
+def api_form():
+    if request.form:
+        restaurant = request.form.get('restaurant')
+        name = request.form.get('name')
+        star_count = request.form.get("star_count")
+        message_input = request.form.get("message")
+
+        message = str(restaurant) + " "+ str(name) + " " + str(star_count) + " "+ str(message_input)
+        default_message = "Restaurant Name Your name here 0 Leave Comments Here"
+
+        # checking if input was just the default input
+        if message == default_message:
+            print("did not change default")
+        else:
+            # accepting and writing the response if it is different than default
+            # post(self, restaurant, name, user, stars, description):
+            # CreateReview.post(restaurant, name, "peasant", star_count, message)
+            # url = "http://pieceofthepi.cf/Food/" + "/createReview/" +str(restaurant)+"/"+str(name)+"/peasant/"+str(star_count)+"/"+str(message)
+            # requests.request("POST", url)
+
+            userid = len(review_info) + 1
+            print(userid)
+
+            # getting the current time
+            now = datetime.now()
+
+            # filling in the data to populate the database
+            review = RatingFood(
+                id=userid,
+                restaurant=restaurant,
+                name=name,
+                user="peasant",
+                time=now,
+                stars=int(star_count),
+                description=str(message_input)
+            )
+            print(review.json())
+
+            # committing information into the database
+            db.session.add(review)
+            db.session.commit()
+
+        return render_template('colin/api_form.html', active_page='colin')
+
+    return render_template('colin/api_form.html', active_page='colin')
