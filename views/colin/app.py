@@ -5,6 +5,7 @@ from views.colin.algo.conversion import Conversion
 from views.colin.algo.bubble_sort import BubbleSort
 from views.colin.algo.bubble_sort2 import BubbleSortString
 import json, random, requests
+from views.colin.algo.network_store import list_store
 
 colin_bp = Blueprint('colin_bp', __name__,
                           template_folder='templates',
@@ -192,7 +193,7 @@ def reset():
 
 @colin_bp.route('/network')
 def network():
-    return render_template('colin/network/network_map.html', active_page='colin')
+    return render_template('colin/network/network_map.html', active_page='colin', parent_list=list_store)
 
 @colin_bp.route('/solar')
 def solar():

@@ -36,6 +36,7 @@
     </div>
 
     <div style="margin-left: 750px; position: absolute; z-index: 10; ">
+        <!--
             <g>
                 <p id="device_list0" style="display: none">device1,164.00000095367432,108.10511779785156,device2,82.00000095367432,200.10511779785156,device3,247.00000095367432,197.10511779785156,device4,75.00000095367432,334.10511779785156,device5,290.0000009536743,327.10511779785156</p>
                 <p id="connections_list0" style="display: none">device1,device2,device2,device4,device1,device3,device3,device5</p>
@@ -65,7 +66,20 @@
                 <p id="connections_list4" style="display: none">device1,device2,device2,device3,device3,device4,device4,device5,device1,device3,device2,device4</p>
                 <button type="submit" id="demo_map4">Non-Fault tolerant system</button>
             </g>
+        <br>-->
+
+        {% for dict_item in parent_list %}
+        <g>
+            {% for key, value in dict_item.items() %}
+                {% if loop.index % 3 == 0 %}
+                    <button type="submit" id={{key}}>{{value}}</button>
+                {% else %}
+                    <p id={{key}} style="display: none">{{value}}</p>
+                {% endif %}
+            {% endfor %}
+        </g>
         <br>
+        {% endfor %}
 
     </div>
 
@@ -89,6 +103,7 @@
             <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate()" target="_blank">way to rotate a div</a></li>
             <li><a href="https://stackoverflow.com/questions/7365436/erasing-previously-drawn-lines-on-an-html5-canvas" target="_blank">way to clear canvas of connection lines</a></li>
             <li><a href="https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/" target="_blank">way to delete all child nodes of a parent node</a> </li>
+            <li><a href="https://stackoverflow.com/questions/25373154/how-to-iterate-through-a-list-of-dictionaries-in-jinja-template" target="_blank">Iterating through dictionaries with Jinja displaying key and value</a></li>
         </ul>
 
 
