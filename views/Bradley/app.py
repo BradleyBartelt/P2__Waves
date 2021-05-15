@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from views.Bradley.binary import Binaryclass
+from views.Bradley.binary import Conversionclass
 from views.Bradley.bubblesorter import Listerclass
 
 bradley_bp = Blueprint('bradley_bp', __name__,
@@ -13,8 +13,8 @@ def index():
 @bradley_bp.route('/minilabB',methods = ["GET","POST"])
 def minilabB():
     if request.form:
-        return render_template("minilabB.html", binaryclass=Binaryclass(int(request.form.get("input"))))
-    return render_template("minilabB.html", binaryclass=Binaryclass(2))
+        return render_template("minilabB.html", conversionclass=Conversionclass(int(request.form.get("input")), request.form.get("select")))
+    return render_template("minilabB.html", conversionclass=Conversionclass(2,""))
 
 @bradley_bp.route('/bubblesorter',methods = ["GET","POST"])
 def bubblesorter():

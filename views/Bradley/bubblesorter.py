@@ -10,8 +10,6 @@ class Listerclass:
 
     def conversion(self):
         numberlist = self._input
-        print(numberlist)
-        print(type(numberlist))
         if len(numberlist) > 0:
             for i in range(len(numberlist)):
                 numberlist[i] = int(numberlist[i])
