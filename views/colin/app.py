@@ -110,6 +110,9 @@ def conversion():
     conversion = Conversion(0, [1,2,3,4,5,6,7,8])
     return render_template("colin/conversion.html", conversion=conversion, list_conversion=conversion._list ,active_page='colin')
 
+""" College Board Code"""
+
+
 def create_coord_list():
     # this is taking the information from the input boxes
     all_list = []
@@ -130,6 +133,8 @@ def create_coord_list():
         b = b + 1
 
     return all_list
+
+
 def create_string(return_list):
     coord_string = ''
     for i in range(len(return_list)):
@@ -142,32 +147,33 @@ def create_string(return_list):
 inital_coords = [200,10,250,190,160,210]
 inital_string = create_string(inital_coords)
 
+
+def translateBy(res, valuex, valuey, state):
+    if state == 'reset':
+        res = inital_coords
+    else:
+        for i in range(len(res)):
+            if i % 2 == 0:
+                x_coord = int(res[i])
+                x_displacement = int(valuex)
+                res[i] = x_coord + x_displacement
+            else:
+                y_coord = int(res[i])
+                y_displacement = int(valuey)
+                res[i] = y_coord + y_displacement
+    return res
+
+
 @colin_bp.route('/polygon', methods=["GET", "POST"])
 def polygon():
     if request.form:
-
         return_list = create_coord_list()
         finalString = create_string(return_list)
-
         listToPass = str(return_list)
         print("list to pass: " +str(listToPass))
         return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
     return render_template("colin/college_board_polygon.html", active_page='colin', stringUse= inital_string, numbList = inital_coords )
-
-
-
-def translateBy(res, valuex, valuey, reset):
-    if reset == 'reset':
-        res = inital_coords
-    else:
-        for i in range(len(res)):
-            if i % 2 == 0:
-                res[i] = int(res[i]) + int(valuex)
-            else:
-                res[i] = res[i] - int(valuey)
-    return res
-
 
 
 @colin_bp.route('/translate2', methods=["GET", "POST"])
@@ -183,16 +189,18 @@ def translate():
 
         return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
+
 @colin_bp.route('/reset', methods=["GET", "POST"])
 def reset():
     if request.form:
-        return_list = create_coord_list()
         return_list = translateBy([], 0, 0, 'reset')
         finalString = create_string(return_list)
         listToPass = str(return_list)
 
         return render_template("colin/college_board_polygon.html", active_page='colin', stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
+
+"""End College Board Code"""
 @colin_bp.route('/network')
 def network():
     return render_template('colin/network/network_map.html', active_page='colin', parent_list=list_store)

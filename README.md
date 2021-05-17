@@ -28,8 +28,11 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.pieceofthepi.cf/)
 
 ## Change log
-### 5 week left of school
-
+### 4 week left of school
+### week 7 (progress for week of 5/17/21)
+- College board submission week
+- Colin
+    - tickets
 ### week 6 (progress for week of 5/10/21)
 - Colin
     - [Ticket #1:](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-60810362)
