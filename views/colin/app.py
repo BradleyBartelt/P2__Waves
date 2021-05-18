@@ -171,9 +171,9 @@ def polygon():
         finalString = create_string(return_list)
         listToPass = str(return_list)
         print("list to pass: " +str(listToPass))
-        return render_template("colin/college_board_polygon.html", stringUse = finalString, listToPass = listToPass, numbList=return_list)
+        return render_template("college_board_polygon.html", stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
-    return render_template("colin/college_board_polygon.html", stringUse= inital_string, numbList = inital_coords )
+    return render_template("college_board_polygon.html", stringUse= inital_string, numbList = inital_coords )
 
 
 @colin_bp.route('/translate2', methods=["GET", "POST"])
@@ -187,7 +187,7 @@ def translate():
         finalString = create_string(return_list)
         listToPass = str(return_list)
 
-        return render_template("colin/college_board_polygon.html", stringUse = finalString, listToPass = listToPass, numbList=return_list)
+        return render_template("college_board_polygon.html", stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
 
 @colin_bp.route('/reset', methods=["GET", "POST"])
@@ -197,7 +197,7 @@ def reset():
         finalString = create_string(return_list)
         listToPass = str(return_list)
 
-        return render_template("colin/college_board_polygon.html", stringUse = finalString, listToPass = listToPass, numbList=return_list)
+        return render_template("college_board_polygon.html", stringUse = finalString, listToPass = listToPass, numbList=return_list)
 
 
 """End College Board Code"""
