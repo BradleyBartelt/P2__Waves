@@ -193,7 +193,11 @@ class GetReviewResource(Resource):
 
     pass
 
+"""
+json problems with python datatime
 
+https://stackoverflow.com/questions/11875770/how-to-overcome-datetime-datetime-not-json-serializable/36142844#36142844
+"""
 class CreateReview(Resource):
     def post(self, restaurant, name, user, stars, description):
 
@@ -201,7 +205,7 @@ class CreateReview(Resource):
 
         # getting the max id
         # userid = db.session.query(func.max(RatingFood.id))
-        userid = len(review_info) + 1
+        userid = len(review_info) + 2
         print(userid)
 
 
@@ -218,13 +222,15 @@ class CreateReview(Resource):
             stars=int(stars),
             description=str(description)
         )
-        print(review.json())
+        reviewJson = json.dumps(review.json(), indent=4, sort_keys=True, default=str)
+        #print(review.json())
+        print(reviewJson)
 
         # committing information into the database
         db.session.add(review)
         db.session.commit()
 
-        return review.json()
+        return reviewJson
 
 
 class AllReviews(Resource):
