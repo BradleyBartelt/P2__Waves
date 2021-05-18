@@ -17,8 +17,8 @@ from flask_bootstrap import Bootstrap
 
 from model.module import Api
 from model.module import GetReviewResource, AllReviews, CreateReview
+from main import app
 
-app = Flask(__name__)
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(diego_bp, url_prefix='/diego')
 app.register_blueprint(profile_bp, url_prefix='/profile')

@@ -5,10 +5,7 @@ from flask_migrate import Migrate
 from flask_restful import Resource, Api
 from sqlalchemy import func
 from datetime import datetime
-
-# create a Flask instance
-"Setting up the keys are needed for the database"
-app = Flask(__name__)
+from main import app
 
 # This grabs our directory
 basedir = os.path.abspath(os.path.dirname(__file__))
