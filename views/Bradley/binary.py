@@ -1,22 +1,44 @@
 
-class Binaryclass:
+class Conversionclass:
 
-    def __init__(self, input):
+    def __init__(self, input, select):
 
         self._input = input
-        self.binary_num = []
+        self.converted_num = []
+        self.select = select
         self.conversion()
 
 
     def conversion(self):
         value = self._input
 
-        while value >= 1:
-            remainder = value%2
-            value = value / 2
-            value = value - 0.1
-            value = round(value)
-            self.binary_num.insert(0,remainder)
+        if self.select == "Binary":
+            while value >= 1:
+                remainder = value%2
+                value = value / 2
+                value = value - 0.1
+                value = round(value)
+                self.converted_num.insert(0,remainder)
+        else:
+            if value <= 9:
+                self.converted_num.insert(0,value)
+            else:
+                while value >= 1:
+                    remainder = value%16
+                    value = value // 16
+                    if remainder == 10:
+                        remainder = "A"
+                    if remainder == 11:
+                        remainder = "B"
+                    if remainder == 12:
+                        remainder = "C"
+                    if remainder == 13:
+                        remainder = "D"
+                    if remainder == 14:
+                        remainder = "E"
+                    if remainder == 15:
+                        remainder = "F"
+                    self.converted_num.insert(0,remainder)
 
 
 
@@ -28,20 +50,6 @@ class Binaryclass:
 
     @property
     def list(self):
-        return self.binary_num
+        return self.converted_num
 
 
-# Tester Code
-if __name__ == "__main__":
-
-    n = 10
-    '''Constructor of Class object'''
-    binaryclass = Binaryclass(n)
-
-    '''Using getters to obtain data from object'''
-    print(f"Fibonacci number for {n} = {binaryclass.input}")
-    print(f"Fibonacci series for {n} = {binaryclass.list}")
-
-    '''Using method to get data from object'''
-    for i in range(n):
-        print(f"Fibonacci sequence {i + 1} = {binaryclass.get_sequence(i)}")
