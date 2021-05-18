@@ -174,7 +174,7 @@ def review_map():
     for reviews in ratings:
         # id, restaurant, name, user, time, stars, description
         info = {'id': reviews.id, 'restaurant': reviews.restaurant, 'name': reviews.name, 'user': reviews.user,
-                'time': reviews.time, 'stars': reviews.stars, 'description': reviews.description}
+                'time': str(reviews.time), 'stars': reviews.stars, 'description': reviews.description}
         review_info.append(info)
 
 
@@ -182,29 +182,13 @@ review_map()
 
 
 class GetReviewResource(Resource):
-    # remapping the front end each time a get request is sent
-    review_info = []
-
-    def review_map_embbed(self):
-        ratings = RatingFood.query.all()
-        for reviews in ratings:
-            # id, restaurant, name, user, time, stars, description
-            info = {
-                'id': reviews.id,
-                'restaurant': reviews.restaurant,
-                'name': reviews.name,
-                'user': reviews.user,
-                'time': reviews.time,
-                'stars': reviews.stars,
-                'description': reviews.description
-            }
-            review_info.append(info)
 
     def get(self, id):
+        # remaking to ensure that list is updated based off of backend
+        review_map()
+
         # to decrement the id to ensure that row matches the contents of the list
         review = review_info[int(id) - 1]
-        # converting to json
-        jsonStr = json.dumps(review)
         return review
 
     pass
