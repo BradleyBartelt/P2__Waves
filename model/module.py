@@ -201,20 +201,14 @@ https://stackoverflow.com/questions/11875770/how-to-overcome-datetime-datetime-n
 class CreateReview(Resource):
     def post(self, restaurant, name, user, stars, description):
 
-        # info_data = request.get_json()
-
-        # getting the max id
-        # userid = db.session.query(func.max(RatingFood.id))
-        userid = len(review_info) + 2
+        userid = db.session.query(func.max(RatingFood.id)).scalar()
         print(userid)
-
-
         # getting the current time
         now = datetime.now()
 
         # filling in the data to populate the database
         review = RatingFood(
-            id=userid,
+            id=int(userid)+1,
             restaurant=restaurant,
             name=name,
             user=user,
@@ -222,8 +216,9 @@ class CreateReview(Resource):
             stars=int(stars),
             description=str(description)
         )
+
         reviewJson = json.dumps(review.json(), indent=4, sort_keys=True, default=str)
-        #print(review.json())
+
         print(reviewJson)
 
         # committing information into the database
