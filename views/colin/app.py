@@ -259,12 +259,6 @@ def api_form():
         if message == default_message:
             print("did not change default")
         else:
-            # accepting and writing the response if it is different than default
-            # post(self, restaurant, name, user, stars, description):
-            # CreateReview.post(restaurant, name, "peasant", star_count, message)
-            # url = "http://pieceofthepi.cf/Food/" + "/createReview/" +str(restaurant)+"/"+str(name)+"/peasant/"+str(star_count)+"/"+str(message)
-            # requests.request("POST", url)
-
             userid = len(review_info) + 1
             print(userid)
 
