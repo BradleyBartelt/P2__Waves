@@ -25,7 +25,7 @@
     <!-- to hide all of the jinja variables-->
 {{id}}
 {{user}}
-{{time}}
+
 </div>
 
 <div style="margin-left: 15px">
@@ -59,6 +59,7 @@
 
                         </p>
                         <div class="clearfix"></div>
+                        <p id="time_display">{{time}}</p>
                         <p>{{description}}</p>
                         <!--<p>
                             <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
@@ -73,6 +74,15 @@
 </div>
 
 <script>
+    // to remove the last numbers in the time (instead of truncating with jinja whihc levaes ...)
+    // jinja: https://stackoverflow.com/questions/11875770/how-to-overcome-datetime-datetime-not-json-serializable/36142844#36142844
+    // js reference: https://stackoverflow.com/questions/31489413/remove-last-3-characters-of-string-or-number-in-javascript
+    var time = document.getElementById("time_display");
+    timeStr = String(time.innerHTML)
+    timeStr = timeStr.substring(0, timeStr.length-15);
+    time.innerHTML = timeStr
+
+
     //getting count of stars from jinja
     var countStar = document.getElementById("star_count");
 
