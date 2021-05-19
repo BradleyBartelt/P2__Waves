@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}College Board Project{% endblock %}</title>
+
+  <style>
+    .single {
+      background-color: #6969AC;
+      color: white;
+    }
+
+    .input_box {
+      width: 50px;
+      overflow: hidden;
+    }
+
+    #table{
+      width: 80%;
+      color: white;
+    }
+
+    th, td {
+      color: white;
+    }
+  </style>
+</head>
+
+{% block content %}
+<div class="container">
+
+  <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+    <!-- Title -->
+    <div class="col-12" style="text-align: center;">
+      <h1><strong>Poly Gon Draw</strong></h1>
+      <p>Objective is to draw a polygon based off coordinates</p>
+    </div>
+
+    <!-- Input and Content -->
+    <div class="jumbotron text-center row">
+      <!-- Input -->
+      <!-- color pallet I am using: https://coolors.co/30292f-413f54-5f5aa2-355691-3f4045-->
+      <div class="col-md-5">
+        <div id="multi" style="background-color: #05556D">
+          <form action="{{ url_for('colin_bp.polygon') }}" method="post">
+
+            <table>
+              <tr>
+                <th></th>
+                <th style="color: white;">X</th>
+                <th style="color: white;">Y</th>
+              </tr>
+              <tr>
+                <td style="color: white;">1</td>
+                <td><input style="width: 70px" name="x_coord1" type="number" required value="{{numbList[0]}}"></td>
+                <td><input style="width: 70px" name="y_coord1" type="number" required value="{{numbList[1]}}"></td>
+              </tr>
+              <tr>
+                <td style="color: white;">2</td>
+                <td><input style="width: 70px" name="x_coord2" type="number" required value="{{numbList[2]}}"></td>
+                <td><input style="width: 70px" name="y_coord2" type="number" required value="{{numbList[3]}}"></td>
+              </tr>
+              <tr>
+                <td style="color: white;">3</td>
+                <td><input style="width: 70px" name="x_coord3" type="number" required value="{{numbList[4]}}"></td>
+                <td><input style="width: 70px" name="y_coord3" type="number" required value="{{numbList[5]}}"></td>
+              </tr>
+            </table>
+            <input type="text" name="stringUse" value="{{stringUse}}" hidden>
+            <input type="text" name="listToPass" value="{{listToPass}}" hidden>
+            <input style="margin-bottom: 10px" id='submitbutton' type="submit" class="button" value="Submit">
+          </form>
+
+          <form action="{{ url_for('colin_bp.translate') }}" method="post">
+            <table>
+              <tr>
+                <th></th>
+                <th style="color: white;">X</th>
+                <th style="color: white;">Y</th>
+              </tr>
+              <tr>
+                <td></td>
+                <td><input style="width: 70px" name="x_trans1" type="number" value="0"></td>
+                <td><input style="width: 70px" name="y_trans1" type="number" value="0"></td>
+              </tr>
+            </table>
+
+            <input style="width: 70px" name="x_coord1" type="number" required value="{{numbList[0]}}" hidden>
+            <input style="width: 70px" name="y_coord1" type="number" required value="{{numbList[1]}}" hidden>
+            <input style="width: 70px" name="x_coord2" type="number" required value="{{numbList[2]}}" hidden>
+            <input style="width: 70px" name="y_coord2" type="number" required value="{{numbList[3]}}" hidden>
+            <input style="width: 70px" name="x_coord3" type="number" required value="{{numbList[4]}}" hidden>
+            <input style="width: 70px" name="y_coord3" type="number" required value="{{numbList[5]}}" hidden>
+
+            <input type="text" name="stringUse" value="{{stringUse}}" hidden>
+            <input type="text" name="listToPass" value="{{listToPass}}" hidden>
+            <input style="margin-bottom: 10px" type="submit" class="button" value="Translate">
+          </form>
+
+          <form action="{{ url_for('colin_bp.reset') }}" method="post">
+
+            <input style="width: 70px" name="x_coord1" type="number" required value="{{numbList[0]}}" hidden>
+            <input style="width: 70px" name="y_coord1" type="number" required value="{{numbList[1]}}" hidden>
+            <input style="width: 70px" name="x_coord2" type="number" required value="{{numbList[2]}}" hidden>
+            <input style="width: 70px" name="y_coord2" type="number" required value="{{numbList[3]}}" hidden>
+            <input style="width: 70px" name="x_coord3" type="number" required value="{{numbList[4]}}" hidden>
+            <input style="width: 70px" name="y_coord3" type="number" required value="{{numbList[5]}}" hidden>
+
+            <input type="text" name="stringUse" value="{{stringUse}}" hidden>
+            <input type="text" name="listToPass" value="{{listToPass}}" hidden>
+            <input style="margin-bottom: 10px" type="submit" class="button" value="reset">
+          </form>
+        </div>
+      </div>
+      <!-- Content-->
+      <!-- Color Pallet: https://coolors.co/313715-d16014-939f5c-bbce8a-e2f9b8-->
+
+
+      <div class="col-md-5">
+        <div style="background-color: #CD7F4D">
+          <h3>Output</h3>
+          <!--<p>Here are the coordinates of the points of the polygon</p>
+          <p>{{stringUse}}</p>
+          <p>{{listToPass}}</p>-->
+          <svg height="210" width="500">
+            <polygon points={{stringUse}} style="fill:lime;stroke:purple;stroke-width:1;" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<script>
+  var submitButton = document.getElementById("submitbutton");
+
+  submitButton.addEventListener("click", function(){
+    console.log('clicked')
+  }, false);
+</script>
+{% endblock %}

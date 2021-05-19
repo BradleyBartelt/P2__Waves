@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+
+
+{% block content %}
+<div class="container">
+
+    <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+        <!-- Title -->
+        <div class="col-12" style="text-align: center;">
+            <h1 style ="color:blue"><strong>Bubble sorter</strong></h1>
+        </div>
+
+        <!-- Input and Content -->
+        <div class="jumbotron text-center row">
+            <div class="col-md-6">
+                <h3 style ="color:blue">Type in a list of numbers in order to have them sorted from lowest to highest. Type in each number with a space in between like such: "4 7 2 5"</h3>
+                <form id="sortform" action="/bradley/bubblesorter" method="POST" >
+                    <input name="input" id="input" type="text">
+                    <button style ="color:blue">Sort list</button>
+                </form>
+            </div>
+
+            <div class="col-md-6">
+                <h4 style ="color:blue">{{listerclass.list}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12" style="text-align: center;">
+    <h1 style ="color:blue"><strong>WOW!</strong></h1>
+</div>
+<style>
+    table, td, th {
+        border: 1px solid var(--dblue);
+    }
+    td, th {
+        text-align:left;
+    }
+</style>
+{% endblock %}

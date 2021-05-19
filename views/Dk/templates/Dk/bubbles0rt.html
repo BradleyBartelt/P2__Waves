@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Bubble S0rt{% endblock %}</title>
+
+    <style>
+        .single {
+            background-color: #000000;
+        }
+    </style>
+</head>
+
+{% block content %}
+<div class="container">
+
+    <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
+        <!-- Title -->
+        <div class="col-12" style="text-align: center;">
+            <h1><strong>Bubble S0rt</strong></h1>
+        </div>
+
+        <!-- Input and Content -->
+        <div class="jumbotron text-center row">
+            <!-- Input -->
+            <!-- color pallet I am using: https://coolors.co/30292f-413f54-5f5aa2-355691-3f4045-->
+            <div class="col-md-5">
+                <div id="multi" style="background-color: #129895">
+                    <form action="{{ url_for('dk_bp.bubblesort') }}" method="post">
+                        <label style="color: #000000"><b>Input Numbers to Bubble Sort</b></label>
+                        <g id="multi_input">
+                            <input style="margin-bottom: 10px" name="user_input1" type="number">
+                            <input style="margin-bottom: 10px" name="user_input2" type="number">
+                            <input style="margin-bottom: 10px" name="user_input3" type="number">
+                            <input style="margin-bottom: 10px" name="user_input4" type="number">
+                            <input style="margin-bottom: 10px" name="user_input5" type="number">
+                        </g>
+                        <br>
+                        <input style="margin-bottom: 10px" type="submit" class="button" value="Submit">
+                    </form>
+                </div>
+            </div>
+
+            <!-- Content-->
+            <!-- Color Pallet: https://coolors.co/313715-d16014-939f5c-bbce8a-e2f9b8-->
+
+
+            <div class="col-md-5">
+                <div style="background-color: #129895">
+                    <h3>Output</h3>
+                    <p>{{output_list}}</p>
+                    <p>{{testing}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+
+{% endblock %}

@@ -28,14 +28,57 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.pieceofthepi.cf/)
 
 ## Change log
-### week 5 (progress for week of 4/26/21)
+### 4 week left of school
+### week 7 (progress for week of 5/17/21)
+- College board submission week
+- Colin
+    - tickets
+### week 6 (progress for week of 5/10/21)
+- Colin
+    - [Ticket #1:](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-60810362)
+        - [runtime link](http://pieceofthepi.cf/colin/api_pull),
+        - [Frontend code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/api_pull.html),
+            - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4d359237a2c4984778ea24b2229f5a5906f315dc/views/colin/templates/colin/api_pull.html#L76-L95) implementation of js to display number of stars based off integer of rating of review
+        - Backend Code
+          - [code](https://github.com/BradleyBartelt/P2__Waves/blob/0579ad9946b8587c1b2031743213645070846e61/model/module.py#L172-L196) worked on getting the getters up for publishing database information in an API
+                  - using workaround to map information from database into a list of json (each item within the list is a JSON which represents each row of data)
+              - this is as the database file init is not in the app.py (highest level route management)
+
+          - [code](https://github.com/BradleyBartelt/P2__Waves/blob/0579ad9946b8587c1b2031743213645070846e61/app.py#L35-L36) location where api routes are within the code
+          - [Code backend to choose random review from database](https://github.com/BradleyBartelt/P2__Waves/blob/7c4cc355f728e8c73c92581888e6b84f8e5bd7db/views/colin/app.py#L217-L234)
+          - [first counts number of entries in database](https://github.com/BradleyBartelt/P2__Waves/blob/7c4cc355f728e8c73c92581888e6b84f8e5bd7db/views/colin/app.py#L219-L224)
+          - [choose entry to display based off random selection of all entries in database](https://github.com/BradleyBartelt/P2__Waves/blob/7c4cc355f728e8c73c92581888e6b84f8e5bd7db/views/colin/app.py#L226-L234) 
+        
+    - [Ticket #2](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-60811255):
+        - Objective, to create listeners dynamically based off presets (precursor to linking the network map with the database)
+        - [Runtime link](http://pieceofthepi.cf/colin/network) see buttons on right side of screen
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4152cf5a228c38db290af4b8748b9f6531188ffa/views/colin/templates/colin/network/network_map.html#L39-L69) Old way in storing presets
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4152cf5a228c38db290af4b8748b9f6531188ffa/views/colin/templates/colin/network/network_map.html#L71-L82) using jinja for loops to iterate through data
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/algo/network_store.py) preset info stored in external python document
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4152cf5a228c38db290af4b8748b9f6531188ffa/views/colin/templates/colin/network/network_map.html#L810-L822) Failed attempt in creating listeners dynamically, will explore using [.this](https://learn.jquery.com/events/event-delegation/) to read the value of selected item and use the children to find the id of corresponding tags storing values
+
+### week 5 (progress for week of 5/3/21)
+- Colin 
+    - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/network/network_map.html) [runtime link](http://pieceofthepi.cf/colin/network) worked on networking diagram maker 
+        - lessons learned: use the canvas for drawing lines 
+        - simple is usually better
+    - worked on connecting database with API [forked code](https://github.com/colin-szeto/flask_api_sql)
+    - Prototypes made
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/rabbit_racer.html) rabbit racer from Khan academy
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/planets.html) planets from khan academy (learning about appending children to parents)
+        - [code](https://replit.com/@colinszeto/rotating#index.html) testing to see how div would interact with transform: rotate(180deg)
+        - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/templates/colin/network/test_drag.html) testing if making connections by rotating div would work
+            - used points to document where the mousedown and mouse up occured
+    
+### week 4 (progress for week of 4/26/21)
 - Colin 
     - worked on the admin page
         - worked on connecting up the database information to be shown in the front end
+    - worked on college board submission redrawing polygon based off of user input
     
-### week 3 - 4
+### week 3.5 spring break (4/19/21)
+### week 2 (3/29/21) - 3 (4/5/21) Python Mini Labs
 
-## Python Mini Labs
 ### Colin
 - [link to runtime](http://www.pieceofthepi.cf/colin/) (this is the landing page, please ignore fibonacci as it was a reference for myself)
 - [link to runtime](http://www.pieceofthepi.cf/colin/conversion) (this is the real mini lab, all decriptions and instructions are on the page)
@@ -101,6 +144,25 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
     - [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57787718)
 -  Blueprint setup (Diego)
     - [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57650333])
+
+## Pull code from Github and update packages
+#### In console/terminal (every update: pull code and check package dependencies)...
+
+pi@raspberrypi:~ $  ``` sudo apt update; sudo apt upgrade```
+
+pi@raspberrypi:~ $  ``` cd ~/P2__Waves```
+
+pi@raspberrypi:~/P2__Waves $ ```  git pull```
+
+pi@raspberrypi:~/P2__Waves $ ```  source wave/bin/activate```
+
+#### In console/terminal with virtualenv activitate (every time: check and update packages)...
+
+(wave) pi@raspberrypi:~/P2__Waves $ ```  sudo pip install -r requirements.txt```
+
+#### In console/terminal (every time AFTER initial setup: restart gunicorn)...
+
+pi@raspberrypi:~ $ ```sudo systemctl restart  wave.service```
 
 ### Credit
 - [Favicon Used](https://www.deviantart.com/chinyiun/art/Pixel-art-pizza-852260462)

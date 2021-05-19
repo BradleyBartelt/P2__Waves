@@ -15,6 +15,11 @@ from views.profile.app import profile_bp
 from views.colin.app import colin_bp
 from views.Dk.app import dk_bp
 from flask_bootstrap import Bootstrap
+
+from model.module import Api
+from model.module import GetReviewResource, AllReviews, CreateReview
+from main import app
+
 app = Flask(__name__)
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(diego_bp, url_prefix='/diego')
@@ -29,10 +34,22 @@ app.config.update(dict(
 ))
 bootstrap = Bootstrap(app)
 
+api = Api(app)
+api.add_resource(GetReviewResource, '/Food', '/Food/<string:id>')
+
+api.add_resource(
+    CreateReview,
+    '/createReview',
+    '/createReview/<string:restaurant>/<string:name>/<string:user>/<string:stars>/<string:description>'
+)
+
+api.add_resource(AllReviews, '/AllFood')
+
 
 @app.route('/')
 def index():
     return render_template("home.html")
+
 
 @app.route('/easteregg')
 def PythonMiniLab():

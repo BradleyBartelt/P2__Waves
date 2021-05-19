@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Network Map Maker - Using Div{% endblock %}</title>
+</head>
+
+<style>
+    #canvas {
+
+    }
+</style>
+
+{% block content %}
+<div style="margin-left: 15px" >
+<h1>Network Map - Using div</h1>
+<h1 id="state">Create device</h1>
+    <p style="width: 500px">Objective is to make the connections between devices with div so that we and differentiate between connections instead of using the canvas and line draw opperations</p>
+    <!-- there is an outer div "canvas that is used to create the divs that represet the devices"-->
+    <div id="canvas" style="width: 500px; height: 500px; background-color: #ecdfff; z-index: -1; position: absolute">
+        <!-- there is an inner div to draw the connections between devices-->
+        <canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
+    </div>
+
+    <div style="margin-top: 500px; position: absolute; z-index: -10">
+        <button id="remove_button"> Remove </button>
+        <button id="remove_button1"> Clear Lines </button>
+        <br>
+        <p>References</p>
+        <ul>
+            <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position." target="_blank">article drawing</a></li>
+            <li><a href="https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_line" target="_blank">svg line</a></li>
+            <li><a href="https://www.geeksforgeeks.org/javascript-removeeventlistener-method-with-examples/#:~:text=The%20removeEventListener()%20is%20an,remove%20a%20click%20event%20listener." target="_blank">removing listners</a></li>
+            <li><a href="https://www.javascripttutorial.net/web-apis/javascript-draw-line/" target="_blank"> in drawing lines from initial click to final click</a></li>
+            <li><a href="https://stackoverflow.com/questions/18012420/draw-diagonal-lines-in-div-background-with-css" target="_blank"> way to create the connections with divs</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate()" target="_blank">way to rotate a div</a></li>
+            <li><a href="https://stackoverflow.com/questions/7365436/erasing-previously-drawn-lines-on-an-html5-canvas" target="_blank">way to clear canvas of connection lines</a></li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    var canvasState = "unLocked"
+    numbAddedBoxes = 0;
+
+    var gameState = document.getElementById("state")
+
+    // code for removing the devices
+    var removeBox = document.getElementById("remove_button")
+    var deviceState = "none"
+    var toggleTrash = 0;
+    console.log("device State: none")
+
+    //default color of the trash button
+    removeBox.style.backgroundColor = "#4CAF50";
+    removeBox.addEventListener("click", function(){
+        if (toggleTrash % 2 != 0){
+            removeBox.style.backgroundColor = "#4CAF50";
+            deviceState = "none"
+            console.log("device State: none")
+            toggleTrash = Number(toggleTrash) + 1
+
+            // need to move the canvas state as unlocked to create the device. This is as unlocked occurs when the mouse moves out of the device
+            // as the device would be removed when clicked, mouse out would never occur again
+            canvasState = "unLocked"
+        }else {
+            removeBox.style.backgroundColor = "#dc1b1b";
+            deviceState = "remove"
+            console.log("device State: remove")
+            toggleTrash = Number(toggleTrash) + 1
+        }
+    })
+    //end code to remove devices
+
+    canvas = document.getElementById("canvas")
+    let rect = canvas.getBoundingClientRect();
+    b = 0
+    z = 0
+    connectionStatus = 0;
+
+    canvas.addEventListener("click", function(event){
+
+        var x = event.clientX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
+        var y = event.clientY - rect.top -25;    // Get the vertical coordinate
+
+        //var coor = "X coords: " + x + ", Y coords: " + y;
+
+        if (canvasState == "unLocked") {
+            gameState.innerHTML = "add box";
+            //if the canvas is unlocked, a new box will be created
+            b = Number(b) + 1;
+            addBox(x,y,b);
+            console.log("number of deivces present:" + String(b));
+
+        }
+        if (canvasState == "locked") {
+            // if the canvas state is locked, this means that mouse is over a div
+            gameState.innerHTML = "Locked";
+
+            if (deviceState != "remove") {
+                gameState.innerHTML = "add line";
+                // when the program is not in the remove state
+
+                z = Number(z) + 1;
+                drawDiv(x,y,z)
+                //addLine(x,y,z)
+                connectionStatus = Number(connectionStatus) + 1;
+            }
+
+        }
+
+    }, false);
+
+    function addBox(x,y, increment) {
+        var idButton = "device" + increment;
+
+        //the code to set all the styles correctly to create a box
+        new_box = document.createElement('div');
+        new_box.style.position = 'absolute';
+        new_box.style.background = "rgb(126, 127, 143)";
+        new_box.style.width ='50px';
+        new_box.style.height ='50px';
+        new_box.style.marginLeft = String(x)+'px';
+        new_box.style.marginTop = String(y)+'px';
+        new_box.style.zIndex = 5;
+
+        new_box.setAttribute("id", idButton); //defining the id for the box
+        canvas.appendChild(new_box);
+
+        // if the mouse is over a device, can not create a device on top of device
+        new_box.addEventListener("mouseover", function (){
+            //console.log("mouse over: " + idButton);
+            canvasState = "locked"
+        }, false )
+
+        // if the mouse moves out of a device, can create another device
+        new_box.addEventListener("mouseout", function (){
+            canvasState = "unLocked"
+        }, false )
+
+        // if the state is correct then remove the box
+        new_box.addEventListener("click", function (){
+            if (deviceState == "remove") {
+                console.log("remove box")
+                var boxRemove = document.getElementById(idButton)
+                boxRemove.remove();
+            }
+        })
+    }
+
+    /*** Here is where the drawing line code occurs ***/
+    const canvasInner = document.getElementById('canvasInner');
+    const ctx = canvasInner.getContext('2d');
+
+    //temporary values (default values of where the inital click was)
+    var intialXLinesave = 0;
+    var intialYLinesave = 0;
+
+    function drawLine(ctx, begin, end, stroke = 'black', width = 1) {
+        if (stroke) {
+            ctx.strokeStyle = stroke;
+        }
+
+        if (width) {
+            ctx.lineWidth = width;
+        }
+
+        ctx.beginPath();
+        ctx.moveTo(...begin);
+        ctx.lineTo(...end);
+        ctx.stroke();
+    }
+
+    function addLine (x,y, increment){
+        if (connectionStatus == 0){ //saving the initial position of the first device (happens on the first click)
+            console.log('line start')
+
+            intialXLinesave = x;
+            intialYLinesave = y;
+
+            var startingCoord = "Staring X coords: " + x + ", Y coords: " + y;
+            console.log(startingCoord)
+        }
+        if (connectionStatus == 1){ //starting on the second click
+            new_line = document.createElement('polyline');
+            new_svg = document.createElement('svg');
+            new_box.style.position = 'absolute';
+
+            console.log('line stop')
+
+            //var endingCoords = "Ending X coords: " + x + ", Y coords: " + y;
+            //console.log(endingCoords)
+
+            var allPos = intialXLinesave +"," + intialYLinesave+","+x + ","+y;
+            console.log(allPos)
+
+            //creating the line
+            if (canvasInner.getContext) {
+                drawLine(ctx, [intialXLinesave+25, intialYLinesave+25], [x+25, y+25], 'green', 5); //adding half the width of each box
+            }
+
+            intialXLinesave = 0;
+            intialYLinesave = 0;
+
+            //reseting connection status
+            connectionStatus = -1;
+        }
+
+    }
+
+    function radians_to_degrees(radians)
+    {
+        var pi = Math.PI;
+        return radians * (180/pi);
+    }
+
+
+    function drawDiv (x, y, increment){
+        var idConnection = "connection"+String(increment)
+        if (connectionStatus == 0){ //saving the initial position of the first device (happens on the first click)
+            console.log('first point'+ ' x: '+x +","+" y: "+y)
+
+            intialXLinesave = x;
+            intialYLinesave = y;
+        }
+        if (connectionStatus == 1) { //starting on the second click
+
+            console.log('second point'+ ' x: '+x +","+" y: "+y)
+            var allPos = intialXLinesave + "," + intialYLinesave + "," + x + "," + y;
+            console.log(allPos)
+
+            var width = Math.abs(x) - Math.abs(intialXLinesave)
+            var height = Math.abs(y) - Math.abs(intialYLinesave)
+            var hypo = Math.sqrt(width*width + height*height);
+            var angle = Math.atan(height/width);
+            var angleDeg = 180- radians_to_degrees(angle)
+
+            console.log("hypotonuse of triangle: " + hypo + " angle: " + angle)
+
+            new_connection = document.createElement('div');
+            new_connection.style.position = 'absolute';
+            new_connection.style.background = "rgb(26,37,180)";
+            new_connection.style.width ='5px';
+            new_connection.style.height = String(height) + "px";
+            new_connection.style.marginLeft = String(intialXLinesave-100)+'px';
+            new_connection.style.marginTop = String(intialYLinesave-100)+'px';
+
+            //new_connection.style.marginLeft = x+'px';
+            //new_connection.style.marginTop = y+'px';
+
+
+            new_connection.style.zIndex = 4;
+            var rotateContent = "rotate(" + String(Math.round(angleDeg)) +"deg)"
+            console.log(rotateContent)
+            new_connection.style.transform = rotateContent;
+
+
+            new_connection.setAttribute("id", idConnection); //defining the id for the box
+            canvas.appendChild(new_connection);
+
+            intialXLinesave = 0;
+            intialYLinesave = 0;
+
+            //reseting connection status
+            connectionStatus = -1;
+        }
+    }
+    var removeLine = document.getElementById("remove_button1")
+    removeLine.addEventListener("click", function (){
+        console.log("clear canvas")
+        ctx.clearRect(0, 0, canvasInner.width, canvasInner.width);
+    })
+</script>
+{% endblock %}

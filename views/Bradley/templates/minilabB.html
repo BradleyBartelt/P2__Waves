@@ -9,28 +9,32 @@
     <div class="center-block" style="margin: 2% 5% 5%; font-family: gilroy,serif;">
         <!-- Title -->
         <div class="col-12" style="text-align: center;">
-            <h1 style ="color:blue"><strong>Binary Number Converter</strong></h1>
+            <h1 style ="color:blue"><strong>Binary and Hex Number Converter</strong></h1>
         </div>
 
         <!-- Input and Content -->
         <div class="jumbotron text-center row">
             <div class="col-md-6">
-                <h3 style ="color:blue">Type in a number to be converted to binary.</h3>
-                <form id="binaryform" action="/bradley/" method="POST" >
+                <h3 style ="color:blue">Type in a number to be converted to binary or Hex. Use the dropdown to choose.</h3>
+                <form id="binaryform" action="/bradley/minilabB" method="POST" >
                     <input name="input" id="input" type="number">
-                    <button style ="color:blue">calculate binary number</button>
+                    <select id="select" name="select" required>
+                        <option value="Binary">Binary</option>
+                        <option value="Hexadecimal">Hexadecimal</option>
+                    </select>
+                    <button style ="color:blue">calculate converted number</button>
                 </form>
             </div>
 
             <div class="col-md-6">
-                <h3 style ="color:blue">Binary for {{binaryclass.input}}:</h3>
-                <h4 style ="color:blue">{{binaryclass.list}}</h4>
+                <h3 style ="color:blue">Conversion for {{conversionclass.input}}:</h3>
+                <h4 style ="color:blue">{{conversionclass.list}}</h4>
             </div>
         </div>
 </div>
 </div>
 <div class="col-12" style="text-align: center;">
-    <h1 style ="color:blue"><strong>WOW!</strong></h1>
+
 </div>
 <style>
     table, td, th {

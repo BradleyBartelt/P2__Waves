@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Network Map Maker{% endblock %}</title>
+</head>
+
+<style>
+    #canvas {
+
+    }
+</style>
+
+{% block content %}
+<div style="margin-left: 15px" >
+<h1>Network Map <a style="font-size: 30px;" href="https://www.youtube.com/watch?v=cqipZ1Ql_2E&feature=youtu.be" target="_blank">demo</a></h1>
+<h1 id="state" style="display: none;">Create device</h1>
+    <!-- there is an outer div "canvas that is used to create the divs that represet the devices"-->
+    <div id="canvas" style="width: 500px; height: 500px; background-color: #ecdfff; z-index: -1; position: absolute">
+        <!-- there is an inner div to draw the connections between devices-->
+        <canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
+    </div>
+
+    <div style="margin-left: 550px; position: absolute; z-index: 10">
+        <h6>List of Devices</h6>
+        <p id="displayCoordSore" style="display: none"></p>
+        <p id="array_of_coords"></p>
+        <ul id="div_of_devices" style="overflow: scroll; max-height: 200px"></ul>
+
+
+        <h6>List of Connections</h6>
+        <p id="nested_arrays_connections" style="display: none"></p>
+        <ol id="div_of_connections" style="overflow: scroll; max-height: 200px">
+        </ol>
+    </div>
+
+    <div id="button_store" style="margin-left: 750px; position: absolute; z-index: 10; " >
+        <!--
+            <g>
+                <p id="device_list0" style="display: none">device1,164.00000095367432,108.10511779785156,device2,82.00000095367432,200.10511779785156,device3,247.00000095367432,197.10511779785156,device4,75.00000095367432,334.10511779785156,device5,290.0000009536743,327.10511779785156</p>
+                <p id="connections_list0" style="display: none">device1,device2,device2,device4,device1,device3,device3,device5</p>
+                <button type="submit" id="demo_map0">Routing</button>
+            </g>
+        <br>
+            <g>
+                <p id="device_list1" style="display: none">device1,164.00000095367432,108.10511779785156,device2,82.00000095367432,200.10511779785156,device3,247.00000095367432,197.10511779785156,device4,75.00000095367432,334.10511779785156,device5,290.0000009536743,327.10511779785156</p>
+                <p id="connections_list1" style="display: none">device1,device2,device2,device4,device1,device3,device3,device5,device4,device5</p>
+                <button type="submit" id="demo_map1">Fault tolerant Routing</button>
+            </g>
+        <br>
+            <g>
+                <p id="device_list2" style="display: none">device1,169.00000000000000,126.00000000000000,device2,320.00000000000000,67.00000000000000,device3,400.00000000000000,227.00000000000000,device4,309.00000000000000,323.00000000000000,device5,125.00000000000000,319.00000000000000</p>
+                <p id="connections_list2" style="display: none">device1,device2,device2,device3,device3,device4,device4,device5</p>
+                <button type="submit" id="demo_map2">Non-Fault tolerant system</button>
+            </g>
+        <br>
+            <g>
+                <p id="device_list3" style="display: none">device1,169.00000000000000,126.00000000000000,device2,320.00000000000000,67.00000000000000,device3,400.00000000000000,227.00000000000000,device4,309.00000000000000,323.00000000000000,device5,125.00000000000000,319.00000000000000</p>
+                <p id="connections_list3" style="display: none">device1,device2,device2,device3,device3,device4,device4,device5,device1,device3,device2,device4,device2,device5</p>
+                <button type="submit" id="demo_map3">Fault tolerant system</button>
+            </g>
+        <br>
+            <g>
+                <p id="device_list4" style="display: none">device1,169.00000000000000,126.00000000000000,device2,320.00000000000000,67.00000000000000,device3,400.00000000000000,227.00000000000000,device4,309.00000000000000,323.00000000000000,device5,125.00000000000000,319.00000000000000</p>
+                <p id="connections_list4" style="display: none">device1,device2,device2,device3,device3,device4,device4,device5,device1,device3,device2,device4</p>
+                <button type="submit" id="demo_map4">Non-Fault tolerant system</button>
+            </g>
+        <br>-->
+
+        {% for dict_item in parent_list %}
+        <g>
+            {% for key, value in dict_item.items() %}
+                {% if loop.index % 3 == 0 %}
+                    <button type="submit" id={{key}}>{{value}}</button>
+                {% else %}
+                    <p id={{key}} style="display: none">{{value}}</p>
+                {% endif %}
+            {% endfor %}
+            <br>
+        </g>
+        {% endfor %}
+
+    </div>
+
+    <div style="margin-top: 500px; position: absolute; z-index: -10">
+        <button id="remove_button"> Remove </button>
+        <button id="remove_button1"> Clear Lines </button>
+        <button id="remove_button_all_devices"> Remove All Devices</button>
+        <br>
+        <p id="displayArea"></p>
+        <br>
+
+
+        <p>References</p>
+        <ul>
+            <li><a href="https://docs.google.com/presentation/d/1bStMW3td2xY7juTtJGyR82BE4_Ezz-iUm1QylII594w/edit#slide=id.gd624b5162f_0_0" target="_blank">5/11/21 Presentation Network Maps</a></li>
+            <li><a href="https://www.geeksforgeeks.org/how-to-get-the-coordinates-of-a-mouse-click-on-a-canvas-element/#:~:text=The%20x%20position%20of%20the%20canvas%20element%2C%20i.e.%20the%20left,the%20bounding%20rectangle's%20y%20position." target="_blank">article drawing</a></li>
+            <li><a href="https://www.w3schools.com/graphics/tryit.asp?filename=trysvg_line" target="_blank">svg line</a></li>
+            <li><a href="https://www.geeksforgeeks.org/javascript-removeeventlistener-method-with-examples/#:~:text=The%20removeEventListener()%20is%20an,remove%20a%20click%20event%20listener." target="_blank">removing listners</a></li>
+            <li><a href="https://www.javascripttutorial.net/web-apis/javascript-draw-line/" target="_blank"> in drawing lines from initial click to final click</a></li>
+            <li><a href="https://stackoverflow.com/questions/18012420/draw-diagonal-lines-in-div-background-with-css" target="_blank"> way to create the connections with divs</a></li>
+            <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transform-function/rotate()" target="_blank">way to rotate a div</a></li>
+            <li><a href="https://stackoverflow.com/questions/7365436/erasing-previously-drawn-lines-on-an-html5-canvas" target="_blank">way to clear canvas of connection lines</a></li>
+            <li><a href="https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/" target="_blank">way to delete all child nodes of a parent node</a> </li>
+            <li><a href="https://stackoverflow.com/questions/25373154/how-to-iterate-through-a-list-of-dictionaries-in-jinja-template" target="_blank">Iterating through dictionaries with Jinja displaying key and value</a></li>
+        </ul>
+
+
+    </div>
+</div>
+
+<script>
+    // if the state is correct then remove the box
+    var previousTarget=null;
+
+    var deviceList = [];
+    var deviceListStorage = []; // to pass into python
+    var displayList = document.getElementById("div_of_devices")
+
+    //to display all of the devices and theri coordinates in one list
+    var deviceCoordStore = [];
+    var displayCoordStore = document.getElementById("displayCoordSore")
+
+    //var devicesClicked = 0; //to keep track if there is a new device comming to town
+    var displayListConnection = document.getElementById("nested_arrays_connections")
+    var divConnections = document.getElementById("div_of_connections")
+
+    var connectionIncrement = 0;
+
+    var clickState = "";
+    var canvasState = "unLocked"
+    numbAddedBoxes = 0;
+
+    // global variables to ensure that connections are documented
+    var deviceOver = "";
+    var deviceOverLog = "";
+    var deviceConnections = [];
+    var deviceConnectionsStorage = []; // to pass into python
+
+    var gameState = document.getElementById("state")
+
+    canvas.addEventListener("mousemove", function (e){
+        x=e.pageX - rect.left;
+        y=e.pageY - rect.top;
+        cursor="Your Mouse Position Is : " + x + " and " + y ;
+        document.getElementById("displayArea").innerHTML=cursor
+    });
+
+    // code for removing the devices
+    var removeBox = document.getElementById("remove_button")
+    var removeAllBox = document.getElementById("remove_button_all_devices")
+    var deviceState = "none"
+    var toggleTrash = 0;
+    console.log("device State: none")
+
+    function removeAllChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+
+    //default color of the trash button
+    removeBox.style.backgroundColor = "#4CAF50";
+    removeBox.addEventListener("click", function(){
+        if (toggleTrash % 2 != 0){
+            removeBox.style.backgroundColor = "#4CAF50";
+            deviceState = "none"
+            console.log("device State: none")
+            toggleTrash = Number(toggleTrash) + 1
+
+            // need to move the canvas state as unlocked to create the device. This is as unlocked occurs when the mouse moves out of the device
+            // as the device would be removed when clicked, mouse out would never occur again
+            canvasState = "unLocked"
+        }else {
+            removeBox.style.backgroundColor = "#dc1b1b";
+            deviceState = "remove"
+            console.log("device State: remove")
+            toggleTrash = Number(toggleTrash) + 1
+        }
+    })
+
+    function createCanvasInner (){
+        //<canvas id="canvasInner" height="500" width="500" style="position: absolute"></canvas>
+        var canvasInner = document.createElement('CANVAS');
+        canvasInner.style.height = "500px";
+        canvasInner.style.width = "500px";
+        canvasInner.style.position = "absolute";
+        canvas.appendChild(canvasInner)
+    }
+    //end code to remove devices
+
+    canvas = document.getElementById("canvas")
+    let rect = canvas.getBoundingClientRect();
+    b = 0
+    z = 0
+    connectionStatus = 0;
+
+    canvas.addEventListener("click", function(event){
+
+        var x = event.pageX - rect.left -25;     // Get the horizontal coordinate subtract the posititon of the div subtract half of the width fo the div
+        var y = event.pageY - rect.top -25;    // Get the vertical coordinate
+
+        //var coor = "X coords: " + x + ", Y coords: " + y;
+
+        if (canvasState == "unLocked") {
+            gameState.innerHTML = "add box";
+            //if the canvas is unlocked, a new box will be created
+            b = Number(b) + 1;
+            addBox(x,y,b);
+            createDeviceListFromBackend(b);
+            console.log("number of deivces present:" + String(b));
+
+        }
+        if (canvasState == "locked") {
+            // if the canvas state is locked, this means that mouse is over a div
+            gameState.innerHTML = "Locked";
+
+            if (deviceState != "remove" && clickState != "twice") {
+                gameState.innerHTML = "add line";
+                // when the program is not in the remove state
+                z = Number(z) + 1;
+                addLine(x,y,z)
+                connectionStatus = Number(connectionStatus) + 1;
+                console.log("connection status: " + connectionStatus)
+
+                connectionDocumentation()
+            } else {
+                clickState = ""; //reseting the click state
+            }
+        }
+
+    }, false);
+
+    function connectionDocumentation(){
+        //managing the connection creation
+        if (connectionStatus == 1){
+            //first device clicked
+            console.log("first over:" + deviceOver)
+            deviceConnections.push(deviceOver);
+            console.log(deviceConnections)
+        } else {
+            //second device clicked
+            console.log("second over:" + deviceOver)
+            deviceConnections.push(deviceOver);
+            console.log(deviceConnections)
+        }
+        if (deviceConnections.length == 2 ){
+            console.log("pushing into connection list")
+
+            deviceConnectionsStorage.push(deviceConnections);
+            createDisplayListFromBackend();
+            displayListConnection.innerHTML = deviceConnectionsStorage;
+            deviceConnections = []; //resetting the array to be empty (this is used as a counter now)
+        }
+    }
+
+    function addBox(x,y, increment) {
+        var idButton = "device" + increment;
+
+        //the code to set all the styles correctly to create a box
+        new_box = document.createElement('div');
+        new_box.style.position = 'absolute';
+        new_box.style.background = "rgb(126, 127, 143)";
+        new_box.style.width ='50px';
+        new_box.style.height ='50px';
+        new_box.style.marginLeft = String(x)+'px';
+        new_box.style.marginTop = String(y)+'px';
+        new_box.style.zIndex = 5;
+
+        new_box.setAttribute("id", idButton); //defining the id for the box
+
+        // updating the list of devices
+        deviceList.push(idButton);
+
+        /*deviceItem = document.createElement('li');
+        deviceItem.innerText = String(idButton);
+        deviceItem.setAttribute("class", "device");
+
+        displayList.appendChild(deviceItem);*/
+        canvas.appendChild(new_box);
+
+        //adding text into the div
+        console.log('creating text');
+        displayText = document.createElement('P');
+        t = document.createTextNode(increment);
+        displayText.appendChild(t)
+        displayText.style.color = "white";
+        displayText.style.fontSize = "35px";
+        displayText.style.userSelect = "none"; // to ensure that the coordinates are unselectable
+
+        // apending the text into the div
+        new_box.appendChild(displayText)
+
+        displayText.style.textAlign = "center";
+
+        //storing the information of the each device in a list
+        deviceCoordStore.push(idButton)
+        deviceCoordStore.push(x)
+        deviceCoordStore.push(y)
+
+        displayCoordStore.innerHTML = deviceCoordStore;
+
+        // if the mouse is over a device, can not create a device on top of device
+        new_box.addEventListener("mouseover", function (){
+            deviceOver = idButton; //this is cleared after the mouse moves out
+            //deviceOverLog = idButton;
+            //console.log("mouse over: " + deviceOver);
+            canvasState = "locked"
+        }, false )
+
+        // if the mouse moves out of a device, can create another device
+        new_box.addEventListener("mouseout", function (){
+            canvasState = "unLocked"
+            deviceOver = "";
+        }, false )
+
+        new_box.addEventListener("click", function (){
+            console.log("clicked")
+
+
+            if (deviceState == "remove") {
+                console.log("remove box")
+                var boxRemove = document.getElementById(idButton)
+                boxRemove.remove();
+
+                removeFromListFrontEnd(idButton)
+                removeFromListBackEnd(idButton)
+                removeConnectionBackend(idButton)
+                createDisplayListFromBackend()
+                redrawLinesRemoveDevice()
+
+                createDeviceListFromBackend()
+
+
+                console.log(deviceConnectionsStorage)
+                displayListConnection.innerHTML = deviceConnectionsStorage
+
+            } else {
+                if (this==previousTarget) {
+                    alert("You've clicked " + idButton+  " twice. Please select another device to connect up.");
+                    clickState = "twice";
+                }
+                previousTarget=this;
+                //return false;
+            }
+
+
+
+        })
+    }
+
+
+    function addBoxNoPush(x,y, increment) {
+        var idButton = "device" + increment;
+
+        //the code to set all the styles correctly to create a box
+        new_box = document.createElement('div');
+        new_box.style.position = 'absolute';
+        new_box.style.background = "rgb(126, 127, 143)";
+        new_box.style.width ='50px';
+        new_box.style.height ='50px';
+        new_box.style.marginLeft = String(x)+'px';
+        new_box.style.marginTop = String(y)+'px';
+        new_box.style.zIndex = 5;
+
+        new_box.setAttribute("id", idButton); //defining the id for the box
+
+        //deviceList.push(idButton);
+
+        canvas.appendChild(new_box);
+
+        //adding text into the div
+        console.log('creating text');
+        displayText = document.createElement('P');
+        t = document.createTextNode(increment);
+        displayText.appendChild(t)
+        displayText.style.color = "white";
+        displayText.style.fontSize = "35px";
+        displayText.style.userSelect = "none"; // to ensure that the coordinates are unselectable
+
+        // apending the text into the div
+        new_box.appendChild(displayText)
+
+        displayText.style.textAlign = "center";
+
+        //storing the information of the each device in a list
+        //deviceCoordStore.push(idButton)
+        //deviceCoordStore.push(x)
+        //deviceCoordStore.push(y)
+
+        //displayCoordStore.innerHTML = deviceCoordStore;
+
+        // if the mouse is over a device, can not create a device on top of device
+        new_box.addEventListener("mouseover", function (){
+            deviceOver = idButton; //this is cleared after the mouse moves out
+            //deviceOverLog = idButton;
+            //console.log("mouse over: " + deviceOver);
+            canvasState = "locked"
+        }, false )
+
+        // if the mouse moves out of a device, can create another device
+        new_box.addEventListener("mouseout", function (){
+            canvasState = "unLocked"
+            deviceOver = "";
+        }, false )
+
+        new_box.addEventListener("click", function (){
+            console.log("clicked")
+
+
+            if (deviceState == "remove") {
+                console.log("remove box")
+                var boxRemove = document.getElementById(idButton)
+                boxRemove.remove();
+
+                removeFromListFrontEnd(idButton)
+                removeFromListBackEnd(idButton)
+                removeConnectionBackend(idButton)
+                createDisplayListFromBackend()
+                redrawLinesRemoveDevice()
+
+                createDeviceListFromBackend()
+
+
+                console.log(deviceConnectionsStorage)
+                displayListConnection.innerHTML = deviceConnectionsStorage
+
+            } else {
+                if (this==previousTarget) {
+                    alert("You've clicked " + idButton+  " twice. Please select another device to connect up.");
+                    clickState = "twice";
+                }
+                previousTarget=this;
+                //return false;
+            }
+
+
+
+        })
+    }
+
+    function createDeviceListFromBackend(increment) {
+        //increment = increment-increment.
+        removeAllChildNodes(displayList);
+        var idButton = "device" + increment;
+        console.log("appending")
+        //creating the children based off of the list of devices
+        for (var i = 0; i < (deviceCoordStore.length); i=i+3) {
+            //creating list elements
+            deviceItem = document.createElement('li');
+            deviceItem.innerText = deviceCoordStore[i];
+            deviceItem.setAttribute("class", "device");
+
+            displayList.appendChild(deviceItem);
+        }
+    }
+    function redrawLinesRemoveDevice(){
+        //clearing the canvas but not clearing the connections between devices
+        ctx.clearRect(0, 0, canvasInner.width, canvasInner.width);
+
+        //objective get devices that are connected
+        //get the coordinate for devices that are connected
+        let devicesLeft = []
+        console.log("here are the number of connections to be rebuilt: "+deviceConnectionsStorage.length)
+        for (var i = 0; i < deviceConnectionsStorage.length; i++){
+            innerList = deviceConnectionsStorage[i];
+            console.log("inner lists: "+innerList)
+
+            for (var b = 0; b < innerList.length; b++){
+                console.log("content of inner list is: " + innerList[b])
+                devicesLeft.push(innerList[b])
+            }
+
+        }
+        console.log("devices left: "+ String(devicesLeft))
+        let coordStoreDraw = []
+        for (var i =0; i<devicesLeft.length; i++) {
+
+            for (var b = 0; b<deviceCoordStore.length; b++){
+
+                if (devicesLeft[i]==deviceCoordStore[b]){
+                    coordStoreDraw.push(deviceCoordStore[b+1])
+                    coordStoreDraw.push(deviceCoordStore[b+2])
+                }
+
+            }
+        }
+        console.log("deviceCoordStore: " + String(coordStoreDraw))
+        var connectionNumber =  Number(coordStoreDraw.length)/4
+        console.log("number of lines" + connectionNumber)
+
+        console.log("drawwing")
+        for (var d =0; d<coordStoreDraw.length; d=d+4) {
+            console.log("connection"+d)
+            var coord1 = [coordStoreDraw[d]+25, coordStoreDraw[d+1]+25]
+            var coord2 = [coordStoreDraw[d+2]+25, coordStoreDraw[d+3]+25]
+            console.log("coord1: " + coord1)
+            console.log("coord2: " + coord2)
+            if (canvasInner.getContext) {
+                drawLine(ctx, coord1, coord2, 'green', 5); //adding half the width of each box
+            }
+        }
+    }
+
+    function createDisplayListFromBackend () {
+        removeAllChildNodes(divConnections) //remove all exsiting children of the display list
+
+        //creating the children based off of the list of connections
+        for (var i = 0; i<deviceConnectionsStorage.length; i ++) {
+            var increment = i;
+            console.log("incremetn" + increment)
+
+            var connectionName = deviceConnectionsStorage[i];
+
+            //creating list elements
+            new_connection_display = document.createElement('li');
+            new_connection_display.innerText = String(deviceConnectionsStorage[i]);
+            new_connection_display.setAttribute("class", "connection");
+            divConnections.appendChild(new_connection_display);
+
+            //creating button to delete list elements
+            deleteButton = document.createElement("BUTTON");
+            deleteButton.innerHTML = "x";
+            deleteButton.value = deviceConnectionsStorage[i];
+            deleteButton.setAttribute("id", "connection"+increment);
+            deleteButton.style.marginLeft = "10px";
+            new_connection_display.appendChild(deleteButton)
+
+            //adding code to the button
+            deleteButton.addEventListener("click", function (){
+                console.log(this.value) //specifice which button was pressed
+                //value of each button is the value of the connection
+
+                var connectionToDelete = 0;
+                for (var i = 0; i < deviceConnectionsStorage.length; i++){
+                    if (this.value==String(deviceConnectionsStorage[i])){
+                        console.log("found a matching connection" + String(deviceConnectionsStorage[i]))
+                        connectionToDelete = i;
+                    }
+                }
+                //console.log("before:" + String(deviceConnectionsStorage))
+                deviceConnectionsStorage.splice(connectionToDelete,1);
+                //console.log("after:" + String(deviceConnectionsStorage))
+                displayListConnection.innerHTML = deviceConnectionsStorage; //updating the master list
+
+                //updating the front end based off the master list
+                createDisplayListFromBackend();
+                redrawLinesRemoveDevice();
+
+            })
+
+        }
+    }
+
+    function removeConnectionBackend(id){
+        console.log("selaring for " + deviceConnectionsStorage.length)
+        console.log(deviceConnectionsStorage)
+
+        let indexToRemove = []
+        for (var i = 0; i < deviceConnectionsStorage.length; i++){
+            innerList = deviceConnectionsStorage[i];
+            console.log("inner lists: "+innerList)
+
+            for (var b = 0; b < innerList.length; b++){
+                console.log("content of inner list is: " + innerList[b])
+
+                if (innerList[b] == id) {
+                    indexToRemove.push(i)
+                }
+            }
+
+        }
+        console.log("indexToRemove: "+indexToRemove)
+        for (var z=0; z<indexToRemove.length; z++){
+            deviceConnectionsStorage.splice(indexToRemove[z]-z,1)
+            //removing each list then removing all of the
+        }
+    }
+    function removeFromListBackEnd(id) {
+        // to remove the points from the back end
+        for (var i = 0; i< deviceCoordStore.length; i++){
+            //itterate throught the length of deivceCoordStore
+            if (deviceCoordStore[i] == id){
+                console.log("found id in deviceCoordStore" + deviceCoordStore[i])
+
+                console.log(deviceCoordStore)
+                deviceCoordStore.splice(i, 3); //removing the id and the coordinates from the list
+                console.log(deviceCoordStore)
+
+                displayCoordStore.innerHTML = deviceCoordStore; //update the front end
+            }
+        }
+
+        console.log("end of removeFromListBackEnd")
+    }
+    function removeFromListFrontEnd(id) {
+        for (var i = 0; i < deviceList.length; i++) {
+            if (deviceList[i] == id) {
+                //console.log(id)
+                var removed = deviceList.splice(i, 1);
+                //console.log("removed from list" + removed)
+            }
+        }
+
+        removeAllChildNodes(displayList)
+
+        for (var i = 0; i < deviceList.length; i++){
+            deviceItem = document.createElement('li');
+            deviceItem.innerText = String(deviceList[i]);
+            deviceItem.setAttribute("class", "device");
+            displayList.appendChild(deviceItem);
+        }
+
+        console.log("end of remove from list front end")
+
+    }
+
+    /*** Here is where the drawing line code occurs ***/
+    const canvasInner = document.getElementById('canvasInner');
+    const ctx = canvasInner.getContext('2d');
+
+    //temporary values (default values of where the inital click was)
+    var intialXLinesave = 0;
+    var intialYLinesave = 0;
+
+    function drawLine(ctx, begin, end, stroke = 'black', width = 1) {
+        if (stroke) {
+            ctx.strokeStyle = stroke;
+        }
+
+        if (width) {
+            ctx.lineWidth = width;
+        }
+
+        ctx.beginPath();
+        ctx.moveTo(...begin);
+        ctx.lineTo(...end);
+        ctx.stroke();
+    }
+
+    function addLine (x,y, increment){
+        if (connectionStatus == 0){ //saving the initial position of the first device (happens on the first click)
+            console.log('line start')
+
+            intialXLinesave = x;
+            intialYLinesave = y;
+
+            var startingCoord = "Staring X coords: " + x + ", Y coords: " + y;
+            console.log(startingCoord)
+        }
+        if (connectionStatus == 1){ //starting on the second click
+
+            var allPos = intialXLinesave +"," + intialYLinesave+","+x + ","+y;
+            console.log(allPos)
+
+            //creating the line
+            if (canvasInner.getContext) {
+                drawLine(ctx, [intialXLinesave+25, intialYLinesave+25], [x+25, y+25], 'green', 5); //adding half the width of each box
+            }
+
+            intialXLinesave = 0;
+            intialYLinesave = 0;
+
+            //resetting connection status
+            connectionStatus = -1;
+
+            previousTarget = null;
+        }
+
+    }
+
+    //deleting all of the connections
+    var removeLine = document.getElementById("remove_button1")
+    removeLine.addEventListener("click", function (){
+        console.log("clear canvas")
+        ctx.clearRect(0, 0, canvasInner.width, canvasInner.width);
+
+        removeAllChildNodes(divConnections)
+
+        connectionStatus = 0; // to reset the increment of creating lines
+        deviceConnections = []; // resetting the array to be empty
+        deviceConnectionsStorage = []; //reseting all fo the connections to be empty
+        displayListConnection.innerHTML = deviceConnectionsStorage;
+    })
+
+    function removeConnections(){
+        console.log("clear canvas")
+        ctx.clearRect(0, 0, canvasInner.width, canvasInner.width);
+
+        removeAllChildNodes(divConnections)
+
+        connectionStatus = 0; // to reset the increment of creating lines
+        deviceConnections = []; // resetting the array to be empty
+        deviceConnectionsStorage = []; //reseting all fo the connections to be empty
+        displayListConnection.innerHTML = deviceConnectionsStorage;
+    }
+
+    removeAllBox.addEventListener("click", function (){
+        //runs twices to ensure all divs are removed
+        removeAll();
+        removeAll();
+    })
+
+    function removeAll(){
+        removeConnections()
+        deviceCoordStore = []
+        displayCoordStore.innerHTML = deviceCoordStore; //upldating front end display
+        createDeviceListFromBackend()
+
+        var ancestor = document.getElementById('canvas'),
+            descendents = ancestor.getElementsByTagName('*');
+        if ( descendents.length > 1 ){ //condition to ensrue that the drawwing canvas is not deleted
+            for (i = 1; i < descendents.length*2; i++) { //starting at i=1 to ensure that the inner canvas is not removed
+                console.log(descendents[i])
+                canvas.removeChild(canvas.lastChild) //removes most of the devices
+            }
+        }
+    }
+
+    /*
+    def stringToList(string):
+        output_list = string.split(",")
+        return output_list
+    */
+
+    function stringToList(string){
+        var output_list = string.split(",");
+        return output_list
+    }
+    /*
+    def stringTo3List(string):
+        final_list = []
+        output_list = string.split(",")
+        #i = 0
+        for i in range(0,len(output_list)):
+            if i%2 != 0:
+                print(output_list[i])
+                pair_list.append(output_list[i])
+                final_list.append(pair_list)
+            else:
+                # this is the part that will run first
+                pair_list = []
+                print(i)
+                print(output_list[i])
+                pair_list.append(output_list[i])
+
+        return final_list
+    */
+
+    function stringTo3List(string){
+        var final_list = []
+        output_list = string.split(",");
+        for (var i = 0; i < output_list.length; i++){
+            if (i%2 != 0){
+                console.log(output_list[i])
+                pair_list.push(output_list[i])
+                final_list.push(pair_list)
+            }else{
+                var pair_list = []
+                console.log(i)
+                console.log(output_list[i])
+                pair_list.push(output_list[i])
+            }
+        }
+        return final_list
+    }
+
+
+    function createFromList(device_list, connections_list){
+        removeAll(); // clears all
+        removeAll(); // clears all
+
+        var device_store = document.getElementById(device_list)
+        var connection_store = document.getElementById(connections_list)
+
+        console.log("demo_map clicked")
+        //console.log(device_store.innerText)
+        //console.log(connection_store.innerText)
+        deviceCoordStore = stringToList(device_store.innerText);
+        console.log(deviceCoordStore)
+        displayCoordStore.innerHTML = deviceCoordStore;
+
+        console.log("length of list" + deviceCoordStore.length)
+        //console.log()
+        var b = 0;
+        for (var i = 0; i <= deviceCoordStore.length-1; i = i + 3){
+            b = Number(b) + 1
+            console.log(b)
+            //console.log("drawwing")
+            var x = Number(deviceCoordStore[i+1]);
+            var y = Number(deviceCoordStore[i+2]);
+            console.log(deviceCoordStore[i])
+            console.log(deviceCoordStore[i+1])
+            console.log(deviceCoordStore[i+2])
+
+            addBoxNoPush(x-25, y-25, String(b));
+
+        }
+
+        deviceConnectionsStorage = stringTo3List(connection_store.innerText);
+        console.log(String(deviceConnectionsStorage))
+        displayListConnection.innerHTML =deviceConnectionsStorage;
+
+        createDisplayListFromBackend();
+        redrawLinesRemoveDevice();
+        createDeviceListFromBackend();
+    }
+    /*
+    var buttonStore = document.getElementById("button_store")
+    for (let i = 0; i < buttonStore.children.length; i++) {
+        //console.log(buttonStore.children[i].tagName);
+        var idButton = "demo_map" + String(i)
+        var idListDevices = "device_list" + String(i)
+        var idListConnections = "connections_list" + + String(i)
+
+        document.getElementById(idButton).addEventListener("click", function (){
+            console.log(idButton+idListDevices+idListConnections)
+            createFromList(idListDevices, idListConnections);
+        })
+
+    }*/
+
+
+    document.getElementById("demo_map0").addEventListener("click", function (){
+        createFromList("device_list0", "connections_list0");
+    })
+    document.getElementById("demo_map1").addEventListener("click", function (){
+        createFromList("device_list1", "connections_list1");
+    })
+    document.getElementById("demo_map2").addEventListener("click", function (){
+        createFromList("device_list2", "connections_list2");
+    })
+    document.getElementById("demo_map3").addEventListener("click", function (){
+        createFromList("device_list3", "connections_list3");
+    })
+    document.getElementById("demo_map4").addEventListener("click", function (){
+        createFromList("device_list4", "connections_list4");
+    })
+
+</script>
+{% endblock %}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% extends "base2.html" %}
+{{ super() }}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Spin-off of "Challenge: Create a solar system"{% endblock %}</title>
+</head>
+
+{% block content %}
+<head>
+    <style>
+        body {
+            background-color: black;
+            padding: 10px;
+        }
+        .planet {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+
+        }
+
+        .moon {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgb(237, 237, 237);
+        }
+        .star {
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            z-index: -1; /* to put the stars around the planet*/
+        }
+    </style>
+</head>
+<body>
+
+<!--<div class="star"></div>-->
+
+<script>
+    //creating a planet
+    var planet = document.createElement("div");
+    planet.className = "planet";
+    planet.style.background = "rgb(29, 42, 181)";
+    document.body.appendChild(planet);
+
+    var moon = document.createElement("div");
+    moon.className = "moon";
+    moon.style.background = "rgb(126, 127, 143)";
+    planet.appendChild(moon);//appending the moon to planet
+
+    function drawStar() {
+        //creating the stars
+        var star = document.createElement("div");
+        star.className += "star"; //assigning the div the star style
+
+        //appending it into the frace
+        document.body.appendChild(star);
+
+        var positionX = Math.random() * 532; //random x position
+        var positionY = Math.random() * 400; //random y position
+        star.style.position = 'absolute';
+        star.style.left = String(positionX)+ 'px'; //random the x values
+        star.style.top = String(positionY) +'px'; //random the y values
+    }
+
+    //this loop itterates through the draw star function
+    for(var i = 0; i < 50; i++){
+        drawStar();
+    }
+
+
+</script>
+</body>
+{% endblock %}

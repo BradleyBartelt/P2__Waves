@@ -1,11 +1,11 @@
-class BubbleSort:
+class BubbleSortString:
     def __init__(self, input_list):
 
         # init/declare the variables
         self.input_list = input_list
 
 
-        # init the outpu
+        # init the output
         self._output_list = []
         self._output_list_len = []
         self._output_list_final = []
@@ -17,7 +17,7 @@ class BubbleSort:
     def organizeList(self, arr):
         n = len(arr)
 
-        self._output_list.append('starting append')
+        #self._output_list.append('starting append')
         # Traverse through all array elements
         for i in range(n):
             self._output_list.append(arr[i]) # appending the original list
@@ -39,25 +39,6 @@ class BubbleSort:
                     arr[j], arr[j+1] = arr[j+1], arr[j]
                     second[j], second[j+1] = second[j+1], second[j]
 
-    #def replacing(self):
-    #    wordList = self._output_list
-    #    lenList = self._output_list_len
-#
-    #    print('this is the word list' + str(wordList))
-    #    print('this is the len list' +str(lenList))
-#
-    #    for i in range(len(lenList)):
-    #        b = 1
-    #        if len(wordList[i]) == lenList[i]:
-    #            self._output_list_final.append(wordList[i])
-    #        elif len(wordList[i+b]) == lenList[i]:
-    #            self._output_list_final.append(wordList[i+b])
-    #        else:
-    #            b = b +1
-    #    """for i in self._output_list_len:
-    #        print('going')
-    #        if int(len(self._output_list_len[i])) == self._output_list[i]:
-    #            self._output_list_final.append(self._output_list[i])"""
     @property
     def OuputList(self):
         return self._output_list
@@ -73,7 +54,7 @@ class BubbleSort:
 # Driver code to test above
 if __name__ == "__main__":
     arr = ['dog', 'fart', 'testing', 'today', 'nine', 'sixty', 'two-hundred']
-    bubble = BubbleSort(arr)
+    bubble = BubbleSortString(arr)
     print(bubble.OuputList)
     #print('final list' +str(bubble.OuputListFinal))
 
