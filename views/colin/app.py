@@ -230,23 +230,22 @@ def api_pull():
     # getting the qunaity of row entries to use for the random selection
     urlList = "http://pieceofthepi.cf/AllFood"
     response_list = requests.request("GET", urlList)
-    # print("all contents: "+ str(response_list.text))
     all_list = json.loads(response_list.text)
-    # print("number of rows: " + str(len(all_list)))
 
     # getting a random field from the entire database len(all_list) corresponds to number of rows in database
     url = "http://pieceofthepi.cf/Food/" + str(random.randint(1, len(all_list)))
-    # print(url)
     response = requests.request("GET", url)
-    # print(response.text)
+
     # current the request
     dictionary = response.text
     y = json.loads(dictionary)
     return render_template('colin/api_pull.html', active_page='colin', data = y)
 
+# backend post (writing directly to the database) cannot be inserted into crossover's backend
 @colin_bp.route('/api_form', methods=["GET", "POST"])
 def api_form():
     if request.form:
+        # getting information from the backend FORM
         restaurant = request.form.get('restaurant')
         name = request.form.get('name')
         star_count = request.form.get("star_count")
@@ -285,26 +284,20 @@ def api_form():
 @colin_bp.route('/api_form_POST', methods=["GET", "POST"])
 def api_form_POST():
     if request.method == 'POST':
+        # getting the information from the form
         restaurant = request.form.get('restaurant')
         name = request.form.get('name')
         star_count = request.form.get("star_count")
         message_input = request.form.get("message")
-        url = "http://pieceofthepi.cf/createReview/"
 
-        # '/createReview/<string:restaurant>/<string:name>/<string:user>/<string:stars>/<string:description>'
-        info = {
-            'restaurant':restaurant,
-            'name':name,
-            'user':"peasant",
-            'stars':int(star_count),
-            'description':str(message_input)
-        }
-
+        # formatting information into the URL use to access the API
         url_info = 'http://pieceofthepi.cf/createReview/' + str(restaurant) + "/" + str(name) + "/peasant/" +str(star_count) + '/'+str(message_input)
         print(url_info)
-        # requests.post(url, data=info)
+
+        # POST to the API
         requests.post(url_info)
 
+        # render the default page
         return render_template('colin/api_form_POST.html', active_page='colin')
 
     return render_template('colin/api_form_POST.html', active_page='colin')
