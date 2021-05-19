@@ -255,33 +255,28 @@ def api_form():
         message = str(restaurant) + " "+ str(name) + " " + str(star_count) + " "+ str(message_input)
         default_message = "Restaurant Name Your name here 0 Leave Comments Here"
 
-        # checking if input was just the default input
-        if message == default_message:
-            print("did not change default")
-        else:
+        # from the backend ensuring that the correct number is assigned based off max count in database
+        userid = int(db.session.query(func.max(RatingFood.id)).scalar())+1
+        print(userid)
 
-            # from the backend ensuring that the correct number is assigned based off max count in database
-            userid = int(db.session.query(func.max(RatingFood.id)).scalar())+1
-            print(userid)
+        # getting the current time
+        now = datetime.now()
 
-            # getting the current time
-            now = datetime.now()
+        # filling in the data to populate the database
+        review = RatingFood(
+            id=userid,
+            restaurant=restaurant,
+            name=name,
+            user="peasant",
+            time=now,
+            stars=int(star_count),
+            description=str(message_input)
+        )
+        print(review.json())
 
-            # filling in the data to populate the database
-            review = RatingFood(
-                id=userid,
-                restaurant=restaurant,
-                name=name,
-                user="peasant",
-                time=now,
-                stars=int(star_count),
-                description=str(message_input)
-            )
-            print(review.json())
-
-            # committing information into the database
-            db.session.add(review)
-            db.session.commit()
+        # committing information into the database
+        db.session.add(review)
+        db.session.commit()
 
         return render_template('colin/api_form.html', active_page='colin')
 

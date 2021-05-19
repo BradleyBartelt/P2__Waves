@@ -50,9 +50,9 @@ review = RatingFood(
             <p id="header_ratings">
               <g class="float-left"><strong>
                 <label for="restaurant">Restaurant Name:</label>
-                <input type="text" id="restaurant" name="restaurant" value="Restaurant Name"><br>
+                <input type="text" id="restaurant" name="restaurant" placeholder="Restaurant Name" required><br>
                 <label for="name">Name:</label>
-                <input type="text" id="name" name="name" value="Your name here">
+                <input type="text" id="name" name="name" placeholder="Your name here" required>
               </strong></g>
 
               <br>
@@ -61,8 +61,8 @@ review = RatingFood(
             </p>
             <div class="clearfix"></div>
             <label for="star_count">0-5 review: </label>
-            <input id="star_count" name="star_count" type="number" min="0" max="5" value="0"><br>
-            <textarea name="message" rows="10" cols="30">Leave Comments Here</textarea><br>
+            <input id="star_count" name="star_count" type="number" min="0" max="5" placeholder="0" required><br>
+            <textarea name="message" rows="10" cols="30" placeholder="Leave Comments Here"></textarea><br>
 
             <input type="submit" value="finish review">
           </div>
