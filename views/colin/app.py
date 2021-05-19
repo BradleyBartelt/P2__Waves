@@ -6,7 +6,7 @@ from views.colin.algo.bubble_sort import BubbleSort
 from views.colin.algo.bubble_sort2 import BubbleSortString
 import json, random, requests
 from views.colin.algo.network_store import list_store
-from model.module import RatingFood, CreateReview, review_info, db, SQLAlchemy, api
+from model.module import RatingFood, CreateReview, review_info, db, SQLAlchemy, api, func
 from datetime import datetime
 
 colin_bp = Blueprint('colin_bp', __name__,
@@ -259,7 +259,9 @@ def api_form():
         if message == default_message:
             print("did not change default")
         else:
-            userid = len(review_info) + 1
+
+            # from the backend ensuring that the correct number is assigned based off max count in database
+            userid = int(db.session.query(func.max(RatingFood.id)).scalar())+1
             print(userid)
 
             # getting the current time
@@ -284,3 +286,30 @@ def api_form():
         return render_template('colin/api_form.html', active_page='colin')
 
     return render_template('colin/api_form.html', active_page='colin')
+
+@colin_bp.route('/api_form_POST', methods=["GET", "POST"])
+def api_form_POST():
+    if request.method == 'POST':
+        restaurant = request.form.get('restaurant')
+        name = request.form.get('name')
+        star_count = request.form.get("star_count")
+        message_input = request.form.get("message")
+        url = "http://pieceofthepi.cf/createReview/"
+
+        # '/createReview/<string:restaurant>/<string:name>/<string:user>/<string:stars>/<string:description>'
+        info = {
+            'restaurant':restaurant,
+            'name':name,
+            'user':"peasant",
+            'stars':int(star_count),
+            'description':str(message_input)
+        }
+
+        url_info = 'http://pieceofthepi.cf/createReview/' + str(restaurant) + "/" + str(name) + "/peasant/" +str(star_count) + '/'+str(message_input)
+        print(url_info)
+        # requests.post(url, data=info)
+        requests.post(url_info)
+
+        return render_template('colin/api_form_POST.html', active_page='colin')
+
+    return render_template('colin/api_form_POST.html', active_page='colin')
