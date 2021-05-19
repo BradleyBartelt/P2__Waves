@@ -184,9 +184,6 @@ review_map()
 class GetReviewResource(Resource):
 
     def get(self, id):
-        # remaking to ensure that list is updated based off of backend
-        review_map()
-
         # to decrement the id to ensure that row matches the contents of the list
         review = review_info[int(id) - 1]
         return review
@@ -225,15 +222,17 @@ class CreateReview(Resource):
         db.session.add(review)
         db.session.commit()
 
+        # adding info into review_info (what is displayed when program asks for allReviews)
+        info = {'id': review.id, 'restaurant': review.restaurant, 'name': review.name, 'user': review.user,
+                'time': str(review.time), 'stars': review.stars, 'description': review.description}
+        review_info.append(info)
+
         return reviewJson
 
 
 class AllReviews(Resource):
     def get(self):
-        # review = review_info
-        # return [peep.json() for peep in review]
-        return review_info
-
+          return review_info
     pass
 
 
