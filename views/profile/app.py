@@ -30,8 +30,10 @@ def index():
 
 @profile_bp.route('/userprofile')
 def user_profile():
+
     if request.form:
         target = request.form["input"]
+
         for item in user_records:
             if item["username"] == target:
                 find = {"username":item["username"],"age":21,"single?":True}
@@ -71,8 +73,10 @@ def login():
 @profile_bp.route('/searched',methods = ["GET","POST"])
 def searchresult():
     find = {"username":"Default","age":0,"single?":False}
+    print(user_records)
     if request.form:
         target = request.form["input"]
+        print(target)
         for item in user_records:
             if item["username"] == target:
                 find = {"username":item["username"],"age":21,"single?":True}
