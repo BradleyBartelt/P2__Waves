@@ -156,6 +156,13 @@
 
 <div id="all_contents">
     <!-- profile_photo will be ported in through the database-->
+    <form class="form-inline" action="{{url_for('profile_bp.searchresult')}}">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="input" class="sr-only">Lol</label>
+            <input type="text" class="form-control" id="input" placeholder="Enter Username...">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
     <div id="left">
         <img id='profile_photo' src="https://scontent-lax3-1.cdninstagram.com/v/t51.2885-19/s150x150/21294914_364637993991993_6505386031796191232_a.jpg?tp=1&_nc_ht=scontent-lax3-1.cdninstagram.com&_nc_ohc=NqY4Pxr_2GEAX9HqNjo&ccb=7-4&oh=467b9a18d121f9c369a20ecb76bbe025&oe=6080FFC0">
     </div>

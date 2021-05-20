@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 from views.profile.models import temp_info
-from flask import Blueprint, redirect, render_template, url_for, Flask
+from flask import Blueprint, redirect, render_template, url_for, Flask,request
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField
@@ -30,6 +30,12 @@ def index():
 
 @profile_bp.route('/userprofile')
 def user_profile():
+    if request.form:
+        target = request.form["input"]
+        for item in user_records:
+            if item["username"] == target:
+                find = {"username":item["username"],"age":21,"single?":True}
+                return (render_template("profile/Search Result.html", find = find, exist = True))
     return render_template("profile/user_profile.html", list_stories = temp_info.all_stories(), list_post=temp_info.all_post())
 
 @profile_bp.route('/settings')
@@ -62,7 +68,17 @@ def login():
 
     return render_template("profile/login.html", form = form)
 
+@profile_bp.route('/searched',methods = ["GET","POST"])
+def searchresult():
+    find = {"username":"Default","age":0,"single?":False}
+    if request.form:
+        target = request.form["input"]
+        for item in user_records:
+            if item["username"] == target:
+                find = {"username":item["username"],"age":21,"single?":True}
+                return (render_template("profile/Search Result.html", find = find, exist = True))
 
+    return (render_template("profile/Search Result.html", find = find, exist = False))
 @profile_bp.route('/signup',methods=["GET", "POST"])
 def signup():
     form = RegisterForm()
