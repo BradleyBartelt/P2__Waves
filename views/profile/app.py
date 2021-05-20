@@ -5,7 +5,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import Form, BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired,Email,Length
-from model.module import User, db, user_records
+from model.module import User, db, user_records, func
 from views.andrew import andrew_bp
 from flask_bootstrap import Bootstrap
 
@@ -83,10 +83,19 @@ def searchresult():
 def signup():
     form = RegisterForm()
     if form.validate_on_submit():
-        print("I have arrived")
-        new_user = User(username = form.username.data, email = form.email.data) #, password = form.password.data
+        # printing the form information in the terminal
+        # print(form.username.data)
+        # print(form.email.data)
+        # print(form.password.data)
+
+        # getting the id for the new entry
+        userid = int(db.session.query(func.max(User.id)).scalar())+1
+
+        # adding the form information into the database
+        new_user = User(id=userid, username = form.username.data, email = form.email.data, password=form.password.data) #, password = form.password.data
         db.session.add(new_user)
         db.session.commit()
+
         return '<h1>yay</h1>'
 
     return render_template("profile/sign_up.html", form = form)
