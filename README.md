@@ -32,7 +32,8 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 ### week 7 (progress for week of 5/17/21)
 - College board submission week
 - Colin
-    - tickets
+    - [ticket College Board](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-61268306)
+    - [ticket PBL](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-60810362)
 ### week 6 (progress for week of 5/10/21)
 - Colin
     - [Ticket #1:](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-60810362)
