@@ -162,7 +162,13 @@
 
     <div id="right">
         <g>
-            <span class="top_buttons">Account Name</span>
+            <span class="top_buttons">
+                {% if current_user.is_anonymous  %}
+                Guest Dashboard
+                {% else %}
+                {{current_user.username}}'s Dashboard
+                {% endif %}
+            </span>
             <form class="top_buttons" action="{{url_for('profile_bp.user_edit')}}">
                 <button>Edit Profile</button>
             </form>
