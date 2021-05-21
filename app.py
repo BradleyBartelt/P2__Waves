@@ -7,6 +7,7 @@ Flask(__name__) establishes resources on the filesystem (aka package).
 
 from flask import Flask, render_template
 
+
 from views.Bradley.app import bradley_bp
 from views.Diego.app import diego_bp
 from views.andrew.app import andrew_bp
@@ -19,6 +20,7 @@ from model.module import Api
 from model.module import GetReviewResource, AllReviews, CreateReview
 from main import app
 
+app = Flask(__name__)
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(diego_bp, url_prefix='/diego')
 app.register_blueprint(profile_bp, url_prefix='/profile')

@@ -1,4 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+from model import app
+import os
+
+# create a Flask instance
+"Setting up the keys are needed for the database"
 from flask import Flask, request
 import os, json
 from flask_migrate import Migrate
@@ -11,9 +17,9 @@ from main import app
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app.config['SECRET_KEY'] = ':)'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+# Bootstrap(app)
 # Bootstrap(app)
 db = SQLAlchemy(app)
 Migrate(app, db)
@@ -21,6 +27,7 @@ api = Api(app)
 
 
 # api.init_app(app)
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -190,6 +197,8 @@ class GetReviewResource(Resource):
 
     pass
 
+
+"Create Database"
 """
 json problems with python datatime
 
@@ -240,6 +249,9 @@ db.create_all()
 
 # information to display on the admin page
 user_records = []
+
+
+  # mapping the front end to the backend, put in the function so we don't have to copy and paste
 
 
 # mapping the front end to the backend, put in the function so we don't have to copy and paste
