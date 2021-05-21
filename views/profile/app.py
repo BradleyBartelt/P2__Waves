@@ -49,6 +49,7 @@ def user_profile():
             if item["username"] == target:
                 find = {"username":item["username"],"age":21,"single?":True}
                 return (render_template("profile/Search Result.html", find = find, exist = True))
+
     return render_template("profile/user_profile.html", list_stories = temp_info.all_stories(), list_post=temp_info.all_post())
 
 @profile_bp.route('/settings')
