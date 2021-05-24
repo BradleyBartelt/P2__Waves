@@ -28,7 +28,11 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.pieceofthepi.cf/)
 
 ## Change log
-### 4 week left of school
+### 3 week left of school
+
+### week 8 (progress for week of 5/24/21)
+- week of the College Board Exam
+
 ### week 7 (progress for week of 5/17/21)
 - College board submission week
 - Colin
