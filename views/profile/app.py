@@ -1,6 +1,6 @@
 from views.profile.models import temp_info
 from flask import Blueprint, redirect, render_template, url_for, request
-from flask_login import current_user, LoginManager
+from flask_login import current_user, LoginManager, login_user
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired, Email, Length
@@ -72,10 +72,11 @@ def login():
     # TODO: Make The SQL Database work
 
     if form.validate_on_submit():
-        for user in user_records:
-            if user['username'] == form.username.data:
-                if user['password'] == form.password.data:
-                    return redirect(url_for('profile_bp.user_profile'))
+        user = User.query.filter_by(username = form.username.data).first()
+        if user:
+            if user.password == form.password.data:
+                login_user(user)
+                return redirect(url_for('profile_bp.user_profile'))
 
         return '<h1>Invalid username or password</h1>'
 

@@ -12,6 +12,7 @@ from flask_restful import Resource, Api
 from sqlalchemy import func
 from datetime import datetime
 from main import app
+from flask_login import UserMixin
 
 # This grabs our directory
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -29,12 +30,11 @@ api = Api(app)
 # api.init_app(app)
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
     email = db.Column(db.String(50))
     password = db.Column(db.String(80))
-
 
 class UserInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
