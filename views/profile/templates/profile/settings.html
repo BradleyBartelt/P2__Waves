@@ -17,11 +17,15 @@
 <img src="{{url_for('profile_bp.static', filename='images/settings.jpg')}}">
 <!--<img src="{{url_for('profile_bp.static', filename='images/settings.png')}}">-->
 <br>
-<button href="{{ url_for('profile_bp.logout') }}">Logout</button>
 
 
+
+
+<!-- log out button only here when users are logged in -->
+<!-- if guest, will be unable to log out-->
+{% if current_user.is_authenticated %}
 <form action={{url_for('profile_bp.logout')}} method="post"><input type="submit" value="Log Out"></form>
-
+{% endif %}
 <br>
 <a href="{{ url_for('profile_bp.user_profile') }}">Back to Profile</a>
 </body>
