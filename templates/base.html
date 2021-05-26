@@ -54,6 +54,14 @@
         <li class="nav-item">
             <a class="nav-link" href="{{url_for('profile_bp.signup')}}">sign up</a>
         </li>
+        <!-- profile_photo will be ported in through the database-->
+        <form class="form-inline" action="{{url_for('profile_bp.searchresult')}}" method="post" style="margin-right: 10px">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="input" class="sr-only">Lol</label>
+                <input type="text" name = "input" class="form-control" id="input" placeholder="Enter Username...">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
         <li class="nav-item">
             <a href="{{ url_for('profile_bp.user_profile') }}">
                 <div class="icon">
