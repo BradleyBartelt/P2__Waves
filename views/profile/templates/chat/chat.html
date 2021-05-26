@@ -9,8 +9,37 @@
   <link rel="stylesheet" href="{{ url_for('profile_bp.static', filename='css/profile.css') }}">
 </head>
 <body>
-<h1>Chat Functionality</h1>
+<!--<h1>Chat Functionality</h1>-->
+<h1>Welcome to chat room {{room}}</h1>
+<div id="messages"></div>
+
+<form>
+  <input type="text" placeholder="Enter your message here">
+  <button type="submit">Send</button>
+</form>
 </body>
+<script>
+  const socket = io.connect('http://' + document.domain + ':' + location.port);
+
+  socket.on('connect', function (){
+    socket.emit('join_room', {
+      username: "{{ username }}",
+      room: "{{room}}"
+    })
+  })
+
+  socket.on('join_room_announcement', function (data) {
+    console.log(data);
+    /*console.log(data);
+    if (data.username !== "{{ username }}") {
+      const newNode = document.createElement('div');
+      newNode.innerHTML = `<b>${data.username}</b> has joined the room`;
+      document.getElementById('messages').appendChild(newNode);
+    }*/
+  });
+
+
+</script>
 </html>
 
 {% endblock %}

@@ -6,7 +6,7 @@ Flask(__name__) establishes resources on the filesystem (aka package).
 """
 
 from flask import Flask, render_template
-
+from flask_socketio import SocketIO
 
 from views.Bradley.app import bradley_bp
 from views.Diego.app import diego_bp
@@ -44,6 +44,7 @@ api.add_resource(
 
 api.add_resource(AllReviews, '/AllFood')
 
+socketio = SocketIO(app)
 
 @app.route('/')
 def index():
@@ -57,4 +58,4 @@ def PythonMiniLab():
 
 if __name__ == "__main__":
     # runs the application on the repl development server
-    app.run(debug=True, host='127.0.0.1', port='5000')
+    socketio.run(app, debug=True, host='127.0.0.1', port='5000')
