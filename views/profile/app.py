@@ -1,10 +1,8 @@
-from flask import Blueprint, render_template
 from views.profile.models import temp_info
-from flask import Blueprint, redirect, render_template, url_for, Flask,request
+from flask import Blueprint, redirect, render_template, url_for, request
 from flask_login import current_user, LoginManager
-from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
-from wtforms import Form, BooleanField, StringField, PasswordField
+from wtforms import BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired,Email,Length
 from model.module import User, db, user_records, func
 from main import app
@@ -68,12 +66,8 @@ def login():
     #TODO Make The SQL Database work
 
     if form.validate_on_submit():
-        #exists = db.session.query(
-        #db.session.query(User).filter_by(username='AndrewZhang').exists()
-        #).scalar()
-        #if exists == True:
-        #return "Exists"
         user = User.query.filter_by(username = form.username.data).first()
+        print(user.username)
         if user:
             if user.password == form.password.data:
                 return redirect(url_for('profile_bp.user_profile'))
