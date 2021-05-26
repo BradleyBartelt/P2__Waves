@@ -5,8 +5,10 @@ Flask(__name__) establishes resources on the filesystem (aka package).
 3. static and templates are of folders that are located relative to directory of Flask execution
 """
 
-from flask import Flask, render_template
-from flask_socketio import SocketIO
+from flask import Flask, render_template, request, redirect, url_for
+from flask_socketio import SocketIO, join_room
+from flask_login import current_user, LoginManager, login_user, login_required, logout_user
+import datetime
 
 from views.Bradley.app import bradley_bp
 from views.Diego.app import diego_bp
@@ -55,6 +57,34 @@ def index():
 def PythonMiniLab():
     return render_template("Easter_egg.html")
 
+@app.route("/chatIndex")
+def chatIndex():
+    return render_template('chat/chat_index.html')
+
+@app.route("/chat")
+def chat():
+
+    room = request.args.get("room")
+    if room:
+        return render_template('chat/chat.html', username=current_user.username, room=room)
+    else:
+        return redirect('/chatIndex')
+
+@socketio.on('send_message')
+def handle_send_message_event(data):
+    app.logger.info("{} has sent message to the room {}: {}".format(data['username'],
+                                                                    data['room'],
+                                                                    data['message']))
+    data['created_at'] = datetime.now().strftime("%d %b, %H:%M")
+    # save_message(data['room'], data['message'], data['username'])
+    socketio.emit('receive_message', data, room=data['room'])
+
+@socketio.on('join_room')
+def handle_join_room_event(data):
+    # saving the time that joined the room
+    app.logger.info("{} has joined the room {}".format(data['username'], data['room']))
+    join_room(data['room'])
+    socketio.send('join_room_announcement', data, room=data['room'])
 
 if __name__ == "__main__":
     # runs the application on the repl development server

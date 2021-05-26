@@ -8,7 +8,7 @@ from model.module import User, db, user_records, func
 from main import app
 from views.andrew import andrew_bp
 from flask_bootstrap import Bootstrap
-from flask_socketio import SocketIO, join_room
+
 
 profile_bp = Blueprint('profile_bp', __name__,
                        template_folder='templates',
@@ -18,8 +18,6 @@ app.secret_key = 'xxxxyyyyyzzzzz'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
-socketio = SocketIO(app)
 
 
 class LoginForm(FlaskForm):
@@ -134,24 +132,3 @@ def logout():
     logout_user()
     print("logging out")
     return redirect(url_for('profile_bp.user_profile'))
-
-@profile_bp.route("/chatIndex")
-def chatIndex():
-    return render_template('chat/chat_index.html')
-
-@profile_bp.route("/chat")
-def chat():
-
-    room = request.args.get("room")
-    if room:
-        return render_template('chat/chat.html', username=current_user.username, room=room)
-    else:
-        return redirect(url_for("profile_bp.chatIndex"))
-
-
-@socketio.on('join_room')
-def handle_join_room_event(data):
-    # saving the time that joined the room
-    app.logger.info("{} has joined the room {}".format(data['username'], data['room']))
-    join_room(data['room'])
-    socketio.emit('join_room_announcement', data, room=data['room'])
