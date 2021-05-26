@@ -34,7 +34,7 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 - week of the College Board Exam
 - outlined the 4 interactions of the project 
     - API formatting - reviews on the pizza
-    - Chatting between users - () [video series](https://www.youtube.com/watch?v=vDxrmKOJMJ8)
+    - Chatting between users - () [video series](https://www.youtube.com/watch?v=uJC8A_7VZOA&list=PLyb_C2HpOQSBUEDI7tx_W4hAz699B6D7p) | [python socket](https://www.youtube.com/watch?v=3QiPPX-KeSc)
     - Uploading Posts - (POST)
     - Navigating External API - [see dominos](https://github.com/ggrammar/pizzapi)
     
