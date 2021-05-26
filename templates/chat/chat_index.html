@@ -11,7 +11,7 @@
 <h1>My Chat App</h1>
 <h3>Hi {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}!</h3>
 
-<form action="{{ url_for('profile_bp.chat') }}">
+<form action="/chat">
     <div>
         <label>Enter room id:</label>
         <input type="text" name="room">
