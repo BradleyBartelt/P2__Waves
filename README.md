@@ -34,9 +34,10 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 - week of the College Board Exam
 - outlined the 4 interactions of the project 
     - API formatting - reviews on the pizza
-    - Chatting between users - ()
+    - Chatting between users - () [video series](https://www.youtube.com/watch?v=vDxrmKOJMJ8)
     - Uploading Posts - (POST)
     - Navigating External API - [see dominos](https://github.com/ggrammar/pizzapi)
+    
 
 ### week 7 (progress for week of 5/17/21)
 - College board submission week
