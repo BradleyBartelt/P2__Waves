@@ -29,6 +29,8 @@
       room: "{{room}}"
     })
 
+
+    // sending the message
     let message_input = document.getElementById("message_input")
 
     document.getElementById("message_input_form").onsubmit = function (e){
@@ -49,6 +51,14 @@
 
   });
 
+  socket.on('disconnect', function(){
+    socket.emit('leave_room', {
+      username: "{{ username }}",
+      room: "{{ room }}"
+    })
+    //console.log("leaving room")
+  });
+
   socket.on("receive_message", function (data){
     console.log(data);
     const newNode = document.createElement("div")
@@ -61,6 +71,13 @@
     console.log(data);
     const newNode = document.createElement("div")
     newNode.innerHTML = String(data.username) + " has joined the room"
+    document.getElementById("messages").appendChild(newNode)
+  })
+
+  socket.on("leave_room_announcement", function (data){
+    console.log(data);
+    const newNode = document.createElement("div")
+    newNode.innerHTML = String(data.username) + " has left the room"
     document.getElementById("messages").appendChild(newNode)
   })
 
