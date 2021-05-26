@@ -52,7 +52,7 @@
   socket.on("receive_message", function (data){
     console.log(data);
     const newNode = document.createElement("div")
-    newNode.innerHTML = String(data.username) + " " + String(data.message)
+    newNode.innerHTML = String(data.username) + ": " + String(data.message)
     document.getElementById("messages").appendChild(newNode)
   })
 
