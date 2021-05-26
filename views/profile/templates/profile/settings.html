@@ -14,5 +14,15 @@
 <a>Apps and Websites</a><br>
 -->
 
+<img src="{{url_for('profile_bp.static', filename='images/settings.jpg')}}">
+<!--<img src="{{url_for('profile_bp.static', filename='images/settings.png')}}">-->
+<br>
+<button href="{{ url_for('profile_bp.logout') }}">Logout</button>
+
+
+<form action={{url_for('profile_bp.logout')}} method="post"><input type="submit" value="Log Out"></form>
+
+<br>
+<a href="{{ url_for('profile_bp.user_profile') }}">Back to Profile</a>
 </body>
 </html>

@@ -1,6 +1,6 @@
 from views.profile.models import temp_info
 from flask import Blueprint, redirect, render_template, url_for, request
-from flask_login import current_user, LoginManager, login_user
+from flask_login import current_user, LoginManager, login_user, login_required, logout_user
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired, Email, Length
@@ -124,3 +124,10 @@ def signup():
 @profile_bp.route('/admin')
 def admin():
     return render_template("profile/admin page.html", user_records=user_records)
+
+@profile_bp.route("/logout", methods=["GET", "POST"])
+@login_required
+def logout():
+    logout_user()
+    print("logging out")
+    return redirect(url_for('profile_bp.user_profile'))
