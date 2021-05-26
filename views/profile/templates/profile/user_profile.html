@@ -169,8 +169,14 @@
 
     <div id="right">
         <g>
-            <span class="top_buttons">Username
+            <span class="top_buttons" style="margin-right: 100px">
+                {% if current_user.is_authenticated %}
+                  {{ current_user.username }}
+                {% else %}
+                    Guest
+                {% endif %}
             </span>
+
             <form class="top_buttons" action="{{url_for('profile_bp.user_edit')}}">
                 <button>Edit Profile</button>
             </form>
