@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
+{{ super() }}
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}Chat PLaces{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('profile_bp.static', filename='css/profile.css') }}">
+</head>
+<body>
+<h1>Chat Functionality</h1>
+</body>
+</html>
+
+{% endblock %}

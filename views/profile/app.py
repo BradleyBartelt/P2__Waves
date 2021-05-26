@@ -131,3 +131,7 @@ def logout():
     logout_user()
     print("logging out")
     return redirect(url_for('profile_bp.user_profile'))
+
+@profile_bp.route("/chat")
+def chat():
+    return render_template('chat/chat.html')
