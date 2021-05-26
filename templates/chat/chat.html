@@ -18,7 +18,7 @@
   <button type="submit">Send</button>
 </form>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+<script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
 <script>
   // const socket = io.connect('http://' + document.domain + ':' + location.port);
   const socket = io.connect("http://127.0.0.1:5000");
@@ -29,9 +29,6 @@
       room: "{{room}}"
     })
 
-    console.log('join_room', {
-      username: "{{ username }}",
-      room: "{{room}}"})
   })
 
 </script>
