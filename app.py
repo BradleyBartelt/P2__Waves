@@ -75,7 +75,7 @@ def handle_join_room_event(data):
     # saving the time that joined the room
     app.logger.info("{} has joined the room {}".format(data['username'], data['room']))
     join_room(data['room'])
-    socketio.send('join_room_announcement', data, room=data['room'])
+    socketio.emit('join_room_announcement', data, room=data['room'])
 
 if __name__ == "__main__":
     # runs the application on the repl development server

@@ -31,6 +31,14 @@
 
   })
 
+  //for others users joining the room
+  socket.on("join_room_announcement", function (data){
+    console.log(data);
+    const newNode = document.createElement("div")
+    newNode.innerHTML = String(data.username) + " has joined the room"
+    document.getElementById("messages").appendChild(newNode)
+  })
+
 </script>
 </html>
 
