@@ -139,14 +139,14 @@ def logout():
 def chatIndex():
     return render_template('chat/chat_index.html')
 
-@profile_bp.route("/chat", methods=["GET","POST"])
+@profile_bp.route("/chat")
 def chat():
-    if request.form:
-        room = request.form["room"]
-        print(room)
-        return render_template('chat/chat.html', username=current_user.username, room=room)
 
-    return redirect(url_for("profile_bp.chatIndex"))
+    room = request.args.get("room")
+    if room:
+        return render_template('chat/chat.html', username=current_user.username, room=room)
+    else:
+        return redirect(url_for("profile_bp.chatIndex"))
 
 
 @socketio.on('join_room')
