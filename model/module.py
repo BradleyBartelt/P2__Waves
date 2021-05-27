@@ -13,6 +13,7 @@ from sqlalchemy import func
 from datetime import datetime
 from main import app
 from flask_login import UserMixin
+from werkzeug.security import check_password_hash
 
 # This grabs our directory
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -29,7 +30,32 @@ api = Api(app)
 
 # api.init_app(app)
 
+# for users stored in mongo DB
+class UserChat:
+    def __init__(self, username, email, password):
+        self.username = username
+        self.email = email
+        self.password = password
 
+    @staticmethod
+    def is_authenticated():
+        return True
+
+    @staticmethod
+    def is_active():
+        return False
+
+    @staticmethod
+    def is_anonymous():
+        return False
+
+    def get_id(self):
+        return self.username
+
+    def check_password(self, password_input):
+        return check_password_hash(self.password, password_input)
+
+# for users stored in sqlite db
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(15), unique=True)
