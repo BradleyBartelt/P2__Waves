@@ -38,6 +38,13 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
     - Uploading Posts - (POST)
     - Navigating External API - [see dominos](https://github.com/ggrammar/pizzapi)
     
+- Colin 
+    - going to be pivoting from sqlite (local database), and pivoting to a cloud database using MongoDB. 
+    This is going to resolve the problems with merging local versions of databases. 
+      - using MongoDB Atlas 
+      - [documentation for MongoDB Atlas](https://docs.atlas.mongodb.com/)
+
+    
 
 ### week 7 (progress for week of 5/17/21)
 - College board submission week
