@@ -13,12 +13,28 @@ def save_user(username, email, password):
 
 def get_user(username):
     user_data = users_collection.find_one({'_id': username})
-    return UserChat(user_data['id'], user_data['email'], user_data['password']) if user_data else None
+    return UserChat(user_data['_id'], user_data['email'], user_data['password']) if user_data else None
+
+def user_to_frontend():
+    print('Hello')
 
 if __name__ == "__main__":
     print("running chat_db")
 
+
+    myquery = { "_id": "testing" }
+
+    mydoc = users_collection.find(myquery)
+
+    for x in mydoc:
+        print(x)
+
+    print("------------------")
+    for x in users_collection.find():
+        print(x)
+
     # save_user('andrew','andrew@gmail.com', 'password' )
     # save_user('testing','testing@gmail.com', 'password' )
+
 #
     # print("after creation")
