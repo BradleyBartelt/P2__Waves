@@ -43,6 +43,8 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
     This is going to resolve the problems with merging local versions of databases. 
       - using MongoDB Atlas 
       - [documentation for MongoDB Atlas](https://docs.atlas.mongodb.com/)
+      - [documentation MongoDB w3 schools](https://www.w3schools.com/python/python_mongodb_getstarted.asp)
+    - great tool to learn about git [article](https://mirrors.edge.kernel.org/pub/software/scm/git/docs/git-reset.html) | [discussion](https://intellij-support.jetbrains.com/hc/en-us/community/posts/206884545-How-to-undo-a-commit-in-a-local-branch-git)
 
     
 
