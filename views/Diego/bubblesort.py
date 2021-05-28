@@ -28,11 +28,13 @@ def bubbleSort(array):
 			count+=1
 			print("Sorting: " + str(array))
 	return array
-count = 0
-time1 = time.time()
-arrayResult = str(bubbleSort(input_array))
-print("")
-print("Sorted after " + str(count) + " tries.")
-print("Sorted:  " + arrayResult)
-print("---")
-print("Overall Time: " + str(time.time()-time1) + " seconds")
+
+if __name__ == "__main__":
+	count = 0
+	time1 = time.time()
+	arrayResult = str(bubbleSort(input_array))
+	print("")
+	print("Sorted after " + str(count) + " tries.")
+	print("Sorted:  " + arrayResult)
+	print("---")
+	print("Overall Time: " + str(time.time()-time1) + " seconds")
