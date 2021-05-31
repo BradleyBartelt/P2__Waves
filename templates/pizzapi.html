@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block content %}
+{{ super() }}
+<head>
+    <title>{% block title %}Bootstrap Example{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+    /* Remove the navbar's default rounded borders and increase the bottom margin */
+    .navbar {
+      margin-bottom: 50px;
+      border-radius: 0;
+    }
+
+    /* Remove the jumbotron's default bottom margin */
+     .jumbotron {
+      margin-bottom: 0;
+    }
+
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="jumbotron">
+    <div class="container text-center">
+        <h1>Pizza Prices</h1>
+        <p>Real prices from real stores</p>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Pizza</div>
+                <div class="panel-body"><img src="../static/pizza.jpg" class="img-responsive" style="style=width:800px;height:300px" alt="Image"></div>
+                <div class="panel-footer">price</div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Drink</div>
+                <div class="panel-body"><img src="../static/drink.jpg" class="img-responsive" style="style=width:800px;height:300px" alt="Image"></div>
+                <div class="panel-footer">price</div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Breadsticks</div>
+                <div class="panel-body"><img src="../static/Breadsticks.png" class="img-responsive" style="style=width:800px;height:300px" alt="Image"></div>
+                <div class="panel-footer">price</div>
+            </div>
+        </div>
+    </div>
+</div><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Garlic knots</div>
+                <div class="panel-body"><img src="../static/Garlic_knot.jpg" class="img-responsive" style="style=width:800px;height:300px" alt="Image"></div>
+                <div class="panel-footer">price</div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Stuffed Crust</div>
+                <div class="panel-body"><img src="../static/stuffed_crust.jpg" class="img-responsive" style="style=width:800px;height:300px" alt="Image"></div>
+                <div class="panel-footer">price</div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Caesar Salad</div>
+                <div class="panel-body"><img src="../static/caesar_salad.jpg" class="img-responsive" style="style=width:800px;height:300px" alt="Image"></div>
+                <div class="panel-footer">price</div>
+            </div>
+        </div>
+    </div>
+</div><br><br>
+
+
+
+</body>
+</html>
+{% endblock %}

@@ -61,6 +61,10 @@ def PythonMiniLab():
 def chatIndex():
     return render_template('chat/chat_index.html')
 
+@app.route("/PizzaPrices")
+def pizzaprices():
+    return render_template("pizzapi.html")
+
 @app.route("/chat")
 def chat():
 
