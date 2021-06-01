@@ -4,7 +4,7 @@ from views.colin.algo.fibonacci import Fibonacci
 from views.colin.algo.conversion import Conversion
 from views.colin.algo.bubble_sort import BubbleSort
 from views.colin.algo.bubble_sort2 import BubbleSortString
-import json, random, requests
+import json, random, response
 from views.colin.algo.network_store import list_store
 from model.module import RatingFood, CreateReview, review_info, db, SQLAlchemy, api, func
 from datetime import datetime
