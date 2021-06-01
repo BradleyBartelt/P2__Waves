@@ -21,6 +21,7 @@ from flask_bootstrap import Bootstrap
 from model.module import Api
 from model.module import GetReviewResource, AllReviews, CreateReview
 from main import app
+from pizzacompare import Pizzatest
 
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(diego_bp, url_prefix='/diego')
@@ -61,9 +62,12 @@ def PythonMiniLab():
 def chatIndex():
     return render_template('chat/chat_index.html')
 
-@app.route("/PizzaPrices")
+@app.route("/PizzaPrices",methods = ["GET","POST"])
 def pizzaprices():
-    return render_template("pizzapi.html")
+    if request.form:
+        return render_template("pizzapi.html", pizzatest=Pizzatest(request.form.get("pizza1"), request.form.get("pizza2")))
+    return render_template("pizzapi.html", pizzatest=Pizzatest("",""))
+
 
 @app.route("/chat")
 def chat():
