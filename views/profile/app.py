@@ -120,7 +120,9 @@ def searchresult():
 
 @profile_bp.route('user_display',methods = ["GET","POST"])
 def display():
-    return render_template("profile/user_display.html")
+    if request.form:
+        name = request.form["befriend"]
+    return render_template("profile/user_display.html",name = name)
 @profile_bp.route('/signup', methods=["GET", "POST"])
 def signup():
     form = RegisterForm()
