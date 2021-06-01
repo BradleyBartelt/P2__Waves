@@ -118,7 +118,9 @@ def searchresult():
     return (render_template("profile/Search Result.html", List=List, exist=exist))
     return (render_template("profile/Search Result.html", List=List, exist=exist))
 
-
+@profile_bp.route('user_display',methods = ["GET","POST"])
+def display():
+    return render_template("profile/user_display.html")
 @profile_bp.route('/signup', methods=["GET", "POST"])
 def signup():
     form = RegisterForm()
