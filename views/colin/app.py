@@ -9,9 +9,19 @@ from views.colin.algo.network_store import list_store
 from model.module import RatingFood, CreateReview, review_info, db, SQLAlchemy, api, func
 from datetime import datetime
 
+# for connecting mongo db
+from flask_wtf import FlaskForm
+from wtforms import BooleanField, StringField, PasswordField
+from wtforms.validators import InputRequired, Email, Length
+
 colin_bp = Blueprint('colin_bp', __name__,
                           template_folder='templates',
                           static_folder='static', static_url_path='assets')
+
+class RegisterForm(FlaskForm):
+    email = StringField('email', validators=[InputRequired(), Email(message='Invalid Email'), Length(max=50)])
+    username = StringField('username', validators=[InputRequired(), Length(min=0, max=15)])
+    password = PasswordField('password', validators=[InputRequired(), Length(min=0, max=80)])
 
 # default landing page that use arrives when clicking the colin button in nav bar
 @colin_bp.route('/')
@@ -353,3 +363,16 @@ def api_form_POST():
         return render_template('colin/api_form_POST.html', active_page='colin')
 
     return render_template('colin/api_form_POST.html', active_page='colin')
+
+@colin_bp.route('/signupColin', methods=["GET", "POST"])
+def signup():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        # printing the form information in the terminal
+        # print(form.username.data)
+        # print(form.email.data)
+        # print(form.password.data)
+
+        return '<h1>yay</h1>'
+
+    return render_template("colin/sign_up.html", form=form)
