@@ -9,10 +9,13 @@ from views.colin.algo.network_store import list_store
 from model.module import RatingFood, CreateReview, review_info, db, SQLAlchemy, api, func
 from datetime import datetime
 
-# for connecting mongo db
+# for connecting mongo db (form front end)
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired, Email, Length
+
+# for pushing to mongo db
+from model.chat_db import *
 
 colin_bp = Blueprint('colin_bp', __name__,
                           template_folder='templates',
@@ -372,6 +375,7 @@ def signup():
         # print(form.username.data)
         # print(form.email.data)
         # print(form.password.data)
+        # save_user(form.username.data, form.email.data, form.password.data)
 
         return '<h1>yay</h1>'
 
