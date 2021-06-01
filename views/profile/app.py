@@ -87,16 +87,36 @@ def login():
 @profile_bp.route('/searched', methods=["GET", "POST"])
 def searchresult():
     find = {"username": "Default", "age": 0, "single?": False}
+    List = []
+    exist = False
     print(user_records)
     if request.form:
+        temp_list = []
+        for item in user_records:
+            temp_list.append(item)
+        """
         target = request.form["input"]
         print(target)
         for item in user_records:
             if item["username"] == target:
                 find = {"username": item["username"], "age": 21, "single?": True}
-                return (render_template("profile/Search Result.html", find=find, exist=True))
-
-    return (render_template("profile/Search Result.html", find=find, exist=False))
+                return (render_template("profile/Search Result.html", find=find, exist=True))"""
+        target = request.form["input"]
+        x = 0
+        while x < len(target):
+            for item in temp_list:
+                if item["username"] == target:
+                    if item not in List:
+                        List.append(item)
+                    exist = True
+                if target[0:x+1] in item["username"]:
+                    if item not in List:
+                        List.append(item)
+                    exist = True
+                    #temp_list.pop(temp_list.index(item))
+            x = x+1
+    return (render_template("profile/Search Result.html", List=List, exist=exist))
+    return (render_template("profile/Search Result.html", List=List, exist=exist))
 
 
 @profile_bp.route('/signup', methods=["GET", "POST"])

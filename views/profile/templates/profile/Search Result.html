@@ -28,12 +28,14 @@
     </tr>
     </thead>
     <tbody>
+    {% for row in List %}
+    <!-- build elements in table -->
     <tr>
-        <th scope="row">1</th>
-        <td>{{find['username']}}</td>
-        <td>{{find['age']}}</td>
-        <td>{{find['single?']}}</td>
+        <td>{{ row['username'] }}</td>
+        <td>{{ row['email'] }}</td>
+        <td>{{ row['password'] }}</td>
     </tr>
+    {% endfor %}
     </tbody>
 </table>
 {% endif %}
