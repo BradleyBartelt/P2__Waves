@@ -30,7 +30,7 @@
   </style>
 </head>
 <body>
-
+<div>
 <div class="jumbotron">
     <div class="container text-center">
         <h1>Pizza Prices</h1>
@@ -96,6 +96,7 @@
             <div>
                 <div>
                     <form id="pizzaform" action="/PizzaPrices" method="POST" style="width:500px;height:100px;font-size:50px" >
+                        <h3>Find the Best Pizza Parlor for you. Just select two resturants, and find out which is cheaper.</h3>
                         <select id="pizza1" name="pizza1" required style="width:500px;height:100px">
                             <option value="PapaJohns">Papa Johns</option>
                             <option value="Dominos">Dominos</option>
@@ -118,8 +119,21 @@
         </div>
     </div>
 </div>
-
-
+</div>
 </body>
+<script>
+    // from here: https://stackoverflow.com/questions/29203312/how-can-i-retain-the-scroll-position-of-a-scrollable-area-when-pressing-back-but/46461016#46461016
+
+    //ensures when reloading page maintains scroll height
+    $(function() {
+        $(window).unload(function() {
+            var scrollPosition = $("body#element").scrollTop();
+            localStorage.setItem("scrollPosition", scrollPosition);
+        });
+        if(localStorage.scrollPosition) {
+            $("body#element").scrollTop(localStorage.getItem("scrollPosition"));
+        }
+    });
+</script>
 </html>
 {% endblock %}
