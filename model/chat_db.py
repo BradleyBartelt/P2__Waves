@@ -19,6 +19,8 @@ def user_to_frontend():
     print('Hello')
 
 if __name__ == "__main__":
+    """save_user('dnhs','dnhs@gmail.com', 'password' )
+    
     print("running chat_db")
 
 
@@ -32,7 +34,7 @@ if __name__ == "__main__":
     print("------------------")
     for x in users_collection.find():
         print(x)
-
+    """
     # save_user('andrew','andrew@gmail.com', 'password' )
     # save_user('testing','testing@gmail.com', 'password' )
 
