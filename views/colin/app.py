@@ -15,7 +15,7 @@ from wtforms import BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired, Email, Length
 
 # for pushing to mongo db
-from model.chat_db import *
+# from model.chat_db import *
 
 colin_bp = Blueprint('colin_bp', __name__,
                           template_folder='templates',
