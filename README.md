@@ -28,7 +28,11 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.pieceofthepi.cf/)
 
 ## Change log
-### 3 week left of school
+### 2 week left of school
+
+### week 9 
+- Colin 
+    - [using mongo db with sockets](https://developer.mongodb.com/how-to/real-time-chat-phaser-game-mongodb-socketio/)
 
 ### week 8 (progress for week of 5/24/21)
 - week of the College Board Exam
