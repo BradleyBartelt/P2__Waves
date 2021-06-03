@@ -29,10 +29,14 @@ def user_info_create(username, name, bio, link):
                            'bio': bio,
                            'website_link': link
                            })
+
+mongo_users = []
 def user_to_frontend():
-    for x in users_collection.find():
-        print(x)
+    for user in users_collection.find():
+        mongo_users.append(user)
+user_to_frontend()
 
 if __name__ == "__main__":
     # user_info_create("billy", "billy", "My name is billy and my username is billy", "https://github.com/P5-Tacos/P5-Tacos-thrift-store")
-    user_to_frontend()
+    # user_to_frontend()
+    print(mongo_users)

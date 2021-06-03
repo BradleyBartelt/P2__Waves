@@ -14,6 +14,7 @@
 {% endfor %}
 -->
 
+<h2>Users in local database</h2>
 <table id="user_table">
     <tr>
         <th>ID</th>
@@ -29,6 +30,24 @@
         <td>{{ row['username'] }}</td>
         <td>{{ row['email'] }}</td>
         <td>{{ row['password'] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Users in Mongo Db</h2>
+<table>
+    <tr>
+        <th>Username(unique id)</th>
+        <th>Email</th>
+        <th>Password</th>
+    </tr>
+    <!-- Loop through rows in table -->
+    {% for user in mongo_users %}
+    <!-- build elements in table -->
+    <tr>
+        <td>{{ user['_id'] }}</td>
+        <td>{{ user['email'] }}</td>
+        <td>{{ user['password'] }}</td>
     </tr>
     {% endfor %}
 </table>

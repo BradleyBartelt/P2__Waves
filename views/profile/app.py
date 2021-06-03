@@ -8,6 +8,7 @@ from model.module import User, db, user_records, func
 from main import app
 from views.andrew import andrew_bp
 from flask_bootstrap import Bootstrap
+from model.chat_db import *
 
 
 profile_bp = Blueprint('profile_bp', __name__,
@@ -148,7 +149,7 @@ def signup():
 
 @profile_bp.route('/admin')
 def admin():
-    return render_template("profile/admin page.html", user_records=user_records)
+    return render_template("profile/admin page.html", user_records=user_records, mongo_users=mongo_users)
 
 @profile_bp.route("/logout", methods=["GET", "POST"])
 @login_required
