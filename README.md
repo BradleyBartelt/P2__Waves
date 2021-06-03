@@ -33,6 +33,9 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 ### week 9 
 - Colin 
     - [using mongo db with sockets](https://developer.mongodb.com/how-to/real-time-chat-phaser-game-mongodb-socketio/)
+    - planing for chatting rooms  (mongo db and socketio conflict)
+        - will deploy chat room in separate website that will be linked on the nav bar, on click will log you into the chat room website
+        - utilizing api to share information between the websites, signing up on the main site will be utilized onto the chat app
 
 ### week 8 (progress for week of 5/24/21)
 - week of the College Board Exam
