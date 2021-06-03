@@ -96,6 +96,7 @@
             <div>
                 <div>
                     <form id="pizzaform" action="/PizzaPrices" method="POST" style="width:500px;height:100px;font-size:50px" >
+                        <input type="hidden" step="0.0001" class="scroll_poss" name="scroll_poss" value="0">
                         <h3>Find the Best Pizza Parlor for you. Just select two resturants, and find out which is cheaper.</h3>
                         <select id="pizza1" name="pizza1" required style="width:500px;height:100px">
                             <option value="PapaJohns">Papa Johns</option>
@@ -135,5 +136,26 @@
         }
     });
 </script>
+<script>
+    var nameEls = document.getElementsByClassName("scroll_poss");
+
+    window.addEventListener('scroll',(event) => {
+        console.log(window.pageYOffset);
+        for (var i = 0; i < nameEls.length; i++) {
+            nameEls[i].value = window.pageYOffset;
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    //on load we set the postion of the page to what is passed into the page (deafult 0)
+    function test_func(window_y_value) {
+        console.log("on load: " + String(window_y_value));
+        window.scrollTo(0,window_y_value)
+    }
+    test_func({{ window_y_value|safe }})
+</script>
+
+
 </html>
 {% endblock %}
