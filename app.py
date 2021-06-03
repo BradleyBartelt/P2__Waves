@@ -82,6 +82,7 @@ def chat():
     else:
         return redirect('/chatIndex')
 
+"""
 @socketio.on('send_message')
 def handle_send_message_event(data):
     app.logger.info("{} has joined the room {}".format(data['username'],
@@ -102,9 +103,13 @@ def handle_leave_room_event(data):
     app.logger.info("{} has left the room {}".format(data['username'], data['room']))
     leave_room(data['room'])
     socketio.emit('leave_room_announcement', data, room=data['room'])
+"""
 
 
+"""if __name__ == "__main__":
+    # runs the application on the repl development server
+    socketio.run(app, debug=True, host='127.0.0.1', port='5000')"""
 
 if __name__ == "__main__":
     # runs the application on the repl development server
-    socketio.run(app, debug=True, host='127.0.0.1', port='5000')
+    app.run(debug=True, host='127.0.0.1', port='5000')

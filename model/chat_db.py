@@ -1,8 +1,15 @@
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash
 from model.module import UserChat
+import dns
 
-client = MongoClient("mongodb+srv://test:test@cluster0.qboud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+# client = MongoClient("mongodb+srv://test:test@cluster0.qboud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+
+USER = "test"
+PASSWORD = "test"
+
+client = MongoClient(
+    "mongodb+srv://" + USER + ":" + PASSWORD + "@cluster0.qboud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
 chat_db = client.get_database("ChatDB")
 users_collection = chat_db.get_collection("users_chat")
@@ -35,6 +42,10 @@ if __name__ == "__main__":
     for x in users_collection.find():
         print(x)
     """
+
+    for x in users_collection.find():
+        print(x)
+
     # save_user('andrew','andrew@gmail.com', 'password' )
     # save_user('testing','testing@gmail.com', 'password' )
 
