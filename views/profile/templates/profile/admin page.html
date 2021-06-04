@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin Page</title>
+    <style>
+        .decoded_password{
+            visibility: hidden;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+        }
+        .encoded_password{
+            visibility: visible;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+        }
+    </style>
 </head>
 <body>
 <h1>Admin Page</h1>
-<!--
-{% for item in user_records %}
-    {% for record in item %}
-        {{record}}
-    {% endfor %}
-{% endfor %}
--->
 
 <h2>Users in local database</h2>
 <table id="user_table">
@@ -24,12 +39,20 @@
     </tr>
     <!-- Loop through rows in table -->
     {% for row in user_records %}
+    {% set password = row["password"] %}
     <!-- build elements in table -->
     <tr>
         <td>{{ row['id'] }}</td>
         <td>{{ row['username'] }}</td>
         <td>{{ row['email'] }}</td>
-        <td>{{ row['password'] }}</td>
+        <td onmouseover="showPassword({{loop.index}}, 'password_char2', 'password_real2')" onmouseout="showChar({{loop.index}}, 'password_char2', 'password_real2')">
+                <span style="display: inline;" id="password_char2{{loop.index}}">
+                    {% for i in password %}
+                    *
+                    {% endfor %}
+                </span>
+            <span style="display: none;" id="password_real2{{loop.index}}">{{password}}</span>
+        </td>
     </tr>
     {% endfor %}
 </table>
@@ -45,11 +68,45 @@
     {% for user in mongo_users %}
     <!-- build elements in table -->
     <tr>
-        <td>{{ user['_id'] }}</td>
-        <td>{{ user['email'] }}</td>
-        <td>{{ user['password'] }}</td>
+        <td>
+           {{ user['_id'] }}
+        </td>
+        <td>
+            {{ user['email'] }}
+        </td>
+        <td>
+            {{ user['password'] }}
+        </td>
     </tr>
     {% endfor %}
 </table>
 </body>
+
+<script>
+    function showPassword(x, idEl_char, idEl_real){
+        //hiding the characters
+        var idEl = idEl_char +String(x)
+        var passwordChar = document.getElementById(idEl)
+        passwordChar.style.display = 'none';
+
+        //showing the password
+        var idEl_string = idEl_real +String(x)
+        var passwordChar_real = document.getElementById(idEl_string)
+        passwordChar_real.style.display = 'inline';
+    }
+
+    function showChar(x, idEl_char, idEl_real){
+        //showing the characters
+        var idEl = idEl_char +String(x)
+        var passwordChar = document.getElementById(idEl)
+        passwordChar.style.display = 'inline';
+
+        //hiding the password
+        var idEl_string = idEl_real +String(x)
+        var passwordChar_real = document.getElementById(idEl_string)
+        passwordChar_real.style.display = 'none';
+    }
+
+</script>
+
 </html>
