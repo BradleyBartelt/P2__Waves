@@ -22,7 +22,7 @@ from model.module import Api
 from model.module import GetReviewResource, AllReviews, CreateReview
 from main import app
 from pizzacompare import Pizzatest
-
+import json
 app.register_blueprint(andrew_bp, url_prefix='/andrew')
 app.register_blueprint(diego_bp, url_prefix='/diego')
 app.register_blueprint(profile_bp, url_prefix='/profile')
@@ -61,11 +61,13 @@ def PythonMiniLab():
 @app.route("/chatIndex")
 def chatIndex():
     return render_template('chat/chat_index.html')
-
+scroll_poss = 0
 @app.route("/PizzaPrices",methods = ["GET","POST"])
 def pizzaprices():
     if request.form:
-        return render_template("pizzapi.html", pizzatest=Pizzatest(request.form.get("pizza1"), request.form.get("pizza2")))
+        scroll_poss = request.form['scroll_poss']
+        print(scroll_poss)
+        return render_template("pizzapi.html", pizzatest=Pizzatest(request.form.get("pizza1"), request.form.get("pizza2")), window_y_value=json.dumps(scroll_poss))
     return render_template("pizzapi.html", pizzatest=Pizzatest("",""))
 
 
