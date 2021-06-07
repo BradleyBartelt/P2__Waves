@@ -121,9 +121,14 @@ def searchresult():
 
 @profile_bp.route('user_display',methods = ["GET","POST"])
 def display():
+    bio = "Ghost User"
     if request.form:
-        name = request.form["befriend"]
-    return render_template("profile/user_display.html",name = name)
+        print(mongo_users)
+        name = request.form["username"]
+        for user in mongo_users:
+            if user["_id"] == name:
+                bio = user["password"]
+    return render_template("profile/user_display.html",name = name, bio = bio)
 @profile_bp.route('/signup', methods=["GET", "POST"])
 def signup():
     form = RegisterForm()
