@@ -172,6 +172,7 @@ def display():
         form_name = request.form['name']
         if form_name == "view":
             name = request.form["username"]
+            print("What's the name" + name)
             for user in mongo_userz:
                 if user["_id"] == name:
                     previous_search = name
@@ -180,16 +181,25 @@ def display():
                     ratings = 0
                     friend = len(user["friend"])
                     post = len(user["posts"])
-        if form_name == "add":
+            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
+
+        '''if form_name == "add":
             name = previous_search
             for user in mongo_userz:
                 if user["_id"] == name:
+                    user_current = session["_id"]
+                    for userz in mongo_userz:
+                        if userz["_id"] == user_current:
+                            New_list1 = userz["friend"].append(user["_id"])
+                            New_list2 = user["friend"].append(userz["_id"])
+                            update_user(user_current,"friend",New_list1)
+                            update_user(user,"friend",New_list2)
                     bio = user["bio"]
                     ratings = 0
                     friend = len(user["friend"])
                     post = len(user["posts"])
-            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
-    return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
+            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)'''
+    #return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
 @profile_bp.route('/signup', methods=["GET", "POST"])
 def signup():
     form = RegisterForm()
