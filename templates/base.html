@@ -48,12 +48,19 @@
         <li class="nav-item">
             <a class="nav-link" href="/easteregg">Python Mini Lab</a>
         </li>
+        {% if not current_user.is_authenticated %}
         <li class="nav-item">
             <a class="nav-link" href="{{url_for('profile_bp.login')}}">login</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{url_for('profile_bp.signup')}}">sign up</a>
         </li>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{{url_for('profile_bp.logout')}}">Log Out</a>
+        </li>
+        {% endif %}
         <li class="nav-item">
             <a class="nav-link" href="/PizzaPrices">Pizza Prices</a>
         </li>
@@ -71,6 +78,7 @@
                 </div>
             </a>
         </li>
+        {%if current_user.is_authenticated %}
         <li class="nav-item">
             <a href="/chatIndex">
 
@@ -87,6 +95,7 @@
                 </svg>
             </a>
         </li>
+        {% endif %}
 
 
     </ul>
