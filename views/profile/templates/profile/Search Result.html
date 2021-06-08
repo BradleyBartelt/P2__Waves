@@ -22,7 +22,7 @@
     <thead class="thead-dark">
     <tr>
         <th scope="col">Username</th>
-        <th scope="col">Age</th>
+        <th scope="col">Email</th>
         <th scope="col">Extensive Profile</th>
     </tr>
     </thead>
@@ -31,11 +31,11 @@
 
     <!-- build elements in table -->
     <tr>
-        <td>{{ row['username'] }}</td>
+        <td>{{ row['_id'] }}</td>
         <td>{{ row['email'] }}</td>
         <td>
             <form action="{{url_for('.display')}}" method="post">
-
+                <input type="text" id="name" name="name" value= "view" style="visibility: hidden;">
                 <input type="text" id="username" name="username" value= "{{ row['username'] }}" style="visibility: hidden;">
             <button class="btn btn-primary mb-2">View</button>
             </form>

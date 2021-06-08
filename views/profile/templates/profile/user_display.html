@@ -7,7 +7,9 @@
             <div class="px-4 pt-0 pb-4 cover">
                 <div class="media align-items-end profile-head">
                     <div class="profile mr-3"><img src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80" alt="..." width="130" class="rounded mb-2 img-thumbnail">
-                        <form><input type="text" id="befriend" name="befriend" value=add style="visibility: hidden;"><button class="btn btn-outline-dark btn-sm btn-block">Add Friend</button></form>
+                        <form action="{{url_for('.display')}}" method="post">
+                            <input type="text" id="name" name="name" value="add" style="visibility: hidden;">
+                            <button class="btn btn-outline-dark btn-sm btn-block">Add Friend</button></form>
                         </div>
                     <div class="media-body mb-5 text-black">
                         <h4 class="mt-0 mb-0">{{name}}</h4>
@@ -18,13 +20,13 @@
             <div class="bg-light p-4 d-flex justify-content-end text-center">
                 <ul class="list-inline mb-0">
                     <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">215</h5><small class="text-muted"> <i class="fas fa-image mr-1"></i>Posts</small>
+                        <h5 class="font-weight-bold mb-0 d-block">{{post}}</h5><small class="text-muted"> <i class="fas fa-image mr-1"></i>Posts</small>
                     </li>
                     <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">745</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Friends</small>
+                        <h5 class="font-weight-bold mb-0 d-block">{{friend}}</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Friends</small>
                     </li>
                     <li class="list-inline-item">
-                        <h5 class="font-weight-bold mb-0 d-block">745</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Ratings</small>
+                        <h5 class="font-weight-bold mb-0 d-block">{{ratings}}</h5><small class="text-muted"> <i class="fas fa-user mr-1"></i>Ratings</small>
                     </li>
                 </ul>
             </div>
