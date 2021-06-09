@@ -45,9 +45,9 @@
             <li class="nav-item active">
             <a class="nav-link" href="/">Home</a>
         </li>
-        <li class="nav-item">
+        <!--<li class="nav-item">
             <a class="nav-link" href="/easteregg">Python Mini Lab</a>
-        </li>
+        </li>-->
         {% if not current_user.is_authenticated %}
         <li class="nav-item">
             <a class="nav-link" href="{{url_for('profile_bp.login')}}">login</a>
@@ -102,6 +102,21 @@
 
 
     </ul>
+
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Python MiniLabs
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{{ url_for('colin_bp.index') }}">Colin</a>
+            <a class="dropdown-item" href="{{ url_for('bradley_bp.index') }}">Bradley</a>
+            <a class="dropdown-item" href="{{ url_for('andrew_bp.index') }}">Andrew</a>
+            <a class="dropdown-item" href="{{ url_for('diego_bp.bubblesort') }}">Diego</a>
+            <a class="dropdown-item" href="{{ url_for('dk_bp.index') }}">Dk</a>
+        </div>
+    </div>
+
 </nav>
 {% block content %}
 {% endblock %}
