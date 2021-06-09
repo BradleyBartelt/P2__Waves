@@ -183,8 +183,7 @@ def display():
                     post = len(user["posts"])
             return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
 
-        if form_name == "add":
-            print("reached")
+        '''if form_name == "add":
             name = previous_search
             for user in mongo_userz:
                 if user["_id"] == name:
@@ -199,7 +198,7 @@ def display():
                     ratings = 0
                     friend = len(user["friend"])
                     post = len(user["posts"])
-            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
+            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)'''
     #return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
 @profile_bp.route('/signup', methods=["GET", "POST"])
 def signup():
