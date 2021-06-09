@@ -7,29 +7,52 @@
 <head style="background-color: grey;">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-.parallax {
-  /* The image used */
-  background-image: url("../static/stuffed_crust.jpg");
+        .parallax {
+            /* The image used */
+            background-image: url("../static/stuffed_crust.jpg");
 
-  /* Set a specific height */
-  min-height: 500px;
+            /* Set a specific height */
+            min-height: 500px;
 
-  /* Create the parallax scrolling effect */
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-</style>
+            /* Create the parallax scrolling effect */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style>
 
     <style>
-h1 {text-align: center;font-family: "impact";font-size: 75px}
-p {text-align: center;font-family: "impact"}
-div {text-align: center;font-family: "impact"}
-body {
-  background-color: maroon;
-}
-</style>
+        div.gallery {
+            margin: 4px;
+
+            float: right;
+            width: 180px;
+        }
+
+        div.gallery:hover {
+            border: 1px solid #777;
+        }
+
+        div.gallery img {
+            width: 100%;
+            height: auto;
+        }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+        }
+    </style>
+
+    <style>
+        h1 {text-align: center;font-family: "impact";font-size: 75px}
+        p {text-align: center;font-family: "impact"}
+        div {text-align: center;font-family: "impact"}
+        body {
+            background-color: maroon;
+        }
+    </style>
 </head>
 <body>
 
@@ -39,12 +62,133 @@ body {
 
 <div class="parallax"></div>
 
-<div style="height:1000px;background-color:brown;font-size:36px;color:white;">
+<div style="height:400px;background-color:brown;font-size:45px;color:white;">
     <div style="position:relative; top:100px;">
         Welcome to piece of the Pie!
         The worlds #1 pizza site.
+        <p style="font-size:30px;font-family:arial">Its our duty to keep you and your freinds informed on all the lastest pizza. Post and browse pictures of pizza, and even compare prices. You can also chat with other users, and make new freinds.</p>
     </div>
 </div>
+
+<div class="parallax"></div>
+
+<div style="height:500px;background-color:brown;font-size:36px;color:white;">
+    <div style="position:relative; top:100px;">
+        In order to create this incredible website, 5 coders were enlisted:
+        <p style="font-size:30px;font-family:arial">Colin, Andrew, Bradley, Diego, and DK</p>
+        <p style="font-size:30px;font-family:arial">They made the dream of making the world a better place through pizza into a reality.</p>
+        <div class="gallery">
+
+            <img src="../static/stuffed_crust.jpg" width="600" height="400">
+            </a>
+
+        </div>
+
+        <div class="gallery">
+
+            <img src="../static/Breadsticks.png" width="600" height="400">
+            </a>
+
+        </div>
+
+        <div class="gallery">
+
+            <img src="../static/pizza.jpg" width="600" height="400">
+            </a>
+
+        </div>
+
+        <div class="gallery">
+
+            <img src="../static/garlic_knot.jpg"  width="600" height="400">
+            </a>
+
+        </div>
+        <div class="gallery">
+
+            <img src="../static/stuffed_crust.jpg" width="600" height="400">
+            </a>
+
+        </div>
+
+        <div class="gallery">
+
+            <img src="../static/Breadsticks.png" width="600" height="400">
+            </a>
+
+        </div>
+
+        <div class="gallery">
+
+            <img src="../static/pizza.jpg" width="600" height="400">
+            </a>
+
+        </div>
+
+        <div class="gallery">
+
+            <img src="../static/garlic_knot.jpg"  width="600" height="400">
+            </a>
+
+        </div>
+        <div class="gallery">
+
+            <img src="../static/stuffed_crust.jpg" width="600" height="400">
+            </a>
+
+        </div>
+
+        <div class="gallery">
+
+            <img src="../static/Breadsticks.png" width="600" height="400">
+            </a>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="parallax"></div>
+
+<div style="height:450px;background-color:brown;font-size:36px;color:white;">
+    <div style="position:relative; top:100px;">
+        How it was made:
+        <p style="font-size:30px;font-family:arial">This project was created with HTML, Python, and CSS on IntelliJ.</p>
+        <p style="font-size:30px;font-family:arial"><a href="https://github.com/BradleyBartelt/P2__Waves">Here is a link to the repository.</a></p>
+        <p style="font-size:30px;font-family:arial">To find more info on updates, and other things, consult the projects readme.</p>
+        <!--<iframe frameborder="0" height="400" width="750" scrolling="yes" src="https://github.com/BradleyBartelt/P2__Waves#readme"></iframe>-->
+    </div>
+</div>
+
+<div class="center-block" style="margin: 2% 3% 3%; font-family: gilroy,serif;">
+
+    <div class="jumbotron justify-content-left row">
+        <div class="col-6" id="readme" style="text-align: left"></div>
+    </div>
+
+</div>
+
+<script>
+
+    const MARKDOWN_API = "https://api.github.com/markdown/raw";
+    const DATA_URL = "https://raw.githubusercontent.com/BradleyBartelt/P2__Waves/master/README.md";
+
+    const main = async()=>{
+        const markdownResponse = await fetch(DATA_URL);
+        const markdownData = await markdownResponse.text();
+
+        console.log(markdownData);
+
+        const htmlResponse = await fetch(MARKDOWN_API, {method:"POST", body:markdownData});
+        const htmlData = await htmlResponse.text();
+
+        $("#readme").append(htmlData);
+        console.log(htmlData);
+    }
+
+    main();
+
+</script>
 
 </body>
 </html>

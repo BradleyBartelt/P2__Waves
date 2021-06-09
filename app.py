@@ -75,6 +75,10 @@ def pizzaprices():
 def contact():
     return render_template("contact.html")
 
+@app.route("/AboutUs")
+def aboutus():
+    return render_template("about.html")
+
 @app.route("/chat")
 def chat():
 
