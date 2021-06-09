@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+{% extends "base.html" %}
+{% block content %}
+{{ super() }}
+<html>
+<head style="background-color: grey;">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+.parallax {
+  /* The image used */
+  background-image: url("../static/stuffed_crust.jpg");
+
+  /* Set a specific height */
+  min-height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+
+    <style>
+h1 {text-align: center;font-family: "impact";font-size: 75px}
+p {text-align: center;font-family: "impact"}
+div {text-align: center;font-family: "impact"}
+body {
+  background-color: maroon;
+}
+</style>
+</head>
+<body>
+
+
+<h1 style="color:WhiteSmoke">Piece of the Pie</h1>
+
+
+<div class="parallax"></div>
+
+<div style="height:1000px;background-color:brown;font-size:36px;color:white;">
+    <div style="position:relative; top:100px;">
+        Welcome to piece of the Pie!
+        The worlds #1 pizza site.
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}
