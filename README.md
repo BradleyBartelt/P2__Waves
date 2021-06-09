@@ -36,6 +36,7 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
     - planing for chatting rooms  (mongo db and socketio conflict)
         - will deploy chat room in separate website that will be linked on the nav bar, on click will log you into the chat room website
         - utilizing api to share information between the websites, signing up on the main site will be utilized onto the chat app
+    - [how to only allow access through redirecting through spceific website](https://stackoverflow.com/questions/31131636/flask-to-only-allow-access-to-page-internally)
 
 ### week 8 (progress for week of 5/24/21)
 - week of the College Board Exam
