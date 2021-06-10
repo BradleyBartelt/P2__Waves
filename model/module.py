@@ -289,3 +289,6 @@ def list_user_map():
 
 
 list_user_map()
+
+if __name__ == "__main__":
+    print(review_info)

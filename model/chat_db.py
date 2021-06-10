@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+"""from pymongo import MongoClient
 from werkzeug.security import generate_password_hash
 from model.module import UserChat
 import dns
@@ -54,4 +54,4 @@ info_to_frontend()
 if __name__ == "__main__":
     #user_info_create("billa", "billy", "My name is billy and my username is billy", "https://github.com/P5-Tacos/P5-Tacos-thrift-store","friend","picture","post")
     #info_to_frontend()
-    print(mongo_userz)
+    print(mongo_userz)"""

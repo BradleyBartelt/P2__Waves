@@ -381,3 +381,7 @@ def signup():
         return '<h1>yay</h1>'
 
     return render_template("colin/sign_up.html", form=form)
+
+@colin_bp.route('/searchTable')
+def serachTable():
+    return render_template("colin/searchTable.html")
