@@ -28,8 +28,10 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.site.pieceofthepi.cf/)
 
 ## Change log
-### 2 week left of school
-
+### 1 week left of school
+### week 10 
+- Colin
+    - need to connect up the sign up to mongo db
 ### week 9 
 - Colin 
     - [using mongo db with sockets](https://developer.mongodb.com/how-to/real-time-chat-phaser-game-mongodb-socketio/)
