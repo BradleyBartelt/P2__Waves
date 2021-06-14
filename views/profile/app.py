@@ -12,6 +12,7 @@ from main import app
 from views.andrew import andrew_bp
 from flask_bootstrap import Bootstrap
 from model.chat_db import *
+import json, random, requests
 
 
 profile_bp = Blueprint('profile_bp', __name__,
@@ -247,3 +248,40 @@ def logout():
     logout_user()
     print("logging out")
     return redirect(url_for('profile_bp.user_profile'))
+
+@profile_bp.route('/api_pull')
+def api_pull():
+    # getting the qunaity of row entries to use for the random selection
+    urlList = "http://site.pieceofthepi.cf/AllFood"
+    response_list = requests.request("GET", urlList)
+    all_list = json.loads(response_list.text)
+
+    # getting a random field from the entire database len(all_list) corresponds to number of rows in database
+    url = "http://site.pieceofthepi.cf/Food/" + str(random.randint(1, len(all_list)))
+    response = requests.request("GET", url)
+
+    # current the request
+    dictionary = response.text
+    y = json.loads(dictionary)
+    return render_template('profile/api_pull.html', data = y)
+
+@profile_bp.route('/api_form_POST', methods=["GET", "POST"])
+def api_form_POST():
+    if request.method == 'POST':
+        # getting the information from the form
+        restaurant = request.form.get('restaurant')
+        name = request.form.get('name')
+        star_count = request.form.get("star_count")
+        message_input = request.form.get("message")
+
+        # formatting information into the URL use to access the API
+        url_info = 'http://pieceofthepi.cf/createReview/' + str(restaurant) + "/" + str(name) + "/peasant/" +str(star_count) + '/'+str(message_input)
+        print(url_info)
+
+        # POST to the API
+        requests.post(url_info)
+
+        # render the default page
+        return render_template('profile/api_form_POST.html')
+
+    return render_template('profile/api_form_POST.html')

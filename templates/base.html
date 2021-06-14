@@ -117,6 +117,19 @@
         </div>
     </div>
 
+    <div class="dropdown show">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            API interaction
+        </a>
+
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{{ url_for('profile_bp.api_pull') }}">Pulling from API</a>
+            <a class="dropdown-item" href="{{ url_for('profile_bp.api_form_POST') }}">POSTING to API</a>
+
+        </div>
+    </div>
+
+
 </nav>
 {% block content %}
 {% endblock %}
