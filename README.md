@@ -28,10 +28,16 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 #### [Deployed](http://www.site.pieceofthepi.cf/)
 
 ## Change log
-### 1 week left of school
+### 0 week left of school
 ### week 10 
 - Colin
-    - need to connect up the sign up to mongo db
+    - [x] need to connect up the sign up to mongo db
+    - [ ] waiting for crossover team to deploy on Mr. M hardware to ensure that writting to the correct API
+        - [ ] posting with the api
+        - [ ] pulling with the team api
+    - [x] moved the api interactions to the main nav bar, not hidden within own minilab location
+    - [x] when sign up, user info database automatically created per user
+    
 ### week 9 
 - Colin 
     - [using mongo db with sockets](https://developer.mongodb.com/how-to/real-time-chat-phaser-game-mongodb-socketio/)
