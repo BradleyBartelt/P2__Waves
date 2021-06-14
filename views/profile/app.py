@@ -59,21 +59,20 @@ class User:
         return check_password_hash(password_hash, password)
 
 
-@login_manager.user_loader
+"""@login_manager.user_loader
 def load_user(username):
     for user in mongo_users:
         if user["_id"] == username:
             u = user
             if not u:
                 return None
-        return User(username=u['_id'])
+        return User(username=u['_id'])"""
 
 
-"""@login_manager.user_loader
+@login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(user_id)
+    return get_user(user_id)
 
-"""
 @profile_bp.route('/')
 def index():
     return "Colin Location"
@@ -109,11 +108,14 @@ def login():
     # TODO: Make The SQL Database work
 
     if form.validate_on_submit():
+        print("entering in validation")
         #user = User.query.filter_by(username = form.username.data).first()
         for user in mongo_users:
             if user["_id"] == form.username.data:
                 if user["password"] == form.password.data:
                     user_obj = User(username = user["_id"])
+                    # print(user_obj["username"])
+                    # print(user_obj["password"])
                     login_user(user_obj)
                     return redirect(url_for('profile_bp.user_profile'))
         #if user:
@@ -206,9 +208,17 @@ def signup():
     if form.validate_on_submit():
 
         save_user(form.username.data, form.email.data, form.password.data)
+        user_info_create(form.username.data,
+                         form.username.data,
+                         "this is the default bio",
+                         "default website link",
+                         [],
+                         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                         []
+                         )
 
         #return '<h1>yay</h1>'
-        return redirect(url_for('profile_bp.user_profile')) #userprofile
+        return redirect(url_for('profile_bp.login')) #userprofile
     return render_template("profile/sign_up.html", form=form)
 
 
