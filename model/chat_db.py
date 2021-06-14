@@ -1,15 +1,22 @@
-"""from pymongo import MongoClient
+import pymongo
+from pymongo import MongoClient
 from werkzeug.security import generate_password_hash
 from model.module import UserChat
 import dns
+import sys
+import json
+import ssl
+
 
 # client = MongoClient("mongodb+srv://test:test@cluster0.qboud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 
 USER = "test"
 PASSWORD = "test"
 
-client = MongoClient(
-    "mongodb+srv://" + USER + ":" + PASSWORD + "@cluster0.qboud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+# client = MongoClient(
+#     "mongodb+srv://" + USER + ":" + PASSWORD + "@cluster0.qboud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+
+client = pymongo.MongoClient("mongodb+srv://" + USER + ":" + PASSWORD + "@cluster0.qboud.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", ssl_cert_reqs=ssl.CERT_NONE)
 
 chat_db = client.get_database("ChatDB")
 users_collection = chat_db.get_collection("users_chat")
@@ -54,4 +61,4 @@ info_to_frontend()
 if __name__ == "__main__":
     #user_info_create("billa", "billy", "My name is billy and my username is billy", "https://github.com/P5-Tacos/P5-Tacos-thrift-store","friend","picture","post")
     #info_to_frontend()
-    print(mongo_userz)"""
+    print(mongo_userz)

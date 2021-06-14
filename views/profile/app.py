@@ -7,7 +7,7 @@ from flask_login import current_user, LoginManager, login_user, login_required, 
 from flask_wtf import FlaskForm
 from wtforms import BooleanField, StringField, PasswordField
 from wtforms.validators import InputRequired, Email, Length
-from model.module import User, db, user_records, func
+from model.module import db, user_records, func
 from main import app
 from views.andrew import andrew_bp
 from flask_bootstrap import Bootstrap
@@ -59,21 +59,21 @@ class User:
         return check_password_hash(password_hash, password)
 
 
-    @login_manager.user_loader
-    def load_user(username):
-        for user in mongo_users:
-            if user["_id"] == username:
-                u = user
-                if not u:
-                    return None
-            return User(username=u['_id'])
-
-"""
 @login_manager.user_loader
+def load_user(username):
+    for user in mongo_users:
+        if user["_id"] == username:
+            u = user
+            if not u:
+                return None
+        return User(username=u['_id'])
+
+
+"""@login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
-"""
 
+"""
 @profile_bp.route('/')
 def index():
     return "Colin Location"
@@ -204,22 +204,11 @@ def display():
 def signup():
     form = RegisterForm()
     if form.validate_on_submit():
-        # printing the form information in the terminal
-        # print(form.username.data)
-        # print(form.email.data)
-        # print(form.password.data)
 
-        # getting the id for the new entry
-        userid = int(db.session.query(func.max(User.id)).scalar()) + 1
+        save_user(form.username.data, form.email.data, form.password.data)
 
-        # adding the form information into the database
-        new_user = User(id=userid, username=form.username.data, email=form.email.data,
-                        password=form.password.data)  # , password = form.password.data
-        db.session.add(new_user)
-        db.session.commit()
-
-        return '<h1>yay</h1>'
-
+        #return '<h1>yay</h1>'
+        return redirect(url_for('profile_bp.user_profile')) #userprofile
     return render_template("profile/sign_up.html", form=form)
 
 
