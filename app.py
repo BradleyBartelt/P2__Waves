@@ -16,6 +16,8 @@ from views.andrew.app import andrew_bp
 from views.profile.app import profile_bp
 from views.colin.app import colin_bp
 from views.Dk.app import dk_bp
+from views.crossover.app import crossover_bp
+
 from flask_bootstrap import Bootstrap
 
 from model.module import Api
@@ -28,6 +30,7 @@ app.register_blueprint(diego_bp, url_prefix='/diego')
 app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(bradley_bp, url_prefix='/bradley')
 app.register_blueprint(colin_bp, url_prefix='/colin')
+app.register_blueprint(crossover_bp, url_prefix='/crossover')
 app.register_blueprint(dk_bp, url_prefix='/dk')
 
 app.config.update(dict(
