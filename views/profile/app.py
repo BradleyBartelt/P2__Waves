@@ -263,7 +263,7 @@ def api_pull():
     # current the request
     dictionary = response.text
     y = json.loads(dictionary)
-    return render_template('profile/api_pull.html', data = y)
+    return render_template('profile/api/api_pull.html', data = y)
 
 @profile_bp.route('/api_form_POST', methods=["GET", "POST"])
 def api_form_POST():
@@ -282,6 +282,6 @@ def api_form_POST():
         requests.post(url_info)
 
         # render the default page
-        return render_template('profile/api_form_POST.html')
+        return render_template('profile/api/api_form_POST.html')
 
-    return render_template('profile/api_form_POST.html')
+    return render_template('profile/api/api_form_POST.html')
