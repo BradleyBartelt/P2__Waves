@@ -24,7 +24,7 @@ users_info = chat_db.get_collection("users_info")
 
 def save_user(username, email, password):
     password_hash = generate_password_hash(password)
-    users_collection.insert_one({'_id': username, 'email': email, 'password': password_hash })
+    users_collection.insert_one({'_id': username, 'email': email, 'password': password })
 
 def update_user(user, category,item_of_update):
     chat_db.inventory.update_one(
