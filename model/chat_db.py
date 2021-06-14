@@ -45,6 +45,10 @@ def user_info_create(username, name, bio, link,friend,pfp,posts):
                            'picture':pfp,
                            'posts':posts
                            })
+def get_user_info(username):
+    info = users_info.find_one({'_id': username})
+
+    return info
 
 mongo_users = []
 def user_to_frontend():

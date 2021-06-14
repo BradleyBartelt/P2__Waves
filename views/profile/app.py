@@ -80,16 +80,31 @@ def index():
 
 @profile_bp.route('/userprofile')
 def user_profile():
-    if request.form:
+    """if request.form:
         target = request.form["input"]
 
         for item in mongo_users:
             if item["_id"] == target:
                 find = {"username": item["_d"], "age": 21, "single?": True}
-                return (render_template("profile/Search Result.html", find=find, exist=True))
+                return (render_template("profile/Search Result.html", find=find, exist=True))"""
+    if current_user.is_authenticated:
+        info = get_user_info(current_user.username)
+        print(info)
+        return render_template("profile/user_profile.html", list_stories=temp_info.all_stories(),
+                               list_post=info["posts"], info=info)
+    # default contents of guest user
 
+    info = {'_id':"guest",
+                'name':"guest",
+                'bio':"this is the bio of the guest",
+                'website_link':"https://github.com/BradleyBartelt/P2__Waves",
+                'friend':[],
+                'picture':"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+                'posts':[]
+
+                }
     return render_template("profile/user_profile.html", list_stories=temp_info.all_stories(),
-                           list_post=temp_info.all_post())
+                           list_post=info["posts"], info=info)
 
 
 @profile_bp.route('/settings')

@@ -181,15 +181,17 @@
     <br>
     <br>
         <g>
-            <span class="top_buttons" ># of posts</span>
-            <span class="top_buttons" ># of followers</span>
-            <span class="top_buttons" ># of following</span>
+            <span class="top_buttons" ># of posts: {{info["posts"] |length}}</span>
+            <br>
+            <span class="top_buttons" ># of followers: {{info["friend"] |length}}</span>
+            <br>
+            <span class="top_buttons" ># of following: {{info["friend"] |length}}</span>
         </g>
     <br>
         <g>
-            <span>description</span>
+            <span>{{info["bio"]}}</span>
             <br>
-            <a>website link</a>
+            <a href={{info["website_link"]}} target="_blank">{{info["website_link"]}}</a>
         </g>
 
     </div>
