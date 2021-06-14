@@ -2,7 +2,7 @@
 Tri 3 project for P2__Waves
 
 ## [Project Plan](https://docs.google.com/document/d/1vByAzVE8BIA5xQ6L1B1xQvrMjikYDGONuw1jXJDoZHk/edit?usp=sharing)
-Runtime link: http://www.site.pieceofthepi.cf/
+Runtime link: http://site.pieceofthepi.cf/
 ### Idea
 Our idea is to create a sort of Pizza revolved site, where you can order pizza, leave reviews, see deals, and more. We are going to take inspiration from the layout of other sites like dominos. In order to add a unique spin on it, we would like to impliment a feature where people can post pictures of the food they order and leave a reveiw, and other users can see the food and reviews, sort of like social media, but  for pizza.
 #### Inspiration
