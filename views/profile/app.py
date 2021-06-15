@@ -90,7 +90,7 @@ def index():
     return "Colin Location"
 
 
-@profile_bp.route('/userprofile')
+@profile_bp.route('/userprofile',methods=["GET", "POST"])
 def user_profile():
     """if request.form:
         target = request.form["input"]
@@ -101,16 +101,17 @@ def user_profile():
                 return (render_template("profile/Search Result.html", find=find, exist=True))"""
     if current_user.is_authenticated:
         info = get_user_info(current_user.username)
-        print(info)
+        infofo = info
+        infofo["friend"] = len(get_user_info(current_user.username)["friend"].split(","))
         return render_template("profile/user_profile.html", list_stories=temp_info.all_stories(),
-                               list_post=info["posts"], info=info)
+                               list_post=info["posts"], info=infofo)
     # default contents of guest user
 
     info = {'_id':"guest",
                 'name':"guest",
                 'bio':"this is the bio of the guest",
                 'website_link':"https://github.com/BradleyBartelt/P2__Waves",
-                'friend':[],
+                'friend':"",
                 'picture':"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                 'posts':[]
 
@@ -127,27 +128,31 @@ def user_setting():
 @profile_bp.route('/edit', methods=["GET", "POST"])
 def user_edit():
     if request.form:
-
-        if request.form["name"] is not None:
-            name = request.form["name"]
-        else:
-            name = get_user_info(current_user.username)["name"]
+        print("Yes")
         if request.form["username"] is not None:
+
             username = request.form["username"]
+            name = request.form["username"]
+            update_user(current_user.username,"username",username)
         else:
+
             username = get_user_info(current_user.username)["username"]
+            name = get_user_info(current_user.username)["name"]
         if request.form["website"] is not None:
             website = request.form["website"]
+            update_user(current_user.username,"website",website)
         else:
             website = get_user_info(current_user.username)["website"]
         if request.form["bio"] is not None:
             bio = request.form["bio"]
+            print(bio)
+            update_user(current_user.username,"bio",bio)
         else:
-            bio = get_user_info(current_user.username)["email"]
-        if request.form["email"] is not None:
-            email = request.form["email"]
-        else:
-            email = get_user_info(current_user.username)["email"]
+            bio = get_user_info(current_user.username)["bio"]
+        #if request.form["email"] is not None:
+            #email = request.form["email"]
+        #else:
+            #email = get_user_info(current_user.username)["email"]
         if request.form["filename"] is not None:
             filename = str(current_user.username) + ".jpg"
             if os.path.exists(filename):
@@ -161,7 +166,7 @@ def user_edit():
                 "username":username,
                 "website":website,
                 "bio":bio,
-                'friend':[],
+                'friend':len(get_user_info(current_user.username)["friend"].split(",")),
                 "posts":[],
                 "picture":filename
         }

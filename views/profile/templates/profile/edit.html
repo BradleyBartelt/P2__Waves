@@ -1,33 +1,50 @@
 {% extends "base.html" %}
 
 {% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Edit{% endblock %}</title>
-</head>
-<body>
-<form action="{{url_for('.user_edit')}}" method="post">
-    <p>Username</p>
-    <input type="text" id="username" name="username">
-    <p>Bio</p>
-    <input type="text" id="bio" name="bio">
-    <p>Website</p>
-    <input type="text" id="website" name="website">
-    <p>Email</p>
-    <input type="text" id="email" name="email">
-    <p>Profile Picture</p>
-    <input type="file" id="image" name="image">
-    <br>
-    <button class="btn btn-primary mb-2">Update</button>
-</form>
-
-<a href="{{ url_for('profile_bp.user_profile') }}">Back to Profile</a>
-</body>
+<div class="container">
+    <div class="row">
+        <h1>Edit Profile</h1>
+    </div>
+    <div class="row">
+        <h4 style="text-align:center">Ready to make yourself more stylish?</h4>
+    </div>
+    <form action="{{url_for('.user_edit')}}" method="post">
+    <div class="row input-container">
+        <div class="col-xs-12">
+            <div class="styled-input wide">
+                <input type="text" name = "username"/>
+                <label>Name</label>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="styled-input">
+                <input type="text" name = "website" />
+                <label>Website</label>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <div class="styled-input" style="float:right;">
+                <input type="file" name = "filename" />
+                <label>Upload Profile Picture</label>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="styled-input wide">
+                <textarea id = "bio" name = "bio"></textarea>
+                <label>Personal Bio</label>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <button class="btn-lrg submit-btn">Submit</button>
+        </div>
+    </div>
+    </form>
+</div>
 {% endblock %}
 {% block style %}
+<style>
 body {
 background-color: #444442;
-padding-top: 85px;
 }
 
 h1 {
@@ -156,4 +173,5 @@ input[type=checkbox]:checked + label {
 color: #f00;
 font-style: normal;
 }
+</style>
 {% endblock %}
