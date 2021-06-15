@@ -66,6 +66,7 @@
     </tr>
     <!-- Loop through rows in table -->
     {% for user in mongo_users %}
+    {% set password = user["password"] %}
     <!-- build elements in table -->
     <tr>
         <td>
@@ -74,8 +75,13 @@
         <td>
             {{ user['email'] }}
         </td>
-        <td>
-            {{ user['password'] }}
+        <td onmouseover="showPassword({{loop.index}}, 'password_char3', 'password_real3')" onmouseout="showChar({{loop.index}}, 'password_char3', 'password_real3')">
+                <span style="display: inline;" id="password_char3{{loop.index}}">
+                    {% for i in password %}
+                    *
+                    {% endfor %}
+                </span>
+            <span style="display: none;" id="password_real3{{loop.index}}">{{password}}</span>
         </td>
     </tr>
     {% endfor %}
