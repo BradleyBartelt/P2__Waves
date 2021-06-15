@@ -26,7 +26,14 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
 bootstrap = Bootstrap(app)
+UPLOAD_FOLDER = "views/profile/static/images/owner_upload"
+CHECK_FOLDER = os.path.isdir(UPLOAD_FOLDER)
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
+if not CHECK_FOLDER:
+    os.makedirs(UPLOAD_FOLDER)
+    print("created folder : ", UPLOAD_FOLDER)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=0, max=15)])
     password = PasswordField('password', validators=[InputRequired(), Length(min=0, max=80)])
@@ -46,7 +53,9 @@ class UpdateForm(FlaskForm):
     email = StringField('website', validators =  [Length(min=0, max=1000)])
     file = FileField('image', validators=[FileAllowed(['png', 'pdf', 'jpg'], "Nerd")])
 
-
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 class User:
     def __init__(self, username):
         self.username = username
@@ -127,51 +136,56 @@ def user_setting():
 
 @profile_bp.route('/edit', methods=["GET", "POST"])
 def user_edit():
-    if request.form:
-        print("Yes")
-        if request.form["username"] is not None:
+    if request.method == "POST":
+        if request.form:
+            print("Yes")
+            if request.form["username"] is not None:
 
-            username = request.form["username"]
-            name = request.form["username"]
-            update_user(current_user.username,"username",username)
-        else:
+                username = request.form["username"]
+                name = request.form["username"]
+                update_user(current_user.username,"name",username)
+            else:
 
-            username = get_user_info(current_user.username)["username"]
-            name = get_user_info(current_user.username)["name"]
-        if request.form["website"] is not None:
-            website = request.form["website"]
-            update_user(current_user.username,"website",website)
-        else:
-            website = get_user_info(current_user.username)["website"]
-        if request.form["bio"] is not None:
-            bio = request.form["bio"]
-            print(bio)
-            update_user(current_user.username,"bio",bio)
-        else:
-            bio = get_user_info(current_user.username)["bio"]
-        #if request.form["email"] is not None:
-            #email = request.form["email"]
-        #else:
-            #email = get_user_info(current_user.username)["email"]
-        if request.form["filename"] is not None:
-            filename = str(current_user.username) + ".jpg"
-            if os.path.exists(filename):
-                os.remove(filename)
-            f = request.form["filename"]
-            print(f)
-            MYDIR = ("static\images\owner_upload")
+                username = get_user_info(current_user.username)["username"]
+                name = get_user_info(current_user.username)["name"]
+            if request.form["website"] is not None:
+                website = request.form["website"]
+                update_user(current_user.username,"website",website)
+            else:
+                website = get_user_info(current_user.username)["website"]
+            if request.form["bio"] is not None:
+                bio = request.form["bio"]
+                print(bio)
+                update_user(current_user.username,"bio",bio)
+            else:
+                bio = get_user_info(current_user.username)["bio"]
+            #if request.form["email"] is not None:
+                #email = request.form["email"]
+            #else:
+                #email = get_user_info(current_user.username)["email"]
+            filename = ""
+            if request.files["filename"]:
 
-            #f.save(os.path.join(MYDIR, filename))
-        info = {"_id" :name,
-                "username":username,
-                "website":website,
-                "bio":bio,
-                'friend':len(get_user_info(current_user.username)["friend"].split(",")),
-                "posts":[],
-                "picture":filename
-        }
-        return render_template("profile/user_profile.html", list_stories=temp_info.all_stories(),
-                               list_post=info["posts"],info = info)
+                if os.path.exists(filename):
+                    os.remove(filename)
+                f = request.files["filename"]
+                if f and allowed_file(f.filename):
+                    filename = str(current_user.username) + ".png"
+                    fullname = app.config['UPLOAD_FOLDER']+"/" +filename
+                    f.save(fullname)
+                    print(app.config['UPLOAD_FOLDER'])
+                    print(fullname)
+                    update_user(current_user.username,"picture",fullname)
+            info = {"_id" :name,
+                    "name":username,
+                    "website":website,
+                    "bio":bio,
+                    'friend':len(get_user_info(current_user.username)["friend"].split(",")),
+                    "posts":[],
+                    "picture":"../"+fullname
+            }
+            return render_template("profile/user_profile.html", list_stories=temp_info.all_stories(),
+                                   list_post=info["posts"],info = info)
 
     return render_template("profile/edit.html")
 

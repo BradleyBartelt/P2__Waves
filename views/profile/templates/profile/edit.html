@@ -8,30 +8,30 @@
     <div class="row">
         <h4 style="text-align:center">Ready to make yourself more stylish?</h4>
     </div>
-    <form action="{{url_for('.user_edit')}}" method="post">
+    <form action="{{url_for('.user_edit')}}" method="post" enctype = multipart/form-data >
     <div class="row input-container">
         <div class="col-xs-12">
             <div class="styled-input wide">
                 <input type="text" name = "username"/>
-                <label>Name</label>
+                <label>Name(Not Required)</label>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="styled-input">
                 <input type="text" name = "website" />
-                <label>Website</label>
+                <label>Website(Not Required)</label>
             </div>
         </div>
         <div class="col-md-6 col-sm-12">
             <div class="styled-input" style="float:right;">
-                <input type="file" name = "filename" />
-                <label>Upload Profile Picture</label>
+                <input type="file" id = "filename" name = "filename" >
+                <label>Upload Profile Picture(Not Required)</label>
             </div>
         </div>
         <div class="col-xs-12">
             <div class="styled-input wide">
                 <textarea id = "bio" name = "bio"></textarea>
-                <label>Personal Bio</label>
+                <label>Personal Bio(Not Required)</label>
             </div>
         </div>
         <div class="col-xs-12">
