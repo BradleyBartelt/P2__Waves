@@ -131,7 +131,8 @@
         </a>
 
         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{{ url_for('profile_bp.api_pull') }}">Pulling from PIZZA API</a>
+            <a class="dropdown-item" href="{{ url_for('profile_bp.api_pull') }}">Pulling Randomly from PIZZA API</a>
+            <a class="dropdown-item" href="{{ url_for('profile_bp.api_all_pull') }}">Pulling All from PIZZA API</a>
             <a class="dropdown-item" href="{{ url_for('profile_bp.api_form_POST') }}">POSTING to PIZZA API</a>
             <a class="dropdown-item" href="{{ url_for('crossover_bp.index') }}">Pulling From Crossover API</a>
         </div>

@@ -270,6 +270,15 @@ def api_pull():
     y = json.loads(dictionary)
     return render_template('profile/api/api_pull.html', data = y)
 
+@profile_bp.route('/api_app_pull')
+def api_all_pull():
+    # getting the qunaity of row entries to use for the random selection
+    urlList = "https://pieceofthepi.nighthawkcodingsociety.com/AllFood"
+    response_list = requests.request("GET", urlList)
+    all_list = json.loads(response_list.text)
+
+    return render_template('profile/api/api_all_pull.html', data = all_list)
+
 @profile_bp.route('/api_form_POST', methods=["GET", "POST"])
 def api_form_POST():
     if request.method == 'POST':
