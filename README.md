@@ -25,7 +25,7 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 | Andrew Zhang | [Ketherbug](https://github.com/Ketherbug) |
 
 #### [Scrum board](https://github.com/BradleyBartelt/P2__Waves/projects/1) 
-#### [Deployed](http://www.site.pieceofthepi.cf/)
+#### [Deployed](http://site.pieceofthepi.cf/)
 
 ## Change log
 ### 0 week left of school
@@ -116,8 +116,8 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 ### week 2 (3/29/21) - 3 (4/5/21) Python Mini Labs
 
 ### Colin
-- [link to runtime](http://www.site.pieceofthepi.cf/colin/) (this is the landing page, please ignore fibonacci as it was a reference for myself)
-- [link to runtime](http://www.site.pieceofthepi.cf/colin/conversion) (this is the real mini lab, all decriptions and instructions are on the page)
+- [link to runtime](http://site.pieceofthepi.cf/colin/) (this is the landing page, please ignore fibonacci as it was a reference for myself)
+- [link to runtime](http://site.pieceofthepi.cf/colin/conversion) (this is the real mini lab, all decriptions and instructions are on the page)
     - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/colin/algo/conversion.py) (backend)
         - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L8) defining a class
         - [code](https://github.com/BradleyBartelt/P2__Waves/blob/d11cb14158917dac2b552e9a4a590098643e3731/views/colin/algo/conversion.py#L35-L38) initializing objects from a class
@@ -143,12 +143,12 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
 
 
 ### Andrew
-- Link to project in runtime: http://www.site.pieceofthepi.cf/andrew/
+- Link to project in runtime: http://site.pieceofthepi.cf/andrew/
 - link to Html code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/andrew/templates/mini_lab.html
 - link to Python code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/andrew/minilab.py
 - Other Python file: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/andrew/app.py
 ### Bradley
-- Link to project in runtime: http://www.site.pieceofthepi.cf/bradley/
+- Link to project in runtime: http://site.pieceofthepi.cf/bradley/
 - link to Html code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/Bradley/templates/minilabB.html
 - link to Python code: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/Bradley/binary.py
 - Other Python file: https://github.com/BradleyBartelt/P2__Waves/blob/main/views/Bradley/app.py
@@ -161,20 +161,20 @@ Our idea is to create a sort of Pizza revolved site, where you can order pizza, 
    - (all the files in this link) Link to front end [code](https://github.com/BradleyBartelt/P2__Waves/tree/main/templates)
    - Link to python [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/app.py)
    - (really just the app routes in there)
-   - link to runtime main page with navbar http://www.site.pieceofthepi.cf/
+   - link to runtime main page with navbar http://site.pieceofthepi.cf/
      
 - User Profile Homepage and deployment (Colin)
     - [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57444830)
         - worked on the user profile page this week
         - Front in
             - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/profile/templates/profile/user_profile.html) 
-            - [deployed runtime link](http://www.site.pieceofthepi.cf/profile/userprofile)
+            - [deployed runtime link](http://site.pieceofthepi.cf/profile/userprofile)
         - Backend
             - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L14-L150) heavily used 'background-color' to differentiate between the divs to focus on the layout and spacing of the code
             - [code](https://github.com/BradleyBartelt/P2__Waves/blob/main/views/profile/models/temp_info.py) temporary backend, will replace with reading information from the database
             - [code](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L229-L271) **WOW** using [listeners](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L231-L234) to communicate which button was selected and to avoid inline javascript, using [procedures](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L253-L267) by taking in [parameters](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L238) to determine which [div](https://github.com/BradleyBartelt/P2__Waves/blob/4dec3a55ad83f5b10a0ab74c74ea226474b2ceff/views/profile/templates/profile/user_profile.html#L199-L225) to show and which div to hide
         - Mini Lab location 
-            - [runtime](http://www.site.pieceofthepi.cf/colin/)
+            - [runtime](http://site.pieceofthepi.cf/colin/)
             - [blueprint](https://github.com/BradleyBartelt/P2__Waves/tree/main/views/colin)
 -  User Database and login (Andrew)
     - [ticket](https://github.com/BradleyBartelt/P2__Waves/projects/1#card-57787718)
