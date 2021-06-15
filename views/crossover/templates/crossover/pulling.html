@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Crossover BP</title>
+    <title>{% block title %}Crossover Pulling{% endblock %}</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -40,19 +40,19 @@
 
 </head>
 <body>
-<h1>Pulling from Crossover API</h1>
-
-<button id="debug">Click to see Raw JSON</button>
-<div id="raw_json" style="display: none">
-{{list}}
-</div>
-
-
 <div style="margin-left: 15px">
-
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <div class="container">
+        <br>
+        <h1 class="text-center">Pulling from Crossover API</h1>
+
+        <button id="debug" style="margin: auto; display: block">Click to see Raw JSON</button>
+        <br>
+        <div id="raw_json" style="display: none">
+            {{list}}
+        </div>
+
         <h2 class="text-center"><a style="font-size: 20px" href="https://bootsnipp.com/snippets/M5obX" target="_blank">Template Used</a></h2>
 
         {% for info in list %}
@@ -76,6 +76,7 @@
                 </div>
             </div>
         </div>
+        <br>
         {% endfor %}
 
     </div>
