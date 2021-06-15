@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>Crossover BP</title>
 
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <style>
         .heroHead {
             height: 50vh;
@@ -35,6 +39,65 @@
 <body>
 <h1>Pulling from Crossover API</h1>
 
-{{response}}
+<button id="debug">Click to see Raw JSON</button>
+<div id="raw_json" style="display: none">
+{{list}}
+</div>
+
+
+<div style="margin-left: 15px">
+
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <div class="container">
+        <h2 class="text-center"><a style="font-size: 20px" href="https://bootsnipp.com/snippets/M5obX" target="_blank">Template Used</a></h2>
+
+        {% for info in list %}
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid"/>
+                    </div>
+                    <div class="col-md-10">
+                        <p id="header_ratings">
+                            <g class="float-left"><strong>{{info['username']}}</strong></g>
+                            <input id="star_count" hidden value={{stars}}>
+
+                        </p>
+                        <div class="clearfix"></div>
+                        <p id="time_display">{{time}}</p>
+                        <p>{{info['contents']}}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<script>
+    var buttonEl = document.getElementById("debug")
+    var rawJSON = document.getElementById("raw_json")
+
+    var b = 0;
+    buttonEl.addEventListener("click", function (){
+        console.log(b)
+
+        if(Number(b)%2==0){
+            console.log("on")
+            rawJSON.style.display = "inline";
+        } else {
+            console.log("off")
+            rawJSON.style.display = "none";
+        }
+
+        b = Number(b)+1;
+
+    })
+</script>
 </body>
 </html>
