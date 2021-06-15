@@ -11,7 +11,7 @@ crossover_bp = Blueprint('crossover_bp', __name__,
 @crossover_bp.route('/')
 def index():
     # TODO: need to change out the url for the url on Mr.M's hardware
-    urlBase = "http://72.199.26.118:8080"
+    urlBase = "http://hawkers.nighthawkcodingsociety.com"
     url = str(urlBase) + "/apipull/tweets"
     userUrl = str(urlBase) + "/apipull/users"
 
@@ -28,23 +28,6 @@ def index():
 
     print("textFromJSON: " + str(textFromJSON))
     print(textFromJSONUser[0])
-
-
-    b = 0 # number to itterate
-    """for user in textFromJSONUser:
-
-        # 'tweetContent'
-        infoFromApi = textFromJSON[b]
-
-        frontEndDict = {
-            "username": user['username'],
-            "contents": infoFromApi['tweetContent']
-        }
-
-        frontEndList.append(frontEndDict)
-        b = b + 1
-
-    print("frontEndList" + str(frontEndList))"""
 
     frontEndList = []
     x = 0
