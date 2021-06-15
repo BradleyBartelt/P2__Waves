@@ -235,6 +235,7 @@ previous_search = "None"
 
 @profile_bp.route('user_display',methods = ["GET","POST"])
 def display():
+    added = False
     global previous_search
     name = "Invalid User"
     bio = "This user exists in the old database"
@@ -248,46 +249,59 @@ def display():
             print(request.form)
             for user in mongo_userz:
                 if user["_id"] == name:
+                    friends = user["friend"].split(",")
+                    cookie = len(friends)
+                    for friend in friends:
+                        if session["username"] in friend:
+                            added = True
                     previous_search = name
                     print(previous_search)
                     bio = user["bio"]
                     ratings = 0
-                    friend = len(user["friend"])
                     post = len(user["posts"])
-            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
+            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = cookie, ratings = ratings,added = added)
 
         if form_name == "add":
+            added = True
             name = previous_search
             for user in mongo_userz:
                 if user["_id"] == name:
                     user_current = session["username"]
                     for userz in mongo_userz:
                         if userz["_id"] == user_current:
+                            if userz["friend"] is not None:
+                                New_list1 = userz["friend"]+","+user["_id"]
+                            else :
+                                New_list1 = user["_id"]
+                            if user["friend"] is not None:
 
-                            New_list1 = userz["friend"]+","+user["_id"]
-                            New_list2 = user["friend"]+","+userz["_id"]
+                                New_list2 = user["friend"]+","+userz["_id"]
+                            else:
+                                New_list2 = userz["_id"]
                             update_user(userz["_id"],"friend",New_list1)
                             update_user(user["_id"],"friend",New_list2)
                             print(user)
                             print(userz)
                     bio = user["bio"]
                     ratings = 0
-                    current_user_friends = userz["friend"].split(",")
-                    friend = len(current_user_friends)
+                    friendlist = user["friend"].split(",")
+                    print("This friend list "+str(friendlist))
+                    friend = len(friendlist)
                     post = len(user["posts"])
-            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
+            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings,added = added)
     #return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
 @profile_bp.route('/signup', methods=["GET", "POST"])
 def signup():
     form = RegisterForm()
     if form.validate_on_submit():
+        print("Valided")
 
         save_user(form.username.data, form.email.data, form.password.data)
         user_info_create(form.username.data,
                          form.username.data,
                          "this is the default bio",
                          "default website link",
-                         [],
+                         "",
                          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                          []
                          )
