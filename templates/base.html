@@ -10,6 +10,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        .dropdown:hover .dropdown-menu{
+            display: block;
+        }
+        .dropdown-menu{
+            margin-top: 0;
+        }
+    </style>
     <link rel="icon" href="../static/pixel_art_pizza_by_chinyiun_de3ewdq-fullview.gif">
     {% block head %}
     {% endblock %}
@@ -103,7 +111,7 @@
 
     </ul>
 
-    <div class="dropdown show">
+    <div id="minlabs_dropdown" class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Python MiniLabs
         </a>
@@ -117,7 +125,7 @@
         </div>
     </div>
 
-    <div class="dropdown show">
+    <div id="API_dropdown" class="dropdown show">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" class="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             API interaction
         </a>
@@ -133,5 +141,17 @@
 </nav>
 {% block content %}
 {% endblock %}
+
+
+<script>
+    $(document).ready(function(){
+        $(".dropdown").hover(function(){
+            var dropdownMenu = $(this).children(".dropdown-menu");
+            if(dropdownMenu.is(":visible")){
+                dropdownMenu.parent().toggleClass("open");
+            }
+        });
+    });
+</script>
 </body>
 </html>
