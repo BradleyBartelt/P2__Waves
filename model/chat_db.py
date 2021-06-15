@@ -2,6 +2,7 @@ import pymongo
 from pymongo import MongoClient
 from werkzeug.security import generate_password_hash
 from model.module import UserChat
+from pymongo import ReturnDocument
 import dns
 import sys
 import json
@@ -27,10 +28,9 @@ def save_user(username, email, password):
     users_collection.insert_one({'_id': username, 'email': email, 'password': password })
 
 def update_user(user, category,item_of_update):
-    chat_db.inventory.update_one(
+    users_info.find_one_and_update(
         {"_id": user},
-        {"$set": {category:item_of_update },
-         "$currentDate": {"lastModified": True}})
+        {"$set": {category:item_of_update }},return_document = ReturnDocument.AFTER)
 
 def get_user(username):
     user_data = users_collection.find_one({'_id': username})
