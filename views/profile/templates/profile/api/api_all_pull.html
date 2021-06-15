@@ -64,13 +64,13 @@
             <!--<p class="text-secondary text-center">15 Minutes Ago</p>-->
           </div>
           <div class="col-md-10">
-            <p id="header_ratings">
+            <p id="header_ratings{{loop.index}}">
               <g class="float-left"><strong>{{restaurant}} - {{name}}</strong></g>
-              <input id="star_count" hidden value={{stars}}>
+              <input id="star_count{{loop.index}}" hidden value={{stars}}>
 
             </p>
             <div class="clearfix"></div>
-            <p id="time_display">{{time}}</p>
+            <p id="time_display{{loop.index}}">{{time}}</p>
             <p>{{description}}</p>
             <!--<p>
                 <a class="float-right btn btn-outline-primary ml-2"> <i class="fa fa-reply"></i> Reply</a>
@@ -83,38 +83,57 @@
     <br>
     {% endfor %}
   </div>
-
+  <p style="display: none" id="number_reviews">{{data|length}}</p>
 </div>
 
 <script>
   // to remove the last numbers in the time (instead of truncating with jinja whihc levaes ...)
   // jinja: https://stackoverflow.com/questions/11875770/how-to-overcome-datetime-datetime-not-json-serializable/36142844#36142844
   // js reference: https://stackoverflow.com/questions/31489413/remove-last-3-characters-of-string-or-number-in-javascript
-  var time = document.getElementById("time_display");
-  timeStr = String(time.innerHTML)
-  timeStr = timeStr.substring(0, timeStr.length-15);
-  time.innerHTML = timeStr
 
 
-  //getting count of stars from jinja
-  var countStar = document.getElementById("star_count");
+  console.log("hello there")
 
-  //getting line of code to append to
-  var headerEl = document.getElementById("header_ratings");
+  var numberReviews = document.getElementById("number_reviews")
+  var b = 1;
+  for (var i = 0; i < numberReviews.innerText; i++) {
+    //console.log("hello there")
+    console.log(Number(b))
+    console.log("star_count"+String(b))
+    drawStar("star_count"+String(b),"header_ratings"+String(b))
+    cropTime("time_display"+String(b))
 
-  console.log(countStar.value);
-  for (var i = 0; i < countStar.value; i++){
-    //creating the span tag to contain the italics tag
-    new_span = document.createElement("SPAN");
-    new_span.setAttribute("class", "float-right");
+    b = Number(b)+1
+  }
 
-    //creating the italics with the star class
-    new_icon = document.createElement("I");
-    new_icon.setAttribute("class", "text-warning fa fa-star");
+  function cropTime(time_displayID){
+    var time = document.getElementById(time_displayID);
+    timeStr = String(time.innerHTML)
+    timeStr = timeStr.substring(0, timeStr.length-15);
+    time.innerHTML = timeStr
+  }
 
-    //appending the icons to the header
-    headerEl.appendChild(new_span)
-    new_span.appendChild(new_icon)
+  function drawStar(countStarID, header_ratingsID){
+    //getting count of stars from jinja
+    var countStar = document.getElementById(countStarID);
+
+    //getting line of code to append to
+    var headerEl = document.getElementById(header_ratingsID);
+
+    //console.log(countStar.value);
+    for (var i = 0; i < countStar.value; i++){
+      //creating the span tag to contain the italics tag
+      new_span = document.createElement("SPAN");
+      new_span.setAttribute("class", "float-right");
+
+      //creating the italics with the star class
+      new_icon = document.createElement("I");
+      new_icon.setAttribute("class", "text-warning fa fa-star");
+
+      //appending the icons to the header
+      headerEl.appendChild(new_span)
+      new_span.appendChild(new_icon)
+    }
   }
 </script>
 </body>
