@@ -1,35 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Edit{% endblock %}</title>
 </head>
 <body>
 
-<form>
-    <label>Name</label>
-    <input type="text" name="name">
-    <br>
-
-    <label>Username</label>
-    <input type="text" name="username">
-    <br>
-
-    <label>website</label>
-    <input type="text" name="website">
-    <br>
-    <label>bio</label>
-    <input type="text" name="bio">
-    <br>
-    <label>email</label>
-    <input type="text" name="email">
-    <br>
-    <input type="file" id="myFile" name="filename">
-    <br>
-    <br>
-    <input type="submit" value="Submit">
-</form>
 
 <a href="{{ url_for('profile_bp.user_profile') }}">Back to Profile</a>
 </body>
-</html>
+{% endblock %}
