@@ -143,13 +143,13 @@ def login():
 
     return render_template("profile/login.html", form=form)
 
-
+# here is the code the corresponds to the press of the button in base
 @profile_bp.route('/searched', methods=["GET", "POST"])
 def searchresult():
     find = {"username": "Default", "age": 0, "single?": False}
     List = []
     exist = False
-    print(user_records)
+
     if request.form:
         temp_list = []
         for item in mongo_users:
@@ -175,9 +175,10 @@ def searchresult():
                     exist = True
                     #temp_list.pop(temp_list.index(item))
             x = x+1
-    return (render_template("profile/Search Result.html", List=List, exist=exist))
+
     return (render_template("profile/Search Result.html", List=List, exist=exist))
 previous_search = "None"
+
 @profile_bp.route('user_display',methods = ["GET","POST"])
 def display():
     global previous_search
