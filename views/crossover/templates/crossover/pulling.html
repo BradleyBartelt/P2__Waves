@@ -9,7 +9,7 @@
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 
     <style>
         .heroHead {
@@ -35,6 +35,15 @@
             padding-left: 20px;
             padding-right: 20px;
         }
+        #myInput {
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
 
     </style>
 
@@ -44,19 +53,36 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
     <div class="container">
-        <br>
-        <h1 class="text-center">Pulling from Crossover API</h1>
+    <br>
+    <h1 class="text-center">Pulling from Crossover API</h1>
 
-        <button id="debug" style="margin: auto; display: block">Click to see Raw JSON</button>
-        <br>
-        <div id="raw_json" style="display: none">
-            {{list}}
-        </div>
+    <button id="debug" style="margin: auto; display: block">Click to see Raw JSON</button>
+    <br>
+    <div id="raw_json" style="display: none">
+        {{list}}
+    </div>
 
-        <h2 class="text-center"><a style="font-size: 20px" href="https://bootsnipp.com/snippets/M5obX" target="_blank">Template Used</a></h2>
+    <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+    <div style="display: none">
+        <table id="myTable">
+            <tr class="header">
+                <th style="width:60%;">Name</th>
+                <th style="width:40%;">Tweet</th>
+            </tr>
+            {% for info in list %}
+            <tr>
+                <td>{{info['username']}}</td>
+                <td>{{info['contents']}}</td>
+            </tr>
+            {% endfor %}
 
+        </table>
+    </div>
+
+    <h2 class="text-center"><a style="font-size: 20px" href="https://bootsnipp.com/snippets/M5obX" target="_blank">Template Used</a></h2>
+    <div id="div_of_reviews">
         {% for info in list %}
-        <div class="card">
+        <div class="card" id=card{{loop.index}}>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-2">
@@ -64,13 +90,13 @@
                     </div>
                     <div class="col-md-10">
                         <p id="header_ratings">
-                            <g class="float-left"><strong>{{info['username']}}</strong></g>
-                            <input id="star_count" hidden value={{stars}}>
+                            <g class="float-left"><strong class="username">{{info['username']}}</strong></g>
+                            <!--<input id="star_count" hidden value={{stars}}>-->
 
                         </p>
                         <div class="clearfix"></div>
                         <p id="time_display">{{time}}</p>
-                        <p>{{info['contents']}}</p>
+                        <p class="post_contents">{{info['contents']}}</p>
 
                     </div>
                 </div>
@@ -78,12 +104,13 @@
         </div>
         <br>
         {% endfor %}
-
     </div>
+</div>
 
 </div>
 
 <script>
+    // objective of this script is to show and hide the json file that the front end is populated from
     var buttonEl = document.getElementById("debug")
     var rawJSON = document.getElementById("raw_json")
 
@@ -102,6 +129,33 @@
         b = Number(b)+1;
 
     })
+</script>
+
+<script>
+    function search() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    var idEl = "card"+String(i)
+                    document.getElementById(idEl).style.display = "";
+
+                    tr[i].style.display = "";
+                } else {
+                    var idEl = "card"+String(i)
+                    document.getElementById(idEl).style.display = "none";
+
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 </script>
 </body>
 </html>
