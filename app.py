@@ -37,7 +37,7 @@ app.config.update(dict(
     SECRET_KEY="powerful secretkey",
     WTF_CSRF_SECRET_KEY="a csrf secret key"
 ))
-bootstrap = Bootstrap(app)
+#bootstrap = Bootstrap(app)
 
 api = Api(app)
 api.add_resource(GetReviewResource, '/Food', '/Food/<string:id>')

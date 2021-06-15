@@ -5,7 +5,8 @@ from views.profile.models import temp_info
 from flask import Blueprint, redirect, render_template, url_for, request, session
 from flask_login import current_user, LoginManager, login_user, login_required, logout_user
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, StringField, PasswordField
+from wtforms import BooleanField, StringField, PasswordField,FileField
+from flask_wtf.file import FileRequired, FileAllowed
 from wtforms.validators import InputRequired, Email, Length
 from model.module import db, user_records, func
 from main import app
@@ -13,6 +14,7 @@ from views.andrew import andrew_bp
 from flask_bootstrap import Bootstrap
 from model.chat_db import *
 import json, random, requests
+import os
 
 
 profile_bp = Blueprint('profile_bp', __name__,
@@ -23,7 +25,7 @@ app.secret_key = 'xxxxyyyyyzzzzz'
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-
+bootstrap = Bootstrap(app)
 
 class LoginForm(FlaskForm):
     username = StringField('username', validators=[InputRequired(), Length(min=0, max=15)])
@@ -35,6 +37,15 @@ class RegisterForm(FlaskForm):
     email = StringField('email', validators=[InputRequired(), Email(message='Invalid Email'), Length(max=50)])
     username = StringField('username', validators=[InputRequired(), Length(min=0, max=15)])
     password = PasswordField('password', validators=[InputRequired(), Length(min=0, max=80)])
+
+class UpdateForm(FlaskForm):
+    _id = StringField('_id',validators=[InputRequired(),Length(min=0, max=100)])
+    username = StringField('username', validators=[Length(min=0, max=100)])
+    bio = StringField('bio',validators = [Length(min=0, max=1000)])
+    website = StringField('website', validators =  [Length(min=0, max=1000)])
+    email = StringField('website', validators =  [Length(min=0, max=1000)])
+    file = FileField('image', validators=[FileAllowed(['png', 'pdf', 'jpg'], "Nerd")])
+
 
 class User:
     def __init__(self, username):
@@ -113,8 +124,50 @@ def user_setting():
     return render_template("profile/settings.html")
 
 
-@profile_bp.route('/edit')
+@profile_bp.route('/edit', methods=["GET", "POST"])
 def user_edit():
+    if request.form:
+
+        if request.form["name"] is not None:
+            name = request.form["name"]
+        else:
+            name = get_user_info(current_user.username)["name"]
+        if request.form["username"] is not None:
+            username = request.form["username"]
+        else:
+            username = get_user_info(current_user.username)["username"]
+        if request.form["website"] is not None:
+            website = request.form["website"]
+        else:
+            website = get_user_info(current_user.username)["website"]
+        if request.form["bio"] is not None:
+            bio = request.form["bio"]
+        else:
+            bio = get_user_info(current_user.username)["email"]
+        if request.form["email"] is not None:
+            email = request.form["email"]
+        else:
+            email = get_user_info(current_user.username)["email"]
+        if request.form["filename"] is not None:
+            filename = str(current_user.username) + ".jpg"
+            if os.path.exists(filename):
+                os.remove(filename)
+            f = request.form["filename"]
+            print(f)
+            MYDIR = ("static\images\owner_upload")
+
+            #f.save(os.path.join(MYDIR, filename))
+        info = {"_id" :name,
+                "username":username,
+                "website":website,
+                "bio":bio,
+                'friend':[],
+                "posts":[],
+                "picture":filename
+        }
+        return render_template("profile/user_profile.html", list_stories=temp_info.all_stories(),
+                               list_post=info["posts"],info = info)
+
     return render_template("profile/edit.html")
 
 @profile_bp.route('/login', methods=["GET", "POST"])
@@ -182,6 +235,7 @@ previous_search = "None"
 
 @profile_bp.route('user_display',methods = ["GET","POST"])
 def display():
+    added = False
     global previous_search
     name = "Invalid User"
     bio = "This user exists in the old database"
@@ -195,45 +249,59 @@ def display():
             print(request.form)
             for user in mongo_userz:
                 if user["_id"] == name:
+                    friends = user["friend"].split(",")
+                    cookie = len(friends)
+                    for friend in friends:
+                        if session["username"] in friend:
+                            added = True
                     previous_search = name
                     print(previous_search)
                     bio = user["bio"]
                     ratings = 0
-                    friend = len(user["friend"])
                     post = len(user["posts"])
-            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
+            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = cookie, ratings = ratings,added = added)
 
         if form_name == "add":
+            added = True
             name = previous_search
             for user in mongo_userz:
                 if user["_id"] == name:
                     user_current = session["username"]
                     for userz in mongo_userz:
                         if userz["_id"] == user_current:
+                            if userz["friend"] is not None:
+                                New_list1 = userz["friend"]+","+user["_id"]
+                            else :
+                                New_list1 = user["_id"]
+                            if user["friend"] is not None:
 
-                            New_list1 = userz["friend"].append(user["_id"])
-                            New_list2 = user["friend"].append(userz["_id"])
+                                New_list2 = user["friend"]+","+userz["_id"]
+                            else:
+                                New_list2 = userz["_id"]
                             update_user(userz["_id"],"friend",New_list1)
                             update_user(user["_id"],"friend",New_list2)
                             print(user)
                             print(userz)
                     bio = user["bio"]
                     ratings = 0
-                    friend = len(user["friend"])
+                    friendlist = user["friend"].split(",")
+                    print("This friend list "+str(friendlist))
+                    friend = len(friendlist)
                     post = len(user["posts"])
-            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
+            return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings,added = added)
     #return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
 @profile_bp.route('/signup', methods=["GET", "POST"])
 def signup():
     form = RegisterForm()
     if form.validate_on_submit():
+        print("Valided")
 
         save_user(form.username.data, form.email.data, form.password.data)
         user_info_create(form.username.data,
                          form.username.data,
                          "this is the default bio",
                          "default website link",
-                         [],
+                         "",
                          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                          []
                          )
