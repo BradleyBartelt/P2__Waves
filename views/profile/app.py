@@ -264,15 +264,16 @@ def display():
                     for userz in mongo_userz:
                         if userz["_id"] == user_current:
 
-                            New_list1 = userz["friend"].append(user["_id"])
-                            New_list2 = user["friend"].append(userz["_id"])
+                            New_list1 = userz["friend"]+","+user["_id"]
+                            New_list2 = user["friend"]+","+userz["_id"]
                             update_user(userz["_id"],"friend",New_list1)
                             update_user(user["_id"],"friend",New_list2)
                             print(user)
                             print(userz)
                     bio = user["bio"]
                     ratings = 0
-                    friend = len(user["friend"])
+                    current_user_friends = userz["friend"].split(",")
+                    friend = len(current_user_friends)
                     post = len(user["posts"])
             return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
     #return render_template("profile/user_display.html",name = name, bio = bio, post = post, friend = friend, ratings = ratings)
