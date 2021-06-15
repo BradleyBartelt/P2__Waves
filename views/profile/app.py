@@ -254,15 +254,18 @@ def logout():
     print("logging out")
     return redirect(url_for('profile_bp.user_profile'))
 
+#urlPrefix = "http://localhost:5004/"
+urlPrefix = "https://pieceofthepi.nighthawkcodingsociety.com"
+
 @profile_bp.route('/api_pull')
 def api_pull():
     # getting the qunaity of row entries to use for the random selection
-    urlList = "https://pieceofthepi.nighthawkcodingsociety.com/AllFood"
+    urlList = urlPrefix + "/AllFood"
     response_list = requests.request("GET", urlList)
     all_list = json.loads(response_list.text)
 
     # getting a random field from the entire database len(all_list) corresponds to number of rows in database
-    url = "https://pieceofthepi.nighthawkcodingsociety.com/Food/" + str(random.randint(1, len(all_list)))
+    url = urlPrefix + "/Food/" + str(random.randint(1, len(all_list)))
     response = requests.request("GET", url)
 
     # current the request
@@ -273,7 +276,7 @@ def api_pull():
 @profile_bp.route('/api_app_pull')
 def api_all_pull():
     # getting the qunaity of row entries to use for the random selection
-    urlList = "https://pieceofthepi.nighthawkcodingsociety.com/AllFood"
+    urlList = urlPrefix + "/AllFood"
     response_list = requests.request("GET", urlList)
     all_list = json.loads(response_list.text)
 
@@ -289,7 +292,7 @@ def api_form_POST():
         message_input = request.form.get("message")
 
         # formatting information into the URL use to access the API
-        url_info = 'https://pieceofthepi.nighthawkcodingsociety.com/createReview/' + str(restaurant) + "/" + str(name) + "/peasant/" +str(star_count) + '/'+str(message_input)
+        url_info = urlPrefix + '/createReview/' + str(restaurant) + "/" + str(name) + "/peasant/" +str(star_count) + '/'+str(message_input)
         print(url_info)
 
         # POST to the API
