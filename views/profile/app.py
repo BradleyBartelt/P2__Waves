@@ -189,6 +189,7 @@ def display():
         form_name = request.form['name']
         if form_name == "view":
             name = request.form["username"]
+            print(request.form)
             print("What's the name" + name)
             for user in mongo_userz:
                 if user["_id"] == name:
